@@ -54,7 +54,7 @@ public class RobotContainer {
   private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand();
-  private final intakeSpitballMotorCommand m_iIntakeSpitballMotorCommand = new intakeSpitballMotorCommand();
+  private final intakeSpitballMotorCommand m_inIntakeSpitballMotorCommand = new intakeSpitballMotorCommand();
 
   public static Object driveRobot;
 
