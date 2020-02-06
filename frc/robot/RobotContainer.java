@@ -19,8 +19,6 @@ import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
-import frc.robot.commands.shootBallsFullMotorCommand;
-import frc.robot.commands.shootBallsHalfMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
