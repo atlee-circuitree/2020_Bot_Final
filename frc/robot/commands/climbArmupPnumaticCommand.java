@@ -19,14 +19,14 @@ public class climbArmupPnumaticCommand extends InstantCommand {
 
     super();
     addRequirements(m_subsystem);
-    m_subsystem.armClimb();
+    m_subsystem.armClimber();
     
   }
 
-  @Override
+@Override
   public void initialize() {
 
-    m_subsystem.climbUp();
+    m_subsystem.armClimbUp();
     
   }
 
