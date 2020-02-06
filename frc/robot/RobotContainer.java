@@ -10,7 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.climbArmdownPnumaticCommand;
+//import frc.robot.commands.climbArmdownPnumaticCommand;
+import frc.robot.commands.climbArmupPnumaticCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
 import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
@@ -19,14 +24,16 @@ import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
+import frc.robot.commands.shootBallsFullMotorCommand;
+import frc.robot.commands.shootBallsHalfMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.climbArmPnumaticSubsystem;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.intakeMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
+import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -42,24 +49,31 @@ public class RobotContainer {
 
   private final drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
 
-  private final climbPnumaticSubsystem m_climbPnumaticSubsystemSubsystem = new climbPnumaticSubsystem();
+  private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
+  private final climbArmPnumaticSubsystem m_climbArmPnumaticSubsystem = new climbArmPnumaticSubsystem();
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
+
   private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
+  private final shooterMotorSubsystem m_shooterMotorSubsystem = new shooterMotorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final drivetrainCommand m_drivetrainCommand = new drivetrainCommand();
 
-  private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand();
+  private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
   private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
+  private final climbArmupPnumaticCommand m_climbArmupPnumaticCommand = new climbArmupPnumaticCommand();
+  private final climbArmdownPnumaticCommand m_climbArmdownPnumaticCommand = new climbArmdownPnumaticCommand();
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand();
+  private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
+
   private final intakeSpitballMotorCommand m_inIntakeSpitballMotorCommand = new intakeSpitballMotorCommand();
   private final intakeTakeballMotorCommand m_inIntakeTakeballMotorCommand = new intakeTakeballMotorCommand();
-  private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
-  private final shootBallsFullMotorCommand m_shootBallsFullMotorCommand = new  shootBallsFullMotorCommand();
-  private final shootBallsHalfMotorCommand m_shootBallsHalfMotorCommand = new  shootBallsHalfMotorCommand(); 
+  private final shootBallsFullMotorCommand m_shootBallsFullMotorCommand = new shootBallsFullMotorCommand();
+  private final shootBallsHalfMotorCommand m_shootBallsHalfMotorCommand = new shootBallsFullMotorCommand(); 
+   
 
   public static Object driveRobot;
 
@@ -80,20 +94,20 @@ public class RobotContainer {
     JoystickButton O7 = new JoystickButton(Xbox1, 7);
     JoystickButton O8 = new JoystickButton(Xbox1, 8);
 
-    JoystickButton T1 = new JoystickButton(Xbox2, 1);
-    JoystickButton T2 = new JoystickButton(Xbox2, 2);
-    JoystickButton T3 = new JoystickButton(Xbox2, 3);
-    JoystickButton T4 = new JoystickButton(Xbox2, 4);
+    JoystickButton T1 = new JoystickButton(Xbox2, 1); //Shoot Full Speed
+    JoystickButton T2 = new JoystickButton(Xbox2, 2); //Shoot Half Speed
+    JoystickButton T3 = new JoystickButton(Xbox2, 3); //Open Shooter
+    JoystickButton T4 = new JoystickButton(Xbox2, 4); //Close Shooter
     JoystickButton T5 = new JoystickButton(Xbox2, 5);
     JoystickButton T6 = new JoystickButton(Xbox2, 6);
     JoystickButton T7 = new JoystickButton(Xbox2, 7);
     JoystickButton T8 = new JoystickButton(Xbox2, 8);
 
-    JoystickButton F1 = new JoystickButton(Fightstick, 1); 
+    JoystickButton F1 = new JoystickButton(Fightstick, 1); //Kickout Robot
     JoystickButton F2 = new JoystickButton(Fightstick, 2); //Climb Up
-    JoystickButton F3 = new JoystickButton(Fightstick, 3); //Climb Down
-    JoystickButton F4 = new JoystickButton(Fightstick, 4); //Kickout Robot
-    JoystickButton F5 = new JoystickButton(Fightstick, 5);
+    JoystickButton F3 = new JoystickButton(Fightstick, 3); //Climb Arm Up
+    JoystickButton F4 = new JoystickButton(Fightstick, 4); //Climb Down
+    JoystickButton F5 = new JoystickButton(Fightstick, 5); //Climb Arm Down
     JoystickButton F6 = new JoystickButton(Fightstick, 6);
     JoystickButton F7 = new JoystickButton(Fightstick, 7);
     JoystickButton F8 = new JoystickButton(Fightstick, 8);
@@ -102,34 +116,8 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
     configureButtonBindings();
-
-    O1.toggleWhenPressed(new intakeTakeballMotorCommand());
-    O2.toggleWhenPressed(new intakeSpitballMotorCommand());
-    O3.toggleWhenPressed(m_autoCommand);
-    O4.toggleWhenPressed(m_autoCommand);
-    O5.toggleWhenPressed(m_autoCommand);
-    O6.toggleWhenPressed(m_autoCommand);
-    O7.toggleWhenPressed(m_autoCommand);
-    O8.toggleWhenPressed(m_autoCommand);
-
-    T1.toggleWhenPressed(m_autoCommand);
-    T2.toggleWhenPressed(m_autoCommand);
-    T3.toggleWhenPressed(m_autoCommand);
-    T4.toggleWhenPressed(m_autoCommand);
-    T5.toggleWhenPressed(m_autoCommand);
-    T6.toggleWhenPressed(m_autoCommand);
-    T7.toggleWhenPressed(m_autoCommand);
-    T8.toggleWhenPressed(m_autoCommand);
-
-    F1.toggleWhenPressed(new kickoutPnumaticCommand());
-    F2.toggleWhenPressed(new climbdownPnumaticCommand());
-    F3.toggleWhenPressed(new climbupPnumaticCommand());
-    F4.toggleWhenPressed(m_autoCommand);
-    F5.toggleWhenPressed(m_autoCommand);
-    F6.toggleWhenPressed(m_autoCommand);
-    F7.toggleWhenPressed(m_autoCommand);
-    F8.toggleWhenPressed(m_autoCommand);
 
   }
 
@@ -140,6 +128,35 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    
+    O1.toggleWhenPressed(m_inIntakeTakeballMotorCommand);
+    O2.toggleWhenPressed(m_inIntakeSpitballMotorCommand);
+    O3.toggleWhenPressed(m_autoCommand);
+    O4.toggleWhenPressed(m_autoCommand);
+    O5.toggleWhenPressed(m_autoCommand);
+    O6.toggleWhenPressed(m_autoCommand);
+    O7.toggleWhenPressed(m_autoCommand);
+    O8.toggleWhenPressed(m_autoCommand);
+
+    T1.toggleWhenPressed(m_autoCommand);
+    T2.toggleWhenPressed(m_autoCommand);
+    T3.toggleWhenPressed(m_openShooterPnumaticCommand);
+    T4.toggleWhenPressed(m_closeShooterPnumaticCommand);
+    T5.toggleWhenPressed(m_autoCommand);
+    T6.toggleWhenPressed(m_autoCommand);
+    T7.toggleWhenPressed(m_autoCommand);
+    T8.toggleWhenPressed(m_autoCommand);
+
+    F1.toggleWhenPressed(m_kickoutPnumaticCommand);
+    F2.toggleWhenPressed(m_autoCommand);
+    F3.toggleWhenPressed(m_autoCommand);
+    F4.toggleWhenPressed(m_climbdownPnumaticCommand);
+    F5.toggleWhenPressed(m_autoCommand);
+    F6.toggleWhenPressed(m_autoCommand);
+    F7.toggleWhenPressed(m_autoCommand);
+    F8.toggleWhenPressed(m_autoCommand);
+
 
   }
 

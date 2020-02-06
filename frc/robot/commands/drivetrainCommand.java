@@ -12,6 +12,7 @@ import frc.robot.Constants;
 //import frc.robot.Robot;
 import frc.robot.RobotContainer;
 //import frc.robot.subsystems.drivetrainSubsystem;;
+import frc.robot.subsystems.drivetrainSubsystem;
 
 public class drivetrainCommand extends CommandBase {
   double leftSpeed = 0;
@@ -20,12 +21,13 @@ public class drivetrainCommand extends CommandBase {
 
   /**
    * Creates a new Tankdrive.
+ * @param m_drivetrainSubsystem
    */
   public drivetrainCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
     if (Math.abs(RobotContainer.Xbox1.getRawAxis(Constants.leftAxis)) < 0.05) {
