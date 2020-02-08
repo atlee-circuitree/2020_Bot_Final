@@ -126,10 +126,10 @@ public class RobotContainer {
     O7.toggleWhenPressed(m_autoCommand);
     O8.toggleWhenPressed(m_autoCommand);
 
-    T1.toggleWhenPressed(m_autoCommand);
-    T2.toggleWhenPressed(m_autoCommand);
-    T3.toggleWhenPressed(m_openShooterPnumaticCommand);
-    T4.toggleWhenPressed(m_closeShooterPnumaticCommand);
+    T1.toggleWhenPressed(m_openShooterPnumaticCommand);
+    T2.toggleWhenPressed(m_closeShooterPnumaticCommand);
+    T3.toggleWhenPressed(m_autoCommand);
+    T4.toggleWhenPressed(m_autoCommand);
     T5.toggleWhenPressed(m_autoCommand);
     T6.toggleWhenPressed(m_autoCommand);
     T7.toggleWhenPressed(m_autoCommand);
@@ -138,7 +138,7 @@ public class RobotContainer {
     F1.toggleWhenPressed(m_kickoutPnumaticCommand);
     F2.toggleWhenPressed(m_autoCommand);
     F3.toggleWhenPressed(m_autoCommand);
-    F4.toggleWhenPressed(m_climbdownPnumaticCommand);
+    F4.toggleWhenPressed(m_autoCommand);
     F5.toggleWhenPressed(m_autoCommand);
     F6.toggleWhenPressed(m_autoCommand);
     F7.toggleWhenPressed(m_autoCommand);
