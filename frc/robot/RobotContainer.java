@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.climbArmupPnumaticCommand;
-import frc.robot.commands.climbArmdownPnumaticCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
 import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
@@ -23,15 +21,11 @@ import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
-import frc.robot.commands.shootBallsFullMotorCommand;
-import frc.robot.commands.shootBallsHalfMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.climbArmPnumaticSubsystem;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.intakeMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
-import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 
 /**
@@ -49,12 +43,10 @@ public class RobotContainer {
   private final drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
 
   private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
-  private final climbArmPnumaticSubsystem m_climbArmPnumaticSubsystem = new climbArmPnumaticSubsystem();
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
   private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
-  private final shooterMotorSubsystem m_shooterMotorSubsystem = new shooterMotorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -62,16 +54,12 @@ public class RobotContainer {
 
   private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
   private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
-  private final climbArmupPnumaticCommand m_climbArmupPnumaticCommand = new climbArmupPnumaticCommand();
-  private final climbArmdownPnumaticCommand m_climbArmdownPnumaticCommand = new climbArmdownPnumaticCommand();
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand();
   private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
 
   private final intakeSpitballMotorCommand m_inIntakeSpitballMotorCommand = new intakeSpitballMotorCommand();
   private final intakeTakeballMotorCommand m_inIntakeTakeballMotorCommand = new intakeTakeballMotorCommand();
-  private final shootBallsFullMotorCommand m_shootBallsFullMotorCommand = new shootBallsFullMotorCommand();
-  private final shootBallsHalfMotorCommand m_shootBallsHalfMotorCommand = new shootBallsHalfMotorCommand(); 
    
 
   public static Object driveRobot;
