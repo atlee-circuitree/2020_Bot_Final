@@ -8,6 +8,8 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
+//import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -17,14 +19,17 @@ public class ExampleCommand extends CommandBase {
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param m_kickoutPnumaticSubsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
+  public ExampleCommand(kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_kickoutPnumaticSubsystem);
   }
 
-  // Called when the command is initially scheduled.
+  public ExampleCommand(ExampleSubsystem m_exampleSubsystem) {
+}
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }

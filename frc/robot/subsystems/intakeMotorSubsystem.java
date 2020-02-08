@@ -15,28 +15,38 @@ import frc.robot.Constants;
 public class intakeMotorSubsystem extends SubsystemBase {
 
   CANSparkMax intake = null;
-
+  CANSparkMax conveyorbeltLeft = null;
+  CANSparkMax conveyorbeltRight = null;
+   
   public intakeMotorSubsystem() {
 
   intake = new CANSparkMax(Constants.intakeMotor, null);
+  conveyorbeltLeft = new CANSparkMax(Constants.conveyorbeltRight, null);
+  conveyorbeltRight = new CANSparkMax(Constants.conveyorbeltLeft, null);
+
 }
 
 public void takeinballs() {
 
   intake.set(1);
-
+  conveyorbeltRight.set(.5);
+  conveyorbeltLeft.set(.5);
+  
 }
 
 public void spitoutballs() {
 
   intake.set(-1);
+  conveyorbeltRight.set(-.5);
+  conveyorbeltLeft.set(-.5);
   
 }
 
 public void stopintake() {
 
-  intake.set(0);
+  intake.set(0); 
+  conveyorbeltRight.set(0);
+  conveyorbeltLeft.set(0);
     
 }
-
 }

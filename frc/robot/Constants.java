@@ -21,10 +21,10 @@ public final class Constants {
 
   //Drivetrain
 
-  public static int driveFrontleftMotor = 0;
-  public static int driveFrontrightMotor = 1;
-  public static int driveBackleftMotor = 2;
-  public static int driveBackrightMotor = 3;
+  public static int driveFrontleftMotor = 2;
+  public static int driveFrontrightMotor = 4;
+  public static int driveBackleftMotor = 3;
+  public static int driveBackrightMotor = 1;
 
   public static final int rotate90Left = -13;  
   public static final int rotate90Right = 13; 
@@ -41,25 +41,29 @@ public final class Constants {
   public static final int leftClimbPnumatic_Retract = 1;
   public static final int rightClimbPnumatic_Deploy = 0;
   public static final int rightClimbPnumatic_Retract = 1;
+  public static final int leftArmClimbPnumatic_Deploy = 0;
+  public static final int leftArmClimbPnumatic_Retract = 1;
+  public static final int rightArmClimbPnumatic_Deploy = 0;
+  public static final int rightArmClimbPnumatic_Retract = 1;
   public static final int shooterPnumatic_Deploy = 0;
   public static final int shooterPnumatic_Retract = 1;
   public static final int kickoutPnumatic_Deploy = 0;
   public static final int kickoutPnumatic_Retract = 1;
 
-  public static int conveyorbeltFrontrightMotor = 4;
-  public static int conveyorbeltFrontleftMotor = 5;
-  public static int conveyorbeltBackrightMotor = 6;
-  public static int conveyorbeltBackleftMotor = 7;
+  // Motors
 
-  public static int shooterrightMotor = 8;
-  public static int shooterleftMotor = 9;
+  public static int conveyorbeltRight = 6;
+  public static int conveyorbeltLeft = 8;
 
-  public static int ElevatorMotor = 10;
+  public static int shooterrightMotor = 0;
+  public static int shooterleftMotor = 0;
+
+  public static int elevatorMotor = 9;
   
-  public static int intakeMotor = 11;
+  public static int intakeMotor = 5;
 
-  public static int colorwheelmotor = 12;
+  public static int colorwheelmotor = 0;
 
-  public static int barmotor = 13;
+  public static int barmotor = 7;
    
 }
