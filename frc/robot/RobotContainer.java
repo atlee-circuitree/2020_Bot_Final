@@ -40,18 +40,19 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+ // private final drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
 
+ /*
   private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
   private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
-
+*/
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final drivetrainCommand m_drivetrainCommand = new drivetrainCommand();
-
+/*
   private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
   private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
@@ -60,25 +61,27 @@ public class RobotContainer {
 
   private final intakeSpitballMotorCommand m_inIntakeSpitballMotorCommand = new intakeSpitballMotorCommand();
   private final intakeTakeballMotorCommand m_inIntakeTakeballMotorCommand = new intakeTakeballMotorCommand();
-   
+  */ 
 
   public static Object driveRobot;
 
   public static RobotContainer m_RobotContainer;
 
   public static drivetrainSubsystem drivetrain = new drivetrainSubsystem();
+  
 
   public static XboxController Xbox1 = new XboxController(0);
   public static XboxController Xbox2 = new XboxController(1);
   public static Joystick Fightstick = new Joystick(2);
   
+
     JoystickButton O1 = new JoystickButton(Xbox1, 1); //Take Balls
     JoystickButton O2 = new JoystickButton(Xbox1, 2); //Spit Balls
     JoystickButton O3 = new JoystickButton(Xbox1, 3); 
     JoystickButton O4 = new JoystickButton(Xbox1, 4);
-    JoystickButton O5 = new JoystickButton(Xbox1, 5);
+    JoystickButton O5 = new JoystickButton(Xbox1, 5); 
     JoystickButton O6 = new JoystickButton(Xbox1, 6);
-    JoystickButton O7 = new JoystickButton(Xbox1, 7);
+    JoystickButton O7 = new JoystickButton(Xbox1, 7);   
     JoystickButton O8 = new JoystickButton(Xbox1, 8);
 
     JoystickButton T1 = new JoystickButton(Xbox2, 1); //Shoot Full Speed
@@ -99,12 +102,14 @@ public class RobotContainer {
     JoystickButton F7 = new JoystickButton(Fightstick, 7);
     JoystickButton F8 = new JoystickButton(Fightstick, 8);
 
+    
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
 
     configureButtonBindings();
+    drivetrain.setDefaultCommand(m_drivetrainCommand);
 
   }
 
@@ -116,7 +121,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    
+   /* 
     O1.toggleWhenPressed(m_inIntakeTakeballMotorCommand);
     O2.toggleWhenPressed(m_inIntakeSpitballMotorCommand);
     O3.toggleWhenPressed(m_autoCommand);
@@ -143,6 +148,7 @@ public class RobotContainer {
     F6.toggleWhenPressed(m_autoCommand);
     F7.toggleWhenPressed(m_autoCommand);
     F8.toggleWhenPressed(m_autoCommand);
+    */
 
 
   }

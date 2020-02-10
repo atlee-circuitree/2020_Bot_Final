@@ -26,7 +26,7 @@ public class drivetrainSubsystem extends SubsystemBase {
 
 
   // Sets the PID and FF variables
-  double kP = 0.00016;//0.006;
+ /* double kP = 0.00016;//0.006;
   double kI = 0;//0.000002;
   double kD = 0;//0.004;//0.2;
   double kFF = 0.000156;
@@ -46,9 +46,10 @@ public class drivetrainSubsystem extends SubsystemBase {
   /**
    * Creates a new Drivetrain.
    */
+  
   public drivetrainSubsystem() {
     // Set the PID Controller for Left Front Motor
-    leftFrontMotor.getPIDController().setP(kP, slotID);
+    /*leftFrontMotor.getPIDController().setP(kP, slotID);
     leftFrontMotor.getPIDController().setI(kI, slotID);
     leftFrontMotor.getPIDController().setD(kD, slotID);
     leftFrontMotor.getPIDController().setFF(kFF, slotID);
@@ -92,7 +93,7 @@ public class drivetrainSubsystem extends SubsystemBase {
     rightBackMotor.getPIDController().setSmartMotionAllowedClosedLoopError(allowedErr, slotID);
     rightBackMotor.getPIDController().setSmartMotionMaxVelocity(maxVel, slotID);
     rightBackMotor.getPIDController().setSmartMotionMinOutputVelocity(minVel, slotID);
-
+    
     // Sets the back motors to follow the front motors
     //leftBackMotor.follow(leftFrontMotor);
 /*
@@ -100,6 +101,7 @@ public class drivetrainSubsystem extends SubsystemBase {
     rightBackMotor.follow(rightFrontMotor);
 */
   }
+  
 
   /**
    * Gets the encoder position of the left side of the drivetrain
@@ -125,8 +127,8 @@ public class drivetrainSubsystem extends SubsystemBase {
    * @param speed from -1 to 1, speed to set motor
    */
   public void setLeftMotorSpeed(double speed) {
-    leftFrontMotor.getPIDController().setReference(-speed, ControlType.kDutyCycle, slotID, 0);
-    leftBackMotor.getPIDController().setReference(-speed, ControlType.kDutyCycle, slotID, 0);
+    leftFrontMotor.getPIDController().setReference(-speed, ControlType.kDutyCycle, 2, 0);
+    leftBackMotor.getPIDController().setReference(-speed, ControlType.kDutyCycle, 3, 0);
   }
 
   /**
@@ -135,8 +137,8 @@ public class drivetrainSubsystem extends SubsystemBase {
    * @param speed -1 to 1, speed to set motor
    */
   public void setRightMotorSpeed(double speed) {
-    rightFrontMotor.getPIDController().setReference(speed, ControlType.kDutyCycle, slotID, 0);
-    rightBackMotor.getPIDController().setReference(speed, ControlType.kDutyCycle, slotID, 0);
+    rightFrontMotor.getPIDController().setReference(speed, ControlType.kDutyCycle, 1, 0);
+    rightBackMotor.getPIDController().setReference(speed, ControlType.kDutyCycle, 4, 0);
   }
 
   /**
@@ -154,25 +156,25 @@ public class drivetrainSubsystem extends SubsystemBase {
    * 
    * @param rotations
    */
-  public void setLeftMotorPosition(double rotations) {
-    leftFrontMotor.getPIDController().setReference(rotations, ControlType.kSmartMotion, slotID, 0);
-    leftBackMotor.getPIDController().setReference(rotations, ControlType.kSmartMotion, slotID, 0);
-  }
+  //public void setLeftMotorPosition(double rotations) {
+    //leftFrontMotor.getPIDController().setReference(rotations, ControlType.kSmartMotion, slotID, 0);
+    //leftBackMotor.getPIDController().setReference(rotations, ControlType.kSmartMotion, slotID, 0);
+  //}
 
   /**
    * Sets the position of the right side of the drivetrain using Position
    * 
    * @param rotations
    */
-  public void setRightMotorPosition(double rotations) {
-    rightFrontMotor.getPIDController().setReference(-rotations, ControlType.kSmartMotion, slotID, 0);
-    rightBackMotor.getPIDController().setReference(-rotations, ControlType.kSmartMotion, slotID, 0);
-  }
+  //public void setRightMotorPosition(double rotations) {
+    //rightFrontMotor.getPIDController().setReference(-rotations, ControlType.kSmartMotion, slotID, 0);
+    //rightBackMotor.getPIDController().setReference(-rotations, ControlType.kSmartMotion, slotID, 0);
+  //}
 
-  public void setAllMotorPosition(double rotations) {
-    setRightMotorPosition(rotations);
-    setLeftMotorPosition(rotations);
-  }
+  //public void setAllMotorPosition(double rotations) {
+    //setRightMotorPosition(rotations);
+    //setLeftMotorPosition(rotations);
+  //}
 
   /**
    * Resets the left encoder

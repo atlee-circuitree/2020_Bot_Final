@@ -24,6 +24,7 @@ public class drivetrainCommand extends CommandBase {
    */
   public drivetrainCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.drivetrain);
   }
 
 // Called when the command is initially scheduled.
@@ -31,7 +32,7 @@ public class drivetrainCommand extends CommandBase {
   public void initialize() {
     if (Math.abs(RobotContainer.Xbox1.getRawAxis(Constants.leftAxis)) < 0.05) {
             if (Math.abs(RobotContainer.Xbox1.getRawAxis(Constants.rightAxis)) < 0.05) {
-                finished = true;
+                //finished = true;
             }
         }
     }
