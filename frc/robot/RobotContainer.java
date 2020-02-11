@@ -21,12 +21,14 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
 import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
+import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.climbPnumaticSubsystem;
+import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.intakeMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
@@ -45,7 +47,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
 
- // private final drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+ private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+ private static drivetrainCommand c_dDrivetrainCommand;
 
  /*
   private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
@@ -107,9 +110,18 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    setUpDrive();
 
     configureButtonBindings();
 
+
+  }
+
+  //Operations specific to TeleOp only
+  public void teleopInit()
+  {
+    c_dDrivetrainCommand = new drivetrainCommand(Xbox1, m_drivetrainSubsystem);
+    m_drivetrainSubsystem.setDefaultCommand(c_dDrivetrainCommand);
   }
 
   public void setUpDrive() {
@@ -120,11 +132,8 @@ public class RobotContainer {
     CANSparkMax rightFrontMotor = new CANSparkMax(Constants.driveFrontrightMotor, MotorType.kBrushless);
     CANSparkMax rightBackMotor = new CANSparkMax(Constants.driveBackrightMotor, MotorType.kBrushless);
 
-    SpeedControllerGroup leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
-    SpeedControllerGroup rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
-
-    DifferentialDrive robotDrive = new DifferentialDrive(leftDrive, rightDrive);
- 
+    m_drivetrainSubsystem.driveSetup(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
+    
   }
 
   /**

@@ -10,20 +10,23 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
+
+
 
 public class drivetrainSubsystem extends SubsystemBase {
+    SpeedControllerGroup leftDrive;
+    SpeedControllerGroup rightDrive;
+    DifferentialDrive robotDrive; 
     /**
      * Creates a new ExampleSubsystem.
      */
     public drivetrainSubsystem() {
-
-        driveSetup();
 
     }
 
@@ -32,26 +35,22 @@ public class drivetrainSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    public void driveSetup() {
+    public void driveSetup(CANSparkMax leftFrontMotor, CANSparkMax leftBackMotor, CANSparkMax rightFrontMotor, CANSparkMax rightBackMotor) {
+        
 
-        CANSparkMax leftFrontMotor = new CANSparkMax(Constants.driveFrontleftMotor, MotorType.kBrushless);
-        CANSparkMax leftBackMotor = new CANSparkMax(Constants.driveBackleftMotor, MotorType.kBrushless);
 
-        CANSparkMax rightFrontMotor = new CANSparkMax(Constants.driveFrontrightMotor, MotorType.kBrushless);
-        CANSparkMax rightBackMotor = new CANSparkMax(Constants.driveBackrightMotor, MotorType.kBrushless);
+        leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
+        rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
-        SpeedControllerGroup leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
-        SpeedControllerGroup rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
+        robotDrive = new DifferentialDrive(leftDrive, rightDrive);
 
-        DifferentialDrive robotDrive = new DifferentialDrive(leftDrive, rightDrive);
+        //robotDrive.arcadeDrive(-Xbox1.getY(), Xbox1.getX());
 
     }
 
-    public void driveRobot() {
+    public void driveRobot(Double X, double Y) {
 
-        driveSetup();
+        robotDrive.arcadeDrive(Y, X);
+    }
 
-        roboarcadeDrive(-Xbox1.getY(), Xbox1.getX());
-    
-  }
 }
