@@ -37,8 +37,7 @@ public class drivetrainSubsystem extends SubsystemBase {
 
     public void driveSetup(CANSparkMax leftFrontMotor, CANSparkMax leftBackMotor, CANSparkMax rightFrontMotor, CANSparkMax rightBackMotor) {
         
-
-
+        
         leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
         rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
@@ -50,7 +49,7 @@ public class drivetrainSubsystem extends SubsystemBase {
 
     public void driveRobot(Double X, double Y) {
 
-        robotDrive.arcadeDrive(Y, X);
+        robotDrive.arcadeDrive(-Y, X);
     }
 
 }
