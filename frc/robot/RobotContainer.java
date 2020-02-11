@@ -21,14 +21,12 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
 import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
-import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.climbPnumaticSubsystem;
-import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.intakeMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
@@ -46,6 +44,7 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
+
  // private final drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
 
  /*
@@ -56,8 +55,6 @@ public class RobotContainer {
   private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
 */
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-  private final drivetrainCommand m_drivetrainCommand = new drivetrainCommand();
 /*
   private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
   private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
@@ -72,9 +69,6 @@ public class RobotContainer {
   public static Object driveRobot;
 
   public static RobotContainer m_RobotContainer;
-
-  public static drivetrainSubsystem drivetrain = new drivetrainSubsystem();
-  
 
   public static XboxController Xbox1 = new XboxController(0);
   public static XboxController Xbox2 = new XboxController(1);
@@ -115,12 +109,11 @@ public class RobotContainer {
   public RobotContainer() {
 
     configureButtonBindings();
-    drivetrain.setDefaultCommand(m_drivetrainCommand);
 
   }
 
   public void setUpDrive() {
-  
+
     CANSparkMax leftFrontMotor = new CANSparkMax(Constants.driveFrontleftMotor, MotorType.kBrushless);
     CANSparkMax leftBackMotor = new CANSparkMax(Constants.driveBackleftMotor, MotorType.kBrushless);
 
@@ -129,11 +122,9 @@ public class RobotContainer {
 
     SpeedControllerGroup leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
     SpeedControllerGroup rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
- 
+
     DifferentialDrive robotDrive = new DifferentialDrive(leftDrive, rightDrive);
-
-    robotDrive.arcadeDrive(-Xbox1.getY(), Xbox1.getX());
-
+ 
   }
 
   /**
