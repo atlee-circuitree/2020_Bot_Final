@@ -13,16 +13,29 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.XboxController;
 
 //Thanks to 2643 for us "borrowing" thier drive code
 //https://github.com/2643/2020-Code/blob/in-progress/src/main/java/frc/robot/commands/Tankdrive.java
 
+
+
 public class drivetrainSubsystem extends SubsystemBase {
+
+  public SpeedControllerGroup leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
+  public SpeedControllerGroup rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
+ 
+  DifferentialDrive DriveRobot = new DifferentialDrive(leftDrive, rightDrive);
+  
   private static CANSparkMax leftFrontMotor = new CANSparkMax(Constants.driveFrontleftMotor, MotorType.kBrushless);
   private static CANSparkMax leftBackMotor = new CANSparkMax(Constants.driveBackleftMotor, MotorType.kBrushless);
 
   private static CANSparkMax rightFrontMotor = new CANSparkMax(Constants.driveFrontrightMotor, MotorType.kBrushless);
   private static CANSparkMax rightBackMotor = new CANSparkMax(Constants.driveBackrightMotor, MotorType.kBrushless);
+
+  DriveRobot.arcadeDrive(-xbox1.getY(),xbox1.getX()); 
 
 
   // Sets the PID and FF variables

@@ -8,12 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
-//import frc.robot.Robot;
 import frc.robot.RobotContainer;
-//import frc.robot.subsystems.drivetrainSubsystem;
+import frc.robot.subsystems.drivetrainSubsystem;
+
 
 public class drivetrainCommand extends CommandBase {
+
+  drivetrainSubsystem m_subsystem;
+
   double leftSpeed = 0;
   double rightSpeed = 0;
   boolean finished = false;
@@ -25,16 +29,13 @@ public class drivetrainCommand extends CommandBase {
   public drivetrainCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.drivetrain);
+    addRequirements(m_subsystem);
   }
 
 // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (Math.abs(RobotContainer.Xbox1.getRawAxis(Constants.leftAxis)) < 0.05) {
-            if (Math.abs(RobotContainer.Xbox1.getRawAxis(Constants.rightAxis)) < 0.05) {
-                //finished = true;
-            }
-        }
+    
     }
 
     // Called every time the scheduler runs while the command is scheduled.

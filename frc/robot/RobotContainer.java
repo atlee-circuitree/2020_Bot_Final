@@ -7,9 +7,14 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
@@ -27,6 +32,7 @@ import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.intakeMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
+import frc.robot.Constants;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -110,6 +116,23 @@ public class RobotContainer {
 
     configureButtonBindings();
     drivetrain.setDefaultCommand(m_drivetrainCommand);
+
+  }
+
+  public void setUpDrive() {
+  
+    CANSparkMax leftFrontMotor = new CANSparkMax(Constants.driveFrontleftMotor, MotorType.kBrushless);
+    CANSparkMax leftBackMotor = new CANSparkMax(Constants.driveBackleftMotor, MotorType.kBrushless);
+
+    CANSparkMax rightFrontMotor = new CANSparkMax(Constants.driveFrontrightMotor, MotorType.kBrushless);
+    CANSparkMax rightBackMotor = new CANSparkMax(Constants.driveBackrightMotor, MotorType.kBrushless);
+
+    SpeedControllerGroup leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
+    SpeedControllerGroup rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
+ 
+    DifferentialDrive robotDrive = new DifferentialDrive(leftDrive, rightDrive);
+
+    robotDrive.arcadeDrive(-Xbox1.getY(), Xbox1.getX());
 
   }
 
