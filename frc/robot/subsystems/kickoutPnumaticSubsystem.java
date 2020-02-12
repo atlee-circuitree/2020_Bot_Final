@@ -24,7 +24,7 @@ public class kickoutPnumaticSubsystem extends SubsystemBase {
 
   public void kickoutSetup() {
 
-    kickoutPnumatic = new DoubleSolenoid(Constants.leftClimbPnumatic_Deploy, Constants.leftClimbPnumatic_Retract);
+    kickoutPnumatic = new DoubleSolenoid(Constants.kickoutPnumatic_Deploy, Constants.kickoutPnumatic_Retract);
 
   }
 

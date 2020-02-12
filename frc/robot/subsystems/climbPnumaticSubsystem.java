@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+//import edu.wpi.first.wpilibj.Compressor;
 
 // Code taken from file:///C:/FRC_Code/Tutorials%20and%20other%20junk%20files/FRC%20Programming%20Tutorial%20VSC.pdf
 
@@ -21,12 +22,13 @@ public class climbPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid leftClimbPnumatic = null;
   DoubleSolenoid rightClimbPnumatic = null;
+  
 
   public void climber() {
 
-    leftClimbPnumatic = new DoubleSolenoid(Constants.leftClimbPnumatic_Deploy, Constants.leftClimbPnumatic_Retract);
-    rightClimbPnumatic = new DoubleSolenoid(Constants.rightClimbPnumatic_Deploy, Constants.rightClimbPnumatic_Retract);
-
+    leftClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    rightClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    
   }
 
   public void climbUp() {

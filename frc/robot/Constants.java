@@ -7,7 +7,7 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -50,20 +50,19 @@ public final class Constants {
   public static final int shooterPnumatic = 4;
   public static final int kickoutPnumatic = 5;
 
-  public static final int leftClimbPnumatic_Deploy = 0;
-  public static final int leftClimbPnumatic_Retract = 1;
-  public static final int rightClimbPnumatic_Deploy = 0;
-  public static final int rightClimbPnumatic_Retract = 1;
-  public static final int shooterPnumatic_Deploy = 0;
-  public static final int shooterPnumatic_Retract = 1;
-  public static final int kickoutPnumatic_Deploy = 0;
-  public static final int kickoutPnumatic_Retract = 1;
+  public static final int climbPnumatic_Deploy = 0;
+  public static final int climbPnumatic_Retract = 1;
+  public static final int climbArmPnumatic_Deploy = 2;
+  public static final int climbArmPnumatic_Retract = 3;
+  public static final int shooterPnumatic_Deploy = 4;
+  public static final int shooterPnumatic_Retract = 5;
+  public static final int kickoutPnumatic_Deploy = 6;
+  public static final int kickoutPnumatic_Retract = 7;
 
-  public int compressorPort = 1;
+  public int compressorPort = 0;
+  public int spikePort = 0;
   
-  private Compressor airCompressor;
-
-  airCompresser = new Compressor();
+  Compressor airCompressor;
 
   // Motors
 

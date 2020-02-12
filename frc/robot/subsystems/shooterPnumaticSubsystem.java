@@ -7,10 +7,12 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
 
 // Code taken from file:///C:/FRC_Code/Tutorials%20and%20other%20junk%20files/FRC%20Programming%20Tutorial%20VSC.pdf
 
@@ -20,23 +22,24 @@ import frc.robot.Constants;
 public class shooterPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid shooterPnumatic = null;
+  Compressor compressor = null;
 
   public void shooter() {
 
-    shooterPnumatic = new DoubleSolenoid(Constants.leftClimbPnumatic_Deploy, Constants.leftClimbPnumatic_Retract);
-
+    shooterPnumatic = new DoubleSolenoid(Constants.shooterPnumatic_Deploy, Constants.shooterPnumatic_Retract);
+    compressor = new Compressor(Constants.Compressor);
   }
 
   public void openShooter() {
 
     shooterPnumatic.set(Value.kForward);
-   
+    compressor.setClosedLoopControl(true); 
   }
 
   public void closeShooter() {
 
     shooterPnumatic.set(Value.kReverse);
-     
+    compressor.setClosedLoopControl(true); 
   }
 
 }
