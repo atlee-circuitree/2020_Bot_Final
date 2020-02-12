@@ -15,12 +15,14 @@ public class intakeSpitballMotorCommand extends CommandBase {
 
   intakeMotorSubsystem m_subsystem;
    
-  public intakeSpitballMotorCommand() {
+  public intakeSpitballMotorCommand(intakeMotorSubsystem motorSubsystem) {
      
     super();
+    m_subsystem = motorSubsystem;
     addRequirements(m_subsystem);
 
   }
+
 
   // Called when the command is initially scheduled.
   @Override

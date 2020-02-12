@@ -50,24 +50,25 @@ public class RobotContainer {
  private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
  private static drivetrainCommand c_dDrivetrainCommand;
 
- /*
-  private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
-  private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
-  private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
+ 
+  //private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
+  //private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
+  //private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
   private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
-*/
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-/*
-  private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
-  private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
-  private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
-  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand();
-  private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
 
-  private final intakeSpitballMotorCommand m_inIntakeSpitballMotorCommand = new intakeSpitballMotorCommand();
-  private final intakeTakeballMotorCommand m_inIntakeTakeballMotorCommand = new intakeTakeballMotorCommand();
-  */ 
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  //private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
+  //private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
+  //private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
+  //private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand();
+  //private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
+
+  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_intakeMotorSubsystem);
+
+  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_intakeMotorSubsystem);
+  
 
   public static Object driveRobot;
 
@@ -78,8 +79,8 @@ public class RobotContainer {
   public static Joystick Fightstick = new Joystick(2);
   
 
-    JoystickButton O1 = new JoystickButton(Xbox1, 1); //Take Balls
-    JoystickButton O2 = new JoystickButton(Xbox1, 2); //Spit Balls
+    JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
+    JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
     JoystickButton O3 = new JoystickButton(Xbox1, 3); 
     JoystickButton O4 = new JoystickButton(Xbox1, 4);
     JoystickButton O5 = new JoystickButton(Xbox1, 5); 
@@ -112,9 +113,7 @@ public class RobotContainer {
   public RobotContainer() {
     setUpDrive();
 
-    configureButtonBindings();
-
-
+    configureButtonBindings();    
   }
 
   //Operations specific to TeleOp only
@@ -144,9 +143,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-   /* 
-    O1.toggleWhenPressed(m_inIntakeTakeballMotorCommand);
-    O2.toggleWhenPressed(m_inIntakeSpitballMotorCommand);
+   
+    DriverA.toggleWhenPressed(m_intakeTakeballMotorCommand);
+    DriverB.toggleWhenPressed(m_intakeSpitballMotorCommand);
     O3.toggleWhenPressed(m_autoCommand);
     O4.toggleWhenPressed(m_autoCommand);
     O5.toggleWhenPressed(m_autoCommand);
@@ -154,8 +153,8 @@ public class RobotContainer {
     O7.toggleWhenPressed(m_autoCommand);
     O8.toggleWhenPressed(m_autoCommand);
 
-    T1.toggleWhenPressed(m_openShooterPnumaticCommand);
-    T2.toggleWhenPressed(m_closeShooterPnumaticCommand);
+    T1.toggleWhenPressed(m_autoCommand);
+    T2.toggleWhenPressed(m_autoCommand);
     T3.toggleWhenPressed(m_autoCommand);
     T4.toggleWhenPressed(m_autoCommand);
     T5.toggleWhenPressed(m_autoCommand);
@@ -163,7 +162,7 @@ public class RobotContainer {
     T7.toggleWhenPressed(m_autoCommand);
     T8.toggleWhenPressed(m_autoCommand);
 
-    F1.toggleWhenPressed(m_kickoutPnumaticCommand);
+    F1.toggleWhenPressed(m_autoCommand);
     F2.toggleWhenPressed(m_autoCommand);
     F3.toggleWhenPressed(m_autoCommand);
     F4.toggleWhenPressed(m_autoCommand);
@@ -171,7 +170,6 @@ public class RobotContainer {
     F6.toggleWhenPressed(m_autoCommand);
     F7.toggleWhenPressed(m_autoCommand);
     F8.toggleWhenPressed(m_autoCommand);
-    */
 
 
   }

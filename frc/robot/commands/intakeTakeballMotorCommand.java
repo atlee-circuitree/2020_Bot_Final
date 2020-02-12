@@ -15,9 +15,10 @@ public class intakeTakeballMotorCommand extends CommandBase {
 
   intakeMotorSubsystem m_subsystem;
    
-  public intakeTakeballMotorCommand() {
+  public intakeTakeballMotorCommand(intakeMotorSubsystem motorSubsystem) {
      
     super();
+    m_subsystem = motorSubsystem;
     addRequirements(m_subsystem);
 
   }

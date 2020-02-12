@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,16 +22,16 @@ public class intakeMotorSubsystem extends SubsystemBase {
    
   public intakeMotorSubsystem() {
 
-  intake = new CANSparkMax(Constants.intakeMotor, null);
-  conveyorbeltLeft = new CANSparkMax(Constants.conveyorbeltRight, null);
-  conveyorbeltRight = new CANSparkMax(Constants.conveyorbeltLeft, null);
+  intake = new CANSparkMax(Constants.intakeMotor, MotorType.kBrushless);
+  conveyorbeltLeft = new CANSparkMax(Constants.conveyorbeltRight, MotorType.kBrushless);
+  conveyorbeltRight = new CANSparkMax(Constants.conveyorbeltLeft, MotorType.kBrushless);
 
 }
 
 public void takeinballs() {
 
   intake.set(1);
-  conveyorbeltRight.set(.5);
+  conveyorbeltRight.set(-.5);
   conveyorbeltLeft.set(.5);
   
 }
@@ -37,7 +39,7 @@ public void takeinballs() {
 public void spitoutballs() {
 
   intake.set(-1);
-  conveyorbeltRight.set(-.5);
+  conveyorbeltRight.set(.5);
   conveyorbeltLeft.set(-.5);
   
 }
