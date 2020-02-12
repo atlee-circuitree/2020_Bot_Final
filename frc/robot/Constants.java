@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -34,21 +36,34 @@ public final class Constants {
   public static final double allowedError = 0.05;
   public static int leftAxis = 0;
   public static int rightAxis = 0;
+
+  //Compressors
+
+  public static final int Compressor = 1;
  
   // Solenoids
+
+  public static final int leftClimbPnumatic = 0;
+  public static final int rightClimbPnumatic= 1;
+  public static final int leftArmClimbPnumatic_Deploy = 2;
+  public static final int rightArmClimbPnumatic = 3;
+  public static final int shooterPnumatic = 4;
+  public static final int kickoutPnumatic = 5;
 
   public static final int leftClimbPnumatic_Deploy = 0;
   public static final int leftClimbPnumatic_Retract = 1;
   public static final int rightClimbPnumatic_Deploy = 0;
   public static final int rightClimbPnumatic_Retract = 1;
-  public static final int leftArmClimbPnumatic_Deploy = 0;
-  public static final int leftArmClimbPnumatic_Retract = 1;
-  public static final int rightArmClimbPnumatic_Deploy = 0;
-  public static final int rightArmClimbPnumatic_Retract = 1;
   public static final int shooterPnumatic_Deploy = 0;
   public static final int shooterPnumatic_Retract = 1;
   public static final int kickoutPnumatic_Deploy = 0;
   public static final int kickoutPnumatic_Retract = 1;
+
+  public int compressorPort = 1;
+  
+  private Compressor airCompressor;
+
+  airCompresser = new Compressor();
 
   // Motors
 
