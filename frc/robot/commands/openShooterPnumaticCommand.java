@@ -16,11 +16,11 @@ public class openShooterPnumaticCommand extends InstantCommand {
    
   shooterPnumaticSubsystem m_subsystem;
 
-  public openShooterPnumaticCommand() {
+  public openShooterPnumaticCommand(shooterPnumaticSubsystem pnumaticSubsystem) {
 
     super();
+    m_subsystem = pnumaticSubsystem;
     addRequirements(m_subsystem);
-    m_subsystem.shooter();
     
   }
 
@@ -30,5 +30,7 @@ public class openShooterPnumaticCommand extends InstantCommand {
     m_subsystem.openShooter();
     
   }
+
+
 
 }

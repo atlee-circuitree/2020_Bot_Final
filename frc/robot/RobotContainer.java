@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
@@ -53,7 +54,7 @@ public class RobotContainer {
  
   //private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
   //private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
-  //private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
+  private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
   private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
 
@@ -61,14 +62,20 @@ public class RobotContainer {
 
   //private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
   //private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
-  //private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand();
-  //private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand();
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand2 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   //private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
 
   private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_intakeMotorSubsystem);
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_intakeMotorSubsystem);
+
+
+  private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
+  private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
+
 
   public static Object driveRobot;
 
@@ -81,8 +88,8 @@ public class RobotContainer {
 
     JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
     JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
-    JoystickButton O3 = new JoystickButton(Xbox1, 3); 
-    JoystickButton O4 = new JoystickButton(Xbox1, 4);
+    JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
+    JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
     JoystickButton O5 = new JoystickButton(Xbox1, 5); 
     JoystickButton O6 = new JoystickButton(Xbox1, 6);
     JoystickButton O7 = new JoystickButton(Xbox1, 7);   
@@ -144,10 +151,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
    
-    DriverA.toggleWhenPressed(m_intakeTakeballMotorCommand);
-    DriverB.toggleWhenPressed(m_intakeSpitballMotorCommand);
-    O3.toggleWhenPressed(m_autoCommand);
-    O4.toggleWhenPressed(m_autoCommand);
+    DriverA.toggleWhenPressed(m_intakefulltakeball);
+    DriverB.toggleWhenPressed(m_intakefullspitball);
+    DriverX.toggleWhenPressed(m_openShooterPnumaticCommand);
+    DriverY.toggleWhenPressed(m_closeShooterPnumaticCommand);
     O5.toggleWhenPressed(m_autoCommand);
     O6.toggleWhenPressed(m_autoCommand);
     O7.toggleWhenPressed(m_autoCommand);
