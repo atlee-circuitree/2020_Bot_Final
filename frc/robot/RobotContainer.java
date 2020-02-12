@@ -12,26 +12,19 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.climbdownPnumaticCommand;
-import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
 import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
-import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.intakeMotorSubsystem;
-import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 import frc.robot.Constants;
 
@@ -65,6 +58,7 @@ public class RobotContainer {
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand2 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  
   //private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
 
   private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_intakeMotorSubsystem);
