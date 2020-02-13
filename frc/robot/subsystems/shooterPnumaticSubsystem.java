@@ -24,7 +24,7 @@ public class shooterPnumaticSubsystem extends SubsystemBase {
   DoubleSolenoid shooterPnumatic = null;
   Compressor compressor = null;
 
-  public void shooter() {
+  public shooterPnumaticSubsystem() {
 
     shooterPnumatic = new DoubleSolenoid(Constants.shooterPnumatic_Deploy, Constants.shooterPnumatic_Retract);
     

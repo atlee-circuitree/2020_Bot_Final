@@ -26,7 +26,7 @@ import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
-import frc.robot.subsystems.intakeMotorSubsystem;
+import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 import frc.robot.Constants;
 
@@ -51,7 +51,7 @@ public class RobotContainer {
   //private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
-  private final intakeMotorSubsystem m_intakeMotorSubsystem = new intakeMotorSubsystem();
+  private final shooterMotorSubsystem m_intakeMotorSubsystem = new shooterMotorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -59,7 +59,9 @@ public class RobotContainer {
   //private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand2 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   
   //private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
 
@@ -81,7 +83,8 @@ public class RobotContainer {
   public static XboxController Xbox2 = new XboxController(1);
   public static Joystick Fightstick = new Joystick(2);
   
-    JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
+    //JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
+    JoystickButton DriverA = new JoystickButton(Xbox1, 1); //Take Balls
     JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
     JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
@@ -124,6 +127,7 @@ public class RobotContainer {
   {
     c_dDrivetrainCommand = new drivetrainCommand(Xbox1, m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(c_dDrivetrainCommand);
+    
 
     //m_constants.airCompressor = new Compressor(1);
 
@@ -154,7 +158,7 @@ public class RobotContainer {
     
     DriverA.toggleWhenPressed(m_intakefulltakeball);
     DriverB.toggleWhenPressed(m_intakefullspitball);
-    DriverX.toggleWhenPressed(m_openShooterPnumaticCommand);
+    DriverX.toggleWhenPressed(m_openShooterPnumaticCommand3);
     DriverY.toggleWhenPressed(m_closeShooterPnumaticCommand);
     Driver2A.toggleWhenPressed(m_intakefulltakeball);
     

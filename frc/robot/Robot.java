@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
     //Larson working with Patrick Henry
      
      Compressor2020 = new Compressor(0);
-     Compressor2020.start();
+     //Compressor2020.start();
      m_robotContainer = new RobotContainer();
 
    // m_constants.airCompressor = new Compressor(m_constants.compressorPort);

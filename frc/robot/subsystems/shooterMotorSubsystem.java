@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class intakeMotorSubsystem extends SubsystemBase {
+public class shooterMotorSubsystem extends SubsystemBase {
 
   CANSparkMax intake = null;
   CANSparkMax conveyorbeltLeft = null;
   CANSparkMax conveyorbeltRight = null;
    
-  public intakeMotorSubsystem() {
+  public shooterMotorSubsystem() {
 
   intake = new CANSparkMax(Constants.intakeMotor, MotorType.kBrushless);
   conveyorbeltLeft = new CANSparkMax(Constants.conveyorbeltRight, MotorType.kBrushless);

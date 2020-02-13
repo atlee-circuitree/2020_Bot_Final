@@ -8,14 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.intakeMotorSubsystem;
+import frc.robot.subsystems.shooterMotorSubsystem;
 
 
 public class intakeSpitballMotorCommand extends CommandBase {
 
-  intakeMotorSubsystem m_subsystem;
+  shooterMotorSubsystem m_subsystem;
    
-  public intakeSpitballMotorCommand(intakeMotorSubsystem motorSubsystem) {
+  public intakeSpitballMotorCommand(shooterMotorSubsystem motorSubsystem) {
      
     super();
     m_subsystem = motorSubsystem;

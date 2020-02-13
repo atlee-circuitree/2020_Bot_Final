@@ -54,10 +54,10 @@ public final class Constants {
   public static final int climbPnumatic_Retract = 1;
   public static final int climbArmPnumatic_Deploy = 2;
   public static final int climbArmPnumatic_Retract = 3;
-  public static final int shooterPnumatic_Deploy = 4;
-  public static final int shooterPnumatic_Retract = 5;
-  public static final int kickoutPnumatic_Deploy = 6;
-  public static final int kickoutPnumatic_Retract = 7;
+  public static final int shooterPnumatic_Deploy = 7;
+  public static final int shooterPnumatic_Retract = 6;
+  public static final int kickoutPnumatic_Deploy = 4;
+  public static final int kickoutPnumatic_Retract = 5;
 
   //public int compressorPort = 0;
   //public int spikePort = 0;
