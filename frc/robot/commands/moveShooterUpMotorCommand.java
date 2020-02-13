@@ -15,11 +15,11 @@ public class moveShooterUpMotorCommand extends CommandBase {
 
   elevatorMotorSubsystem m_subsystem;
    
-  public moveShooterUpMotorCommand(elevatorMotorSubsystem m_elevatorMotorSubsystem) {
+  public moveShooterUpMotorCommand(elevatorMotorSubsystem motorSubsystem) {
      
     super();
+    m_subsystem = motorSubsystem;
     addRequirements(m_subsystem);
-
   }
 
   // Called when the command is initially scheduled.

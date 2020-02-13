@@ -59,8 +59,8 @@ public final class Constants {
   public static final int kickoutPnumatic_Deploy = 6;
   public static final int kickoutPnumatic_Retract = 7;
 
-  public int compressorPort = 0;
-  public int spikePort = 0;
+  //public int compressorPort = 0;
+  //public int spikePort = 0;
   
   Compressor airCompressor;
 
@@ -69,14 +69,14 @@ public final class Constants {
   public static int conveyorbeltRight = 6;
   public static int conveyorbeltLeft = 8;
 
-  public static int shooterrightMotor = 0;
-  public static int shooterleftMotor = 0;
+  //public static int shooterrightMotor = 0;
+  //public static int shooterleftMotor = 0;
 
   public static int elevatorMotor = 9;
   
   public static int intakeMotor = 5;
 
-  public static int colorwheelmotor = 0;
+  //public static int colorwheelmotor = 0;
 
   public static int barmotor = 7;
    

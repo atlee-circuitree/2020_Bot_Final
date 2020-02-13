@@ -27,19 +27,19 @@ public class shooterPnumaticSubsystem extends SubsystemBase {
   public void shooter() {
 
     shooterPnumatic = new DoubleSolenoid(Constants.shooterPnumatic_Deploy, Constants.shooterPnumatic_Retract);
-    compressor = new Compressor(Constants.Compressor);
+    
   }
 
   public void openShooter() {
 
     shooterPnumatic.set(Value.kForward);
-    compressor.setClosedLoopControl(true); 
+    
   }
 
   public void closeShooter() {
 
     shooterPnumatic.set(Value.kReverse);
-    compressor.setClosedLoopControl(true); 
+    
   }
 
 }

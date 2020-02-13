@@ -16,11 +16,11 @@ public class kickoutPnumaticCommand extends InstantCommand {
    
   kickoutPnumaticSubsystem m_subsystem;
 
-  public kickoutPnumaticCommand() {
+  public kickoutPnumaticCommand(kickoutPnumaticSubsystem pnumaticSubsystem) {
 
     super();
+    m_subsystem = pnumaticSubsystem;
     addRequirements(m_subsystem);
-    m_subsystem.kickoutSetup();
     
   }
 

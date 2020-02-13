@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 /**
@@ -24,6 +25,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private Compressor Compressor2020;
+
   private Constants m_constants;
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,10 +34,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //Larson working with Patrick Henry
      
-    m_robotContainer = new RobotContainer();
+     Compressor2020 = new Compressor(0);
+     Compressor2020.start();
+     m_robotContainer = new RobotContainer();
 
-    m_constants.airCompressor = new Compressor(m_constants.compressorPort);
+   // m_constants.airCompressor = new Compressor(m_constants.compressorPort);
+
 
   }
 

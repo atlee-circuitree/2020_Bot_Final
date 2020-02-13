@@ -1,15 +1,17 @@
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* must be accompanied by the FIRST BSD licenseaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
+
+// FROM LARSON!! https://www.chiefdelphi.com/t/error-message-from-robotbase/162791/12
 
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -53,7 +55,7 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  //private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
+ // private final climbupPnumaticCommand m_ClimbupPnumaticCommand = new climbupPnumaticCommand();
   //private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand();
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand2 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
@@ -65,26 +67,25 @@ public class RobotContainer {
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_intakeMotorSubsystem);
 
-
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
   private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
-
 
   public static Object driveRobot;
 
   public static RobotContainer m_RobotContainer;
 
+  public static Constants m_constants;
+
   public static XboxController Xbox1 = new XboxController(0);
   public static XboxController Xbox2 = new XboxController(1);
   public static Joystick Fightstick = new Joystick(2);
   
-
     JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
     JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
     JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
-    JoystickButton O5 = new JoystickButton(Xbox1, 5); 
+    JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
     JoystickButton O6 = new JoystickButton(Xbox1, 6);
     JoystickButton O7 = new JoystickButton(Xbox1, 7);   
     JoystickButton O8 = new JoystickButton(Xbox1, 8);
@@ -123,6 +124,12 @@ public class RobotContainer {
   {
     c_dDrivetrainCommand = new drivetrainCommand(Xbox1, m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(c_dDrivetrainCommand);
+
+    //m_constants.airCompressor = new Compressor(1);
+
+    //m_constants.airCompressor.setClosedLoopControl(true);
+    //m_constants.airCompressor.start();
+
   }
 
   public void setUpDrive() {
@@ -144,36 +151,13 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-   
+    
     DriverA.toggleWhenPressed(m_intakefulltakeball);
     DriverB.toggleWhenPressed(m_intakefullspitball);
     DriverX.toggleWhenPressed(m_openShooterPnumaticCommand);
     DriverY.toggleWhenPressed(m_closeShooterPnumaticCommand);
-    O5.toggleWhenPressed(m_autoCommand);
-    O6.toggleWhenPressed(m_autoCommand);
-    O7.toggleWhenPressed(m_autoCommand);
-    O8.toggleWhenPressed(m_autoCommand);
-
-    T1.toggleWhenPressed(m_autoCommand);
-    T2.toggleWhenPressed(m_autoCommand);
-    T3.toggleWhenPressed(m_autoCommand);
-    T4.toggleWhenPressed(m_autoCommand);
-    T5.toggleWhenPressed(m_autoCommand);
-    T6.toggleWhenPressed(m_autoCommand);
-    T7.toggleWhenPressed(m_autoCommand);
-    T8.toggleWhenPressed(m_autoCommand);
-
-    F1.toggleWhenPressed(m_autoCommand);
-    F2.toggleWhenPressed(m_autoCommand);
-    F3.toggleWhenPressed(m_autoCommand);
-    F4.toggleWhenPressed(m_autoCommand);
-    F5.toggleWhenPressed(m_autoCommand);
-    F6.toggleWhenPressed(m_autoCommand);
-    F7.toggleWhenPressed(m_autoCommand);
-    F8.toggleWhenPressed(m_autoCommand);
-
-
+    Driver2A.toggleWhenPressed(m_intakefulltakeball);
+    
   }
 
 

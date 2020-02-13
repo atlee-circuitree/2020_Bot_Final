@@ -15,11 +15,11 @@ public class climbupPnumaticCommand extends InstantCommand {
    
   climbPnumaticSubsystem m_subsystem;
 
-  public climbupPnumaticCommand() {
+  public climbupPnumaticCommand(climbPnumaticSubsystem pnumaticSubsystem) {
 
     super();
+    m_subsystem = pnumaticSubsystem;
     addRequirements(m_subsystem);
-    m_subsystem.climber();
     
   }
 
