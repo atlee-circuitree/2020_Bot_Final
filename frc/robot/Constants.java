@@ -79,5 +79,9 @@ public final class Constants {
   //public static int colorwheelmotor = 0;
 
   public static int barmotor = 7;
+
+  public static int rightShooter = 11;
+
+  public static int leftShooter = 12;
    
 }

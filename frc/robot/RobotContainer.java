@@ -5,7 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-
 // FROM LARSON!! https://www.chiefdelphi.com/t/error-message-from-robotbase/162791/12
 
 package frc.robot;
@@ -24,6 +23,8 @@ import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
+import frc.robot.commands.runShooterMotorCommand;
+import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem;
@@ -51,7 +52,7 @@ public class RobotContainer {
   //private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
-  private final shooterMotorSubsystem m_intakeMotorSubsystem = new shooterMotorSubsystem();
+  private final shooterMotorSubsystem m_shooterMotorSubsystem = new shooterMotorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -62,12 +63,14 @@ public class RobotContainer {
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final runShooterMotorCommand m_runShooterMotorCommand = new runShooterMotorCommand(m_shooterMotorSubsystem);
+  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(m_shooterMotorSubsystem);
   
   //private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand();
 
-  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_intakeMotorSubsystem);
+  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterMotorSubsystem);
 
-  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_intakeMotorSubsystem);
+  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterMotorSubsystem);
 
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
@@ -89,28 +92,8 @@ public class RobotContainer {
     JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
     JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
-    JoystickButton O6 = new JoystickButton(Xbox1, 6);
-    JoystickButton O7 = new JoystickButton(Xbox1, 7);   
-    JoystickButton O8 = new JoystickButton(Xbox1, 8);
-
-    JoystickButton T1 = new JoystickButton(Xbox2, 1); //Shoot Full Speed
-    JoystickButton T2 = new JoystickButton(Xbox2, 2); //Shoot Half Speed
-    JoystickButton T3 = new JoystickButton(Xbox2, 3); //Open Shooter
-    JoystickButton T4 = new JoystickButton(Xbox2, 4); //Close Shooter
-    JoystickButton T5 = new JoystickButton(Xbox2, 5);
-    JoystickButton T6 = new JoystickButton(Xbox2, 6);
-    JoystickButton T7 = new JoystickButton(Xbox2, 7);
-    JoystickButton T8 = new JoystickButton(Xbox2, 8);
-
-    JoystickButton F1 = new JoystickButton(Fightstick, 1); //Kickout Robot
-    JoystickButton F2 = new JoystickButton(Fightstick, 2); //Climb Up
-    JoystickButton F3 = new JoystickButton(Fightstick, 3); //Climb Arm Up
-    JoystickButton F4 = new JoystickButton(Fightstick, 4); //Climb Down
-    JoystickButton F5 = new JoystickButton(Fightstick, 5); //Climb Arm Down
-    JoystickButton F6 = new JoystickButton(Fightstick, 6);
-    JoystickButton F7 = new JoystickButton(Fightstick, 7);
-    JoystickButton F8 = new JoystickButton(Fightstick, 8);
-
+    JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value); 
+    
     
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -156,11 +139,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    DriverA.toggleWhenPressed(m_intakefulltakeball);
-    DriverB.toggleWhenPressed(m_intakefullspitball);
+    DriverA.whenPressed(m_intakefulltakeball);
+    DriverB.whenPressed(m_intakefullspitball);
     DriverX.toggleWhenPressed(m_openShooterPnumaticCommand3);
     DriverY.toggleWhenPressed(m_closeShooterPnumaticCommand);
-    Driver2A.toggleWhenPressed(m_intakefulltakeball);
+    Driver2A.whenPressed(m_runShooterMotorCommand);
+    Driver2B.whenPressed(m_stopShooterMotorCommand);
     
   }
 
