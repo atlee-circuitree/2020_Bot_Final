@@ -30,18 +30,23 @@ import frc.robot.commands.elevatorMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
+import frc.robot.commands.levelerLeftMotorCommand;
+import frc.robot.commands.levelerRightMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooterMotorCommand;
 import frc.robot.commands.shooterOnlyConveyorMotorCommand;
 import frc.robot.commands.shooterOnlyMotorCommand;
+import frc.robot.commands.spinWheelMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
+import frc.robot.subsystems.levelerMotorSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
+import frc.robot.subsystems.wheelMotorSubsystem;
 import frc.robot.Constants;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
@@ -75,8 +80,11 @@ public class RobotContainer {
 
   private final elevatorMotorSubsystem m_elevatorMotorSubsystem = new elevatorMotorSubsystem();
 
+  private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
+
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final ballObstructionSensorSubsystem m_bBallObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
+  private final wheelMotorSubsystem m_wheelMotorSubsystem = new wheelMotorSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand(m_climbPnumaticSubsystem);
@@ -103,6 +111,12 @@ public class RobotContainer {
   private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(m_shooterMotorSubsystem);
   
   private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(m_kickoutPnumaticSubsystem);
+
+  private final spinWheelMotorCommand m_spinWheelMotorCommand = new spinWheelMotorCommand(m_wheelMotorSubsystem);
+
+  private final levelerLeftMotorCommand m_levelerLeftMotorCommand = new levelerLeftMotorCommand(m_levelerMotorSubsystem);
+
+  private final levelerRightMotorCommand m_levelerRightMotorCommand = new levelerRightMotorCommand(m_levelerMotorSubsystem);
 
   private final ballObstructionSensorCommand m_BallObstructionSensorCommand = new ballObstructionSensorCommand(m_bBallObstructionSensorSubsystem);
 
@@ -189,15 +203,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    DriverA.whenPressed(m_runShooterMotorCommand);
+    DriverA.whileHeld(m_runShooterMotorCommand);
     DriverB.whenPressed(m_stopShooterMotorCommand);
-    DriverX.toggleWhenPressed(m_shooterOnlyConveyorMotorCommand);
+    DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
     DriverY.toggleWhenPressed(m_shooterOnlyMotorCommand);
-    DriverL.toggleWhenPressed(m_shooterOnlyConveyorMotorCommand);
-    DriverR.toggleWhenPressed(m_shooterOnlyMotorCommand);
+    DriverL.toggleWhenPressed(m_levelerLeftMotorCommand);
+    DriverR.toggleWhenPressed(m_levelerRightMotorCommand);
     Driver2A.whenPressed(m_intakefulltakeball);
     Driver2B.whenPressed(m_intakefullspitball);
-    //Driver2X.whileHeld(null);
+    Driver2X.whileHeld(m_spinWheelMotorCommand);
     //Driver2Y.whileHeld(null);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);

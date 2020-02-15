@@ -18,28 +18,33 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class wheelMotorSubsystem extends SubsystemBase {
+public class levelerMotorSubsystem extends SubsystemBase {
 
-  CANSparkMax wheelMotor = null;
+  CANSparkMax levelMotor = null;
    
-  public wheelMotorSubsystem() {
+  public levelerMotorSubsystem() {
 
-  wheelMotor = new CANSparkMax(Constants.wheelMotor, MotorType.kBrushless);
+  levelMotor = new CANSparkMax(Constants.barmotor, MotorType.kBrushless);
 
 
   }
   
-  public void spinWheelMotor() {
+  public void levelLeftMotor() {
 
-    wheelMotor.set(.7); 
+    levelMotor.set(.5); 
       
   }
 
-  public void stopWheelMotor() {
+  public void levelRightMotor() {
 
-    wheelMotor.set(0); 
+    levelMotor.set(-.5); 
       
   }
- 
+
+  public void stopLevelMotor() {
+
+    levelMotor.set(0); 
+      
+  }
  
 }

@@ -80,6 +80,8 @@ public final class Constants {
   
   public static int intakeMotor = 5;
 
+  public static int wheelMotor = 10;
+
   //public static int colorwheelmotor = 0;
 
   public static int barmotor = 7;
