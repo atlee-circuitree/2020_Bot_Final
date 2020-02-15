@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
+
 import edu.wpi.first.wpilibj.Compressor;
 //import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -83,5 +85,9 @@ public final class Constants {
   public static int rightShooter = 11;
 
   public static int leftShooter = 12;
+
+  //Limit Switches
+
+  public static boolean Obstructor = true;
    
 }
