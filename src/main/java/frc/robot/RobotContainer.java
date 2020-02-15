@@ -34,6 +34,7 @@ import frc.robot.commands.runShooterMotorCommand;
 import frc.robot.commands.stopElevatorMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
@@ -70,7 +71,7 @@ public class RobotContainer {
   private final elevatorMotorSubsystem m_elevatorMotorSubsystem = new elevatorMotorSubsystem();
 
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
-
+  private final ballObstructionSensorSubsystem m_bBallObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand(m_climbPnumaticSubsystem);
