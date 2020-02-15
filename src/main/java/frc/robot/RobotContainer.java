@@ -26,16 +26,14 @@ import frc.robot.commands.climbdownPnumaticCommand;
 import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
 import frc.robot.commands.drivetrainCommand;
+import frc.robot.commands.elevatorMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
-import frc.robot.commands.moveShooterDownMotorCommand;
-import frc.robot.commands.moveShooterUpMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooterMotorCommand;
 import frc.robot.commands.shooterOnlyConveyorMotorCommand;
 import frc.robot.commands.shooterOnlyMotorCommand;
-import frc.robot.commands.stopElevatorMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
@@ -63,6 +61,7 @@ public class RobotContainer {
 
   private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
   private static drivetrainCommand c_dDrivetrainCommand;
+  private static elevatorMotorCommand c_delevatorMotorCommand;
 
   // private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new
   // climbPnumaticSubsystem();
@@ -100,12 +99,6 @@ public class RobotContainer {
   private final runShooterMotorCommand m_runShooterMotorCommand = new runShooterMotorCommand(m_shooterMotorSubsystem);
   private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(
       m_shooterMotorSubsystem);
-  private final moveShooterUpMotorCommand m_moveShooterUpMotorCommand = new moveShooterUpMotorCommand(
-      m_elevatorMotorSubsystem);
-  private final moveShooterDownMotorCommand m_moveShooterDownMotorCommand = new moveShooterDownMotorCommand(
-      m_elevatorMotorSubsystem);
-  private final stopElevatorMotorCommand m_stopElevatorMotorCommand = new stopElevatorMotorCommand(
-      m_elevatorMotorSubsystem);
   private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
   private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(m_shooterMotorSubsystem);
   
@@ -122,8 +115,6 @@ public class RobotContainer {
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
   private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
-
-  private final SequentialCommandGroup m_neutralShooter = new SequentialCommandGroup(m_stopElevatorMotorCommand, m_stopShooterMotorCommand);
 
   public static Object driveRobot;
 
@@ -167,8 +158,9 @@ public class RobotContainer {
   public void teleopInit()
   {
     c_dDrivetrainCommand = new drivetrainCommand(Xbox1, m_drivetrainSubsystem);
+    c_delevatorMotorCommand = new elevatorMotorCommand(Xbox2, m_elevatorMotorSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(c_dDrivetrainCommand);
-    
+    m_elevatorMotorSubsystem.setDefaultCommand(c_delevatorMotorCommand);
 
     //m_constants.airCompressor = new Compressor(1);
 
@@ -198,15 +190,15 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     DriverA.whenPressed(m_runShooterMotorCommand);
-    DriverB.whenPressed(m_neutralShooter);
+    DriverB.whenPressed(m_stopShooterMotorCommand);
     DriverX.toggleWhenPressed(m_shooterOnlyConveyorMotorCommand);
     DriverY.toggleWhenPressed(m_shooterOnlyMotorCommand);
     DriverL.toggleWhenPressed(m_shooterOnlyConveyorMotorCommand);
     DriverR.toggleWhenPressed(m_shooterOnlyMotorCommand);
     Driver2A.whenPressed(m_intakefulltakeball);
     Driver2B.whenPressed(m_intakefullspitball);
-    Driver2X.whileHeld(m_moveShooterUpMotorCommand);
-    Driver2Y.whileHeld(m_moveShooterDownMotorCommand );
+    //Driver2X.whileHeld(null);
+    //Driver2Y.whileHeld(null);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     FightStickB.toggleWhenPressed(m_climbupPnumaticCommand);
