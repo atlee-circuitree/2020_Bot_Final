@@ -205,8 +205,8 @@ public class RobotContainer {
     DriverR.toggleWhenPressed(m_shooterOnlyMotorCommand);
     Driver2A.whenPressed(m_intakefulltakeball);
     Driver2B.whenPressed(m_intakefullspitball);
-    Driver2X.whenPressed(m_moveShooterUpMotorCommand);
-    Driver2Y.whenPressed(m_moveShooterDownMotorCommand );
+    Driver2X.whileHeld(m_moveShooterUpMotorCommand);
+    Driver2Y.whileHeld(m_moveShooterDownMotorCommand );
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     FightStickB.toggleWhenPressed(m_climbupPnumaticCommand);
