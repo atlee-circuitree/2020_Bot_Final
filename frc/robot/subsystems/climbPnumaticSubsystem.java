@@ -22,12 +22,16 @@ public class climbPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid leftClimbPnumatic = null;
   DoubleSolenoid rightClimbPnumatic = null;
+  DoubleSolenoid leftClimbArmPnumatic = null;
+  DoubleSolenoid rightClimbArmPnumatic = null;
   
 
   public void climber() {
 
     leftClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
     rightClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    leftClimbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
+    rightClimbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
     
   }
 
@@ -42,6 +46,20 @@ public class climbPnumaticSubsystem extends SubsystemBase {
 
     leftClimbPnumatic.set(Value.kReverse);
     rightClimbPnumatic.set(Value.kReverse);
+
+  }
+
+  public void climbArmUp() {
+
+    leftClimbArmPnumatic.set(Value.kForward);
+    rightClimbArmPnumatic.set(Value.kForward);
+
+  }
+
+  public void climbArmDown() {
+
+    leftClimbArmPnumatic.set(Value.kReverse);
+    rightClimbArmPnumatic.set(Value.kReverse);
 
   }
 

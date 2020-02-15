@@ -40,7 +40,7 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
 public void takeinballs() {
 
-  intake.set(1);
+  intake.set(.7);
   conveyorbeltRight.set(-.5);
   conveyorbeltLeft.set(.5);
   
@@ -48,7 +48,7 @@ public void takeinballs() {
 
 public void spitoutballs() {
 
-  intake.set(-1);
+  intake.set(-.7);
   conveyorbeltRight.set(.5);
   conveyorbeltLeft.set(-.5);
   
