@@ -15,9 +15,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ballObstructionSensorCommand;
 import frc.robot.commands.climbarmdownPnumaticCommand;
 import frc.robot.commands.climbarmupPnumaticCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
@@ -44,6 +46,8 @@ import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 import frc.robot.Constants;
 import frc.robot.subsystems.climbPnumaticSubsystem;
+import frc.robot.subsystems.ballObstructionSensorSubsystem;
+import frc.robot.commands.ballObstructionSensorCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -107,9 +111,13 @@ public class RobotContainer {
   
   private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(m_kickoutPnumaticSubsystem);
 
-  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterMotorSubsystem);
+  private final ballObstructionSensorCommand m_BallObstructionSensorCommand = new ballObstructionSensorCommand(m_bBallObstructionSensorSubsystem);
+
+  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterMotorSubsystem);
+  
+  //private final ParallelDeadlineGroup m_intakefulltakeballParallel = new ParallelDeadlineGroup(m_ballObstructionSensorCommand, m_intakeTakeballMotorCommand);
 
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   

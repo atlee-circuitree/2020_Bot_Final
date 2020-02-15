@@ -9,18 +9,23 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem;
+
 
 
 public class intakeTakeballMotorCommand extends CommandBase {
 
   shooterMotorSubsystem m_subsystem;
+  ballObstructionSensorSubsystem m_obstructionsubsystem;
+  
    
-  public intakeTakeballMotorCommand(shooterMotorSubsystem motorSubsystem) {
+  public intakeTakeballMotorCommand(shooterMotorSubsystem motorSubsystem, ballObstructionSensorSubsystem sensorSubsystem) {
      
     super();
     m_subsystem = motorSubsystem;
-    addRequirements(m_subsystem);
+    m_obstructionsubsystem = sensorSubsystem;
+    addRequirements(m_subsystem, m_obstructionsubsystem);
 
   }
 
@@ -33,11 +38,16 @@ public class intakeTakeballMotorCommand extends CommandBase {
   @Override
   public void execute() {
 
-    m_subsystem.takeinballs();
-
-
-
+   
+    if (m_obstructionsubsystem.isObstructed()) {
     
+      m_subsystem.stopintake();
+    }
+    else
+    {
+      m_subsystem.takeinballs();
+    }
+
 
   }
 
