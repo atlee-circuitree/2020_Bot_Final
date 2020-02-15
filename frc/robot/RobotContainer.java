@@ -114,11 +114,13 @@ public class RobotContainer {
     JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
     JoystickButton DriverL = new JoystickButton(Xbox1, XboxController.Button.kBumperLeft.value);
+    JoystickButton DriverR = new JoystickButton(Xbox1, XboxController.Button.kBumperRight.value);
     JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
     JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value); 
     JoystickButton Driver2X = new JoystickButton(Xbox2, XboxController.Button.kX.value); 
     JoystickButton Driver2Y = new JoystickButton(Xbox2, XboxController.Button.kY.value); 
     JoystickButton Driver2L = new JoystickButton(Xbox2, XboxController.Button.kBumperLeft.value); 
+    JoystickButton Driver2R = new JoystickButton(Xbox2, XboxController.Button.kBumperRight.value); 
     JoystickButton FightStickB = new JoystickButton(Fightstick, 2);
     JoystickButton FightStickY = new JoystickButton(Fightstick, 4);
     JoystickButton FightStickA = new JoystickButton(Fightstick, 2);
@@ -168,18 +170,20 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    DriverA.whenPressed(m_intakefulltakeball);
-    DriverB.whenPressed(m_intakefullspitball);
-    DriverX.toggleWhenPressed(m_openShooterPnumaticCommand3);
-    DriverY.toggleWhenPressed(m_closeShooterPnumaticCommand);
-    DriverL.toggleWhenPressed(m_stopShooterMotorCommand);
-    Driver2A.whenPressed(m_runShooterMotorCommand);
-    Driver2B.whenPressed(m_stopShooterMotorCommand);
-    Driver2X.whenPressed(m_moveShooterUpMotorCommand);
-    Driver2Y.whenPressed(m_moveShooterDownMotorCommand);
-    Driver2L.whenPressed(m_stopElevatorMotorCommand);
+    DriverA.whenPressed(m_runShooterMotorCommand);
+    DriverB.whenPressed(m_stopShooterMotorCommand);
+    DriverX.toggleWhenPressed(m_stopElevatorMotorCommand);
+    //DriverY.toggleWhenPressed();
+    //DriverL.toggleWhenPressed();
+    //DriverR.toggleWhenPressed();
+    Driver2A.whenPressed(m_moveShooterUpMotorCommand);
+    Driver2B.whenPressed(m_moveShooterDownMotorCommand);
+    Driver2X.whenPressed(m_intakefulltakeball);
+    Driver2Y.whenPressed(m_intakefullspitball);
+    Driver2R.whenPressed(m_openShooterPnumaticCommand3);
+    Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     FightStickB.toggleWhenPressed(m_climbupPnumaticCommand);
-    //FightStickY.toggleWhenPressed();
+    FightStickY.toggleWhenPressed(m_climbarmupPnumaticCommand);
     FightStickA.toggleWhenPressed(m_kickoutPnumaticCommand);
     
 

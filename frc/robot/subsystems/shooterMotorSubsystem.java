@@ -49,8 +49,8 @@ public void takeinballs() {
 public void spitoutballs() {
 
   intake.set(-.7);
-  conveyorbeltRight.set(.5);
-  conveyorbeltLeft.set(-.5);
+  conveyorbeltRight.set(0);
+  conveyorbeltLeft.set(0);
   
 }
 

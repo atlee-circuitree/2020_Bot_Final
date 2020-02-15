@@ -39,7 +39,7 @@ public class moveShooterDownMotorCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_subsystem.stopElevator();
+    
 
   }
 

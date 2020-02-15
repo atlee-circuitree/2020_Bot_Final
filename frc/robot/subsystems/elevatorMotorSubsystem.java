@@ -26,13 +26,13 @@ public class elevatorMotorSubsystem extends SubsystemBase {
 
 public void moveShooterUp() {
 
-  elevatorMotor.set(.5);
+  elevatorMotor.set(.25);
 
 }
 
 public void moveShooterDown() {
 
-  elevatorMotor.set(-1);
+  elevatorMotor.set(-.25);
    
 }
 

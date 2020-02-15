@@ -36,7 +36,7 @@ public class drivetrainCommand extends CommandBase {
   @Override
   public void execute() {
 
-    m_subsystem.driveRobot(xbcDriveController.getX(Hand.kLeft), xbcDriveController.getY(Hand.kLeft));
+    m_subsystem.driveRobot(xbcDriveController.getX(Hand.kRight), xbcDriveController.getY(Hand.kLeft));
   }
 
   // Called once the command ends or is interrupted.
