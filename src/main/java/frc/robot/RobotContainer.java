@@ -31,6 +31,8 @@ import frc.robot.commands.moveShooterDownMotorCommand;
 import frc.robot.commands.moveShooterUpMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooterMotorCommand;
+import frc.robot.commands.shooterOnlyConveyorMotorCommand;
+import frc.robot.commands.shooterOnlyMotorCommand;
 import frc.robot.commands.stopElevatorMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -55,13 +57,13 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
+  private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+  private static drivetrainCommand c_dDrivetrainCommand;
 
- private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
- private static drivetrainCommand c_dDrivetrainCommand;
-
- 
-  //private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
-  //private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
+  // private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new
+  // climbPnumaticSubsystem();
+  // private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new
+  // kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
   private final shooterMotorSubsystem m_shooterMotorSubsystem = new shooterMotorSubsystem();
@@ -75,19 +77,33 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand(m_climbPnumaticSubsystem);
-  private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand(m_climbPnumaticSubsystem);
-  private final climbarmupPnumaticCommand m_climbarmupPnumaticCommand = new climbarmupPnumaticCommand(m_climbPnumaticSubsystem);
-  private final climbarmdownPnumaticCommand m_climbarmdownPnumaticCommand = new climbarmdownPnumaticCommand(m_climbPnumaticSubsystem);
-  private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
-  private final openShooterPnumaticCommand m_openShooterPnumaticCommand2 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
-  private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
-  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
-  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand(
+      m_climbPnumaticSubsystem);
+  private final climbarmupPnumaticCommand m_climbarmupPnumaticCommand = new climbarmupPnumaticCommand(
+      m_climbPnumaticSubsystem);
+  private final climbarmdownPnumaticCommand m_climbarmdownPnumaticCommand = new climbarmdownPnumaticCommand(
+      m_climbPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand2 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
   private final runShooterMotorCommand m_runShooterMotorCommand = new runShooterMotorCommand(m_shooterMotorSubsystem);
-  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(m_shooterMotorSubsystem);
-  private final moveShooterUpMotorCommand m_moveShooterUpMotorCommand = new moveShooterUpMotorCommand(m_elevatorMotorSubsystem);
-  private final moveShooterDownMotorCommand m_moveShooterDownMotorCommand = new moveShooterDownMotorCommand(m_elevatorMotorSubsystem);
-  private final stopElevatorMotorCommand m_stopElevatorMotorCommand = new stopElevatorMotorCommand(m_elevatorMotorSubsystem);
+  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(
+      m_shooterMotorSubsystem);
+  private final moveShooterUpMotorCommand m_moveShooterUpMotorCommand = new moveShooterUpMotorCommand(
+      m_elevatorMotorSubsystem);
+  private final moveShooterDownMotorCommand m_moveShooterDownMotorCommand = new moveShooterDownMotorCommand(
+      m_elevatorMotorSubsystem);
+  private final stopElevatorMotorCommand m_stopElevatorMotorCommand = new stopElevatorMotorCommand(
+      m_elevatorMotorSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+  private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(m_shooterMotorSubsystem);
   
   private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(m_kickoutPnumaticSubsystem);
 
@@ -98,6 +114,8 @@ public class RobotContainer {
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
   private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
+
+  private final SequentialCommandGroup m_neutralShooter = new SequentialCommandGroup(m_stopElevatorMotorCommand, m_stopShooterMotorCommand);
 
   public static Object driveRobot;
 
@@ -172,15 +190,15 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     DriverA.whenPressed(m_runShooterMotorCommand);
-    DriverB.whenPressed(m_stopShooterMotorCommand);
-    DriverX.toggleWhenPressed(m_stopElevatorMotorCommand);
-    //DriverY.toggleWhenPressed();
-    //DriverL.toggleWhenPressed();
-    //DriverR.toggleWhenPressed();
-    Driver2A.whenPressed(m_moveShooterUpMotorCommand);
-    Driver2B.whenPressed(m_moveShooterDownMotorCommand);
-    Driver2X.whenPressed(m_intakefulltakeball);
-    Driver2Y.whenPressed(m_intakefullspitball);
+    DriverB.whenPressed(m_neutralShooter);
+    DriverX.toggleWhenPressed(m_shooterOnlyConveyorMotorCommand);
+    DriverY.toggleWhenPressed(m_shooterOnlyMotorCommand);
+    DriverL.toggleWhenPressed(m_shooterOnlyConveyorMotorCommand);
+    DriverR.toggleWhenPressed(m_shooterOnlyMotorCommand);
+    Driver2A.whenPressed(m_intakefulltakeball);
+    Driver2B.whenPressed(m_intakefullspitball);
+    Driver2X.whenPressed(m_moveShooterUpMotorCommand);
+    Driver2Y.whenPressed(m_moveShooterDownMotorCommand );
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     FightStickB.toggleWhenPressed(m_climbupPnumaticCommand);

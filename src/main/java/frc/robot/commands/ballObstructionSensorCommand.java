@@ -12,8 +12,8 @@ public class ballObstructionSensorCommand extends CommandBase {
     public ballObstructionSensorCommand(ballObstructionSensorSubsystem sensorSubsystem) {
        
       super();
-      m_subsystem = motorSubsystem;
-      addRequirements(m_subsystem);
+      //m_subsystem = motorSubsystem;
+      //addRequirements(m_subsystem);
     }
   
     // Called when the command is initially scheduled.
@@ -25,7 +25,7 @@ public class ballObstructionSensorCommand extends CommandBase {
     @Override
     public void execute() {
   
-      m_subsystem.moveShooterDown();
+      //m_subsystem.moveShooterDown();
   
     }
   

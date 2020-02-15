@@ -7,19 +7,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.elevatorMotorSubsystem;
+import frc.robot.subsystems.shooterMotorSubsystem;
 
 
-public class moveShooterUpMotorCommand extends CommandBase {
+public class shooterOnlyMotorCommand extends CommandBase {
 
-  elevatorMotorSubsystem m_subsystem;
+  shooterMotorSubsystem m_subsystem;
    
-  public moveShooterUpMotorCommand(elevatorMotorSubsystem motorSubsystem) {
+  public shooterOnlyMotorCommand(shooterMotorSubsystem motorSubsystem) {
      
     super();
     m_subsystem = motorSubsystem;
     addRequirements(m_subsystem);
+
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +33,7 @@ public class moveShooterUpMotorCommand extends CommandBase {
   @Override
   public void execute() {
 
-    m_subsystem.moveShooterUp();
+    m_subsystem.shooterOnly();
 
   }
 
@@ -39,8 +41,13 @@ public class moveShooterUpMotorCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_subsystem.stopElevator();
+    m_subsystem.stopShooter();
 
   }
 
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 }

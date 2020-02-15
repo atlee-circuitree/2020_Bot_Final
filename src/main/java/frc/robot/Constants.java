@@ -74,9 +74,11 @@ public final class Constants {
   //public static int shooterrightMotor = 0;
   //public static int shooterleftMotor = 0;
 
-  public static int elevatorMotor = 5;
+  //Inverted
+
+  public static int elevatorMotor = 9;
   
-  public static int intakeMotor = 9;
+  public static int intakeMotor = 5;
 
   //public static int colorwheelmotor = 0;
 

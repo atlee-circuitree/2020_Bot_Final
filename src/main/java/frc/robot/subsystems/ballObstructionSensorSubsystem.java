@@ -30,7 +30,7 @@ public boolean isObstructed() {
   @Override
   public void periodic() {
     
-    System.out.println(input.get());
+    //System.out.println(input.get());
 
   }
 }
