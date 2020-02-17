@@ -204,20 +204,20 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     DriverA.whileHeld(m_runShooterMotorCommand);
-    DriverB.whenPressed(m_stopShooterMotorCommand);
+    DriverB.whileHeld(m_stopShooterMotorCommand);
     DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
-    DriverY.toggleWhenPressed(m_shooterOnlyMotorCommand);
-    DriverL.toggleWhenPressed(m_levelerLeftMotorCommand);
-    DriverR.toggleWhenPressed(m_levelerRightMotorCommand);
-    Driver2A.whenPressed(m_intakefulltakeball);
-    Driver2B.whenPressed(m_intakefullspitball);
+    DriverY.whileHeld(m_shooterOnlyMotorCommand);
+    DriverL.whileHeld(m_levelerLeftMotorCommand);
+    DriverR.whileHeld(m_levelerRightMotorCommand);
+    Driver2A.whileHeld(m_intakefulltakeball);
+    Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
     //Driver2Y.whileHeld(null);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
-    FightStickB.toggleWhenPressed(m_climbupPnumaticCommand);
-    FightStickY.toggleWhenPressed(m_climbarmupPnumaticCommand);
-    FightStickA.toggleWhenPressed(m_kickoutPnumaticCommand);
+    FightStickB.whenPressed(m_climbupPnumaticCommand);
+    FightStickY.whenPressed(m_climbarmupPnumaticCommand);
+    FightStickA.whenPressed(m_kickoutPnumaticCommand);
     
 
   }
