@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package src.main.java.frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.elevatorMotorSubsystem;
+import src.main.java.frc.robot.subsystems.elevatorMotorSubsystem;
 
 
 public class moveShooterDownMotorCommand extends CommandBase {

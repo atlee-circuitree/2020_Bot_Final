@@ -5,9 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package src.main.java.frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import src.main.java.frc.robot.subsystems.ExampleSubsystem;
 //import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 

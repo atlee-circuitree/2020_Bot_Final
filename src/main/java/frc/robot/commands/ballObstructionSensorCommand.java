@@ -1,7 +1,7 @@
-package frc.robot.commands;
+package src.main.java.frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.ballObstructionSensorSubsystem;
+//import frc.robot.subsystems.ExampleSubsystem;
+import src.main.java.frc.robot.subsystems.ballObstructionSensorSubsystem;
 //import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -12,7 +12,7 @@ public class ballObstructionSensorCommand extends CommandBase {
     public ballObstructionSensorCommand(ballObstructionSensorSubsystem sensorSubsystem) {
        
       super();
-      m_subsystem = motorSubsystem;
+      m_subsystem = sensorSubsystem;
       addRequirements(m_subsystem);
     }
   
@@ -25,7 +25,7 @@ public class ballObstructionSensorCommand extends CommandBase {
     @Override
     public void execute() {
   
-      m_subsystem.moveShooterDown();
+      //m_subsystem.moveShooterDown();
   
     }
   

@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package src.main.java.frc.robot.commands;
 
 
-import frc.robot.subsystems.shooterPnumaticSubsystem;
+import src.main.java.frc.robot.subsystems.shooterPnumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  

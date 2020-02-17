@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package src.main.java.frc.robot;
 
 
 import edu.wpi.first.wpilibj.Compressor;

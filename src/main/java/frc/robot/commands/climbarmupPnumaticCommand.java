@@ -5,9 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package src.main.java.frc.robot.commands;
 
-import frc.robot.subsystems.climbPnumaticSubsystem;
+import src.main.java.frc.robot.subsystems.climbPnumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  

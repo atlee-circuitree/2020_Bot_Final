@@ -7,7 +7,7 @@
 
 // FROM LARSON!! https://www.chiefdelphi.com/t/error-message-from-robotbase/162791/12
 
-package frc.robot;
+package src.main.java.frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -17,31 +17,32 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.climbarmdownPnumaticCommand;
-import frc.robot.commands.climbarmupPnumaticCommand;
-import frc.robot.commands.climbdownPnumaticCommand;
-import frc.robot.commands.climbupPnumaticCommand;
-import frc.robot.commands.closeShooterPnumaticCommand;
-import frc.robot.commands.drivetrainCommand;
-import frc.robot.commands.intakeSpitballMotorCommand;
-import frc.robot.commands.intakeTakeballMotorCommand;
-import frc.robot.commands.kickoutPnumaticCommand;
-import frc.robot.commands.moveShooterDownMotorCommand;
-import frc.robot.commands.moveShooterUpMotorCommand;
-import frc.robot.commands.openShooterPnumaticCommand;
-import frc.robot.commands.runShooterMotorCommand;
-import frc.robot.commands.stopElevatorMotorCommand;
-import frc.robot.commands.stopShooterMotorCommand;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.ballObstructionSensorSubsystem;
-import frc.robot.subsystems.drivetrainSubsystem;
-import frc.robot.subsystems.elevatorMotorSubsystem;
-import frc.robot.subsystems.kickoutPnumaticSubsystem;
-import frc.robot.subsystems.shooterMotorSubsystem;
-import frc.robot.subsystems.shooterPnumaticSubsystem;
-import frc.robot.Constants;
-import frc.robot.subsystems.climbPnumaticSubsystem;
+import src.main.java.frc.robot.commands.ExampleCommand;
+import src.main.java.frc.robot.commands.climbarmdownPnumaticCommand;
+import src.main.java.frc.robot.commands.climbarmupPnumaticCommand;
+import src.main.java.frc.robot.commands.climbdownPnumaticCommand;
+import src.main.java.frc.robot.commands.climbupPnumaticCommand;
+import src.main.java.frc.robot.commands.closeShooterPnumaticCommand;
+import src.main.java.frc.robot.commands.drivetrainCommand;
+import src.main.java.frc.robot.commands.intakeSpitballMotorCommand;
+import src.main.java.frc.robot.commands.intakeTakeballMotorCommand;
+import src.main.java.frc.robot.commands.kickoutPnumaticCommand;
+import src.main.java.frc.robot.commands.moveShooterDownMotorCommand;
+import src.main.java.frc.robot.commands.moveShooterUpMotorCommand;
+import src.main.java.frc.robot.commands.openShooterPnumaticCommand;
+import src.main.java.frc.robot.commands.closeShooterPnumaticCommand;
+import src.main.java.frc.robot.commands.runShooterMotorCommand;
+import src.main.java.frc.robot.commands.stopElevatorMotorCommand;
+import src.main.java.frc.robot.commands.stopShooterMotorCommand;
+import src.main.java.frc.robot.subsystems.ExampleSubsystem;
+import src.main.java.frc.robot.subsystems.ballObstructionSensorSubsystem;
+import src.main.java.frc.robot.subsystems.drivetrainSubsystem;
+import src.main.java.frc.robot.subsystems.elevatorMotorSubsystem;
+import src.main.java.frc.robot.subsystems.kickoutPnumaticSubsystem;
+import src.main.java.frc.robot.subsystems.shooterMotorSubsystem;
+import src.main.java.frc.robot.subsystems.shooterPnumaticSubsystem;
+import src.main.java.frc.robot.Constants;
+import src.main.java.frc.robot.subsystems.climbPnumaticSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -71,7 +72,9 @@ public class RobotContainer {
   private final elevatorMotorSubsystem m_elevatorMotorSubsystem = new elevatorMotorSubsystem();
 
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
+  
   private final ballObstructionSensorSubsystem m_bBallObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand(m_climbPnumaticSubsystem);
@@ -153,11 +156,11 @@ public class RobotContainer {
 
   public void setUpDrive() {
 
-    CANSparkMax leftFrontMotor = new CANSparkMax(Constants.driveFrontleftMotor, MotorType.kBrushless);
-    CANSparkMax leftBackMotor = new CANSparkMax(Constants.driveBackleftMotor, MotorType.kBrushless);
+    final CANSparkMax leftFrontMotor = new CANSparkMax(Constants.driveFrontleftMotor, MotorType.kBrushless);
+    final CANSparkMax leftBackMotor = new CANSparkMax(Constants.driveBackleftMotor, MotorType.kBrushless);
 
-    CANSparkMax rightFrontMotor = new CANSparkMax(Constants.driveFrontrightMotor, MotorType.kBrushless);
-    CANSparkMax rightBackMotor = new CANSparkMax(Constants.driveBackrightMotor, MotorType.kBrushless);
+    final CANSparkMax rightFrontMotor = new CANSparkMax(Constants.driveFrontrightMotor, MotorType.kBrushless);
+    final CANSparkMax rightBackMotor = new CANSparkMax(Constants.driveBackrightMotor, MotorType.kBrushless);
 
     m_drivetrainSubsystem.driveSetup(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
     
