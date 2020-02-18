@@ -30,6 +30,7 @@ import frc.robot.commands.elevatorMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
+import frc.robot.commands.kickoutReversePnumaticCommand;
 import frc.robot.commands.levelerLeftMotorCommand;
 import frc.robot.commands.levelerRightMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
@@ -120,6 +121,8 @@ public class RobotContainer {
 
   private final ballObstructionSensorCommand m_BallObstructionSensorCommand = new ballObstructionSensorCommand(m_bBallObstructionSensorSubsystem);
 
+  private final kickoutReversePnumaticCommand m_kickoutReversePnumaticCommand = new kickoutReversePnumaticCommand(m_kickoutPnumaticSubsystem);
+
   private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterMotorSubsystem);
@@ -155,7 +158,10 @@ public class RobotContainer {
     JoystickButton Driver2R = new JoystickButton(Xbox2, XboxController.Button.kBumperRight.value); 
     JoystickButton FightStickB = new JoystickButton(Fightstick, 2);
     JoystickButton FightStickY = new JoystickButton(Fightstick, 4);
-    JoystickButton FightStickA = new JoystickButton(Fightstick, 2);
+    JoystickButton FightStickLB = new JoystickButton(Fightstick, 5);
+    JoystickButton FightStickRB = new JoystickButton(Fightstick, 6);
+    JoystickButton FightStickL3 = new JoystickButton(Fightstick, 9);
+    JoystickButton FightStickR3 = new JoystickButton(Fightstick, 10);
     
     
   /**
@@ -209,15 +215,20 @@ public class RobotContainer {
     DriverY.whileHeld(m_shooterOnlyMotorCommand);
     DriverL.whileHeld(m_levelerLeftMotorCommand);
     DriverR.whileHeld(m_levelerRightMotorCommand);
+
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
-    Driver2X.whileHeld(m_spinWheelMotorCommand);
-    //Driver2Y.whileHeld(null);
+    //Driver2X.toggleWhenPressed(m_kickoutPnumaticCommand);
+    //Driver2Y.toggleWhenPressed(m_kickoutReversePnumaticCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
+    
     FightStickB.whenPressed(m_climbupPnumaticCommand);
     FightStickY.whenPressed(m_climbarmupPnumaticCommand);
-    FightStickA.whenPressed(m_kickoutPnumaticCommand);
+    FightStickRB.whenPressed(m_kickoutPnumaticCommand);
+    FightStickLB.whenPressed(m_kickoutReversePnumaticCommand);
+    FightStickL3.whenPressed(m_climbdownPnumaticCommand);
+    FightStickR3.whenPressed(m_climbarmdownPnumaticCommand);
     
 
   }

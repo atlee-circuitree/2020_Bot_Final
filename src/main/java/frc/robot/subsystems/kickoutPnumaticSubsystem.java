@@ -22,7 +22,7 @@ public class kickoutPnumaticSubsystem extends SubsystemBase {
   DoubleSolenoid kickoutPnumatic = null;
    
 
-  public void kickoutSetup() {
+  public kickoutPnumaticSubsystem() {
 
     kickoutPnumatic = new DoubleSolenoid(Constants.kickoutPnumatic_Deploy, Constants.kickoutPnumatic_Retract);
 

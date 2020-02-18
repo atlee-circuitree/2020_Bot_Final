@@ -20,47 +20,41 @@ import frc.robot.Constants;
  */
 public class climbPnumaticSubsystem extends SubsystemBase {
    
-  DoubleSolenoid leftClimbPnumatic = null;
-  DoubleSolenoid rightClimbPnumatic = null;
-  DoubleSolenoid leftClimbArmPnumatic = null;
-  DoubleSolenoid rightClimbArmPnumatic = null;
+  DoubleSolenoid climbPnumatic = null;
+  DoubleSolenoid climbArmPnumatic = null;
   
 
-  public void climber() {
+  public climbPnumaticSubsystem() {
 
-    leftClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
-    rightClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
-    leftClimbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
-    rightClimbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
+    //leftClimbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    climbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    //leftClimbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
+    climbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
     
   }
 
   public void climbUp() {
 
-    leftClimbPnumatic.set(Value.kForward);
-    rightClimbPnumatic.set(Value.kForward);
+    climbPnumatic.set(Value.kForward);
 
   }
 
   public void climbDown() {
 
-    leftClimbPnumatic.set(Value.kReverse);
-    rightClimbPnumatic.set(Value.kReverse);
-
+    climbPnumatic.set(Value.kReverse);
+    
   }
 
   public void climbArmUp() {
 
-    leftClimbArmPnumatic.set(Value.kForward);
-    rightClimbArmPnumatic.set(Value.kForward);
+    climbArmPnumatic.set(Value.kForward);
 
   }
 
   public void climbArmDown() {
 
-    leftClimbArmPnumatic.set(Value.kReverse);
-    rightClimbArmPnumatic.set(Value.kReverse);
-
+    climbArmPnumatic.set(Value.kReverse);
+     
   }
 
 }

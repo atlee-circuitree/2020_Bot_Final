@@ -12,12 +12,11 @@ import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  
-public class kickoutPnumaticCommand extends InstantCommand {
+public class kickoutReversePnumaticCommand extends InstantCommand {
    
   kickoutPnumaticSubsystem m_subsystem;
-  
 
-  public kickoutPnumaticCommand(kickoutPnumaticSubsystem pnumaticSubsystem) {
+  public kickoutReversePnumaticCommand(kickoutPnumaticSubsystem pnumaticSubsystem) {
 
     super();
     m_subsystem = pnumaticSubsystem;
@@ -28,7 +27,7 @@ public class kickoutPnumaticCommand extends InstantCommand {
   @Override
   public void initialize() {
 
-    m_subsystem.kickout();
+    m_subsystem.kickoutReverse();
     
   }
 

@@ -63,10 +63,10 @@ public void stopintake() {
 }
 public void runShooter() {
 
-  conveyorbeltRight.set(-.5);
-  conveyorbeltLeft.set(.5);
-  rightShooter.set(ControlMode.PercentOutput, -.8);
-  leftShooter.set(ControlMode.PercentOutput, .8);
+  conveyorbeltRight.set(-.7);
+  conveyorbeltLeft.set(.7);
+  rightShooter.set(ControlMode.PercentOutput, -.5);
+  leftShooter.set(ControlMode.PercentOutput, .5);
 }
 public void stopShooter(){
   conveyorbeltRight.set(0);

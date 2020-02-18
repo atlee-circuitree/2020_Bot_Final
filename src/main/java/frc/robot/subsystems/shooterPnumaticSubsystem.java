@@ -22,7 +22,6 @@ import frc.robot.Constants;
 public class shooterPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid shooterPnumatic = null;
-  Compressor compressor = null;
 
   public shooterPnumaticSubsystem() {
 
