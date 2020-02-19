@@ -218,7 +218,7 @@ public class RobotContainer {
 
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
-    //Driver2X.toggleWhenPressed(m_kickoutPnumaticCommand);
+    Driver2X.whileHeld(m_spinWheelMotorCommand);
     //Driver2Y.toggleWhenPressed(m_kickoutReversePnumaticCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);

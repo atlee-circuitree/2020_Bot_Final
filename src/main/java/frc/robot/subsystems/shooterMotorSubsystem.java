@@ -65,8 +65,8 @@ public void runShooter() {
 
   conveyorbeltRight.set(-.7);
   conveyorbeltLeft.set(.7);
-  rightShooter.set(ControlMode.PercentOutput, -.5);
-  leftShooter.set(ControlMode.PercentOutput, .5);
+  rightShooter.set(ControlMode.PercentOutput, -.7);
+  leftShooter.set(ControlMode.PercentOutput, .7);
 }
 public void stopShooter(){
   conveyorbeltRight.set(0);
