@@ -52,12 +52,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.commands.ballObstructionSensorCommand;
-import frc.robot.commands.conveyorbeltObstructedCommand;
-import frc.robot.commands.conveyorbeltclearCommand;
-
-import frc.robot.commands.conveyorbeltObstructedCommand;
-import frc.robot.commands.conveyorbeltclearCommand;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -139,15 +133,6 @@ public class RobotContainer {
   
   private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
 
-  private final conveyorbeltclearCommand m_cConveyorbeltclearCommand = new conveyorbeltclearCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
-
-  private final conveyorbeltObstructedCommand m_ConveyorbeltObstructedCommand = new conveyorbeltObstructedCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
- 
- private final SequentialCommandGroup m_shootallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_cConveyorbeltclearCommand);
- 
- private final SequentialCommandGroup m_takeallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_ConveyorbeltObstructedCommand);
- 
-
   public static Object driveRobot;
 
   public static RobotContainer m_RobotContainer;
@@ -227,14 +212,14 @@ public class RobotContainer {
     DriverA.whileHeld(m_runShooterMotorCommand);
     DriverB.whileHeld(m_stopShooterMotorCommand);
     DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
-    DriverY.whileHeld(m_takeallballs);
+    // DriverY.whileHeld(m_shooterOnlyMotorCommand);
     DriverL.whileHeld(m_levelerLeftMotorCommand);
     DriverR.whileHeld(m_levelerRightMotorCommand);
 
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
-    Driver2Y.toggleWhenPressed(m_shootallballs);
+    //Driver2Y.toggleWhenPressed(m_kickoutReversePnumaticCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     
@@ -244,7 +229,6 @@ public class RobotContainer {
     FightStickLB.whenPressed(m_kickoutReversePnumaticCommand);
     FightStickL3.whenPressed(m_climbdownPnumaticCommand);
     FightStickR3.whenPressed(m_climbarmdownPnumaticCommand);
-
     
 
   }
