@@ -63,8 +63,8 @@ public void stopintake() {
 }
 public void runShooter() {
 
-  conveyorbeltRight.set(-.7);
-  conveyorbeltLeft.set(.7);
+  //conveyorbeltRight.set(-.7);
+  //conveyorbeltLeft.set(.7);
   rightShooter.set(ControlMode.PercentOutput, -.7);
   leftShooter.set(ControlMode.PercentOutput, .7);
 }
@@ -76,8 +76,8 @@ public void stopShooter(){
 }
 
 public void conveyorOnly(){
-  conveyorbeltRight.set(.4);
-  conveyorbeltLeft.set(.4);
+  conveyorbeltRight.set(.5);
+  conveyorbeltLeft.set(.5);
   rightShooter.set(TalonSRXControlMode.Velocity, 0);
   leftShooter.set(TalonSRXControlMode.Velocity, 0);
 }

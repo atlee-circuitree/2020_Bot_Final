@@ -212,7 +212,7 @@ public class RobotContainer {
     DriverA.whileHeld(m_runShooterMotorCommand);
     DriverB.whileHeld(m_stopShooterMotorCommand);
     DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
-    DriverY.whileHeld(m_shooterOnlyMotorCommand);
+    // DriverY.whileHeld(m_shooterOnlyMotorCommand);
     DriverL.whileHeld(m_levelerLeftMotorCommand);
     DriverR.whileHeld(m_levelerRightMotorCommand);
 
