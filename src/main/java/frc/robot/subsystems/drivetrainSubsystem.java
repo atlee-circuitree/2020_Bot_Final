@@ -56,7 +56,7 @@ public class drivetrainSubsystem extends SubsystemBase {
 
     public void driveBackwards() {
 
-    leftDrive.set(-.3);
+    leftDrive.set(.3);
     rightDrive.set(-.3);
 
     }
@@ -64,7 +64,7 @@ public class drivetrainSubsystem extends SubsystemBase {
     public void driveSetPercent(double Power) {
 
         leftDrive.set(Power);
-        rightDrive.set(Power);
+        rightDrive.set(-Power);
     
         }
 

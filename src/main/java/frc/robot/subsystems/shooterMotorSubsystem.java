@@ -54,8 +54,8 @@ public void runShooterEncoder() {
 
 public void runShooter50() {
 
-  rightShooter.set(ControlMode.PercentOutput, -.48);
-  leftShooter.set(ControlMode.PercentOutput, .48);
+  rightShooter.set(ControlMode.PercentOutput, -.50);
+  leftShooter.set(ControlMode.PercentOutput, .50);
 }
 
 public void stopShooter(){
