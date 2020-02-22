@@ -33,6 +33,7 @@ import frc.robot.commands.closeShooterPnumaticCommand;
 import frc.robot.commands.conveyorbeltObstructedCommand;
 import frc.robot.commands.conveyorbeltclearCommand;
 import frc.robot.commands.drivetrainCommand;
+import frc.robot.commands.drivetrainPercentPowerAuto;
 import frc.robot.commands.elevatorMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
@@ -178,7 +179,14 @@ public class RobotContainer {
   private final SequentialCommandGroup m_WarmUpAndShootBalls = new SequentialCommandGroup(m_shooterWarmupTimerCommand, m_TimedConveyorGroup);
 
   private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls, m_runShooter50MotorCommandAuto);
+
+  private final TimerCommand m_driveBackwardsTimerAuto = new TimerCommand(1000);
+
+  private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5, m_drivetrainSubsystem);
+
+  private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto, m_drivetrainPercentPowerAuto);
   
+  private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(m_CenterShootFromLine, m_driveBackwardsAndStop);
 
   //private final autonomusCommand2020 m_autonomusCommand = new autonomusCommand2020();
 
@@ -316,7 +324,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (m_CenterShootFromLine);
+    return (m_shootAndDriveBackwards);
     
   }
 }

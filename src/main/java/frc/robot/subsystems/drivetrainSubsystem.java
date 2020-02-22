@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.Constants;
 //import frc.robot.RobotContainer;
+import frc.robot.commands.drivetrainPercentPowerAuto;
 
 
 
@@ -59,6 +60,13 @@ public class drivetrainSubsystem extends SubsystemBase {
     rightDrive.set(-.3);
 
     }
+
+    public void driveSetPercent(double Power) {
+
+        leftDrive.set(Power);
+        rightDrive.set(Power);
+    
+        }
 
     public void driveStop() {
 
