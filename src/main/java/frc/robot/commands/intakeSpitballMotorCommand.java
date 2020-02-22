@@ -9,16 +9,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.shooterMotorSubsystem;
+import frc.robot.subsystems.shooterIntakeSubsystem;
 
 
 public class intakeSpitballMotorCommand extends CommandBase {
 
-  shooterMotorSubsystem m_subsystem;
+  shooterIntakeSubsystem m_subsystem;
    
-  public intakeSpitballMotorCommand(shooterMotorSubsystem motorSubsystem) {
+  public intakeSpitballMotorCommand(shooterIntakeSubsystem intakeSubsystem) {
      
     super();
-    m_subsystem = motorSubsystem;
+    m_subsystem = intakeSubsystem;
     addRequirements(m_subsystem);
 
   }

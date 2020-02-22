@@ -10,20 +10,20 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
-import frc.robot.subsystems.shooterMotorSubsystem;
+import frc.robot.subsystems.shooterIntakeSubsystem;
 
 
 
 public class intakeTakeballMotorCommand extends CommandBase {
 
-  shooterMotorSubsystem m_subsystem;
+  shooterIntakeSubsystem m_subsystem;
   ballObstructionSensorSubsystem m_obstructionsubsystem;
   
    
-  public intakeTakeballMotorCommand(shooterMotorSubsystem motorSubsystem, ballObstructionSensorSubsystem sensorSubsystem) {
+  public intakeTakeballMotorCommand(shooterIntakeSubsystem intakeSubsystem, ballObstructionSensorSubsystem sensorSubsystem) {
      
     super();
-    m_subsystem = motorSubsystem;
+    m_subsystem = intakeSubsystem;
     m_obstructionsubsystem = sensorSubsystem;
     addRequirements(m_subsystem, m_obstructionsubsystem);
 

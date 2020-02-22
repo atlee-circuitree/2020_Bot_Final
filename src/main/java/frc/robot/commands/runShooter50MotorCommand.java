@@ -14,14 +14,15 @@ import frc.robot.subsystems.shooterMotorSubsystem;
 
 public class runShooter50MotorCommand extends CommandBase {
 
+  boolean stopMotorWhenDone = false;
   shooterMotorSubsystem m_subsystem;
    
-  public runShooter50MotorCommand(shooterMotorSubsystem motorSubsystem) {
+  public runShooter50MotorCommand(shooterMotorSubsystem motorSubsystem, boolean StopWhenDone) {
      
     super();
     m_subsystem = motorSubsystem;
     addRequirements(m_subsystem);
-
+    stopMotorWhenDone = StopWhenDone;
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +41,8 @@ public class runShooter50MotorCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    if(stopMotorWhenDone)
+      m_subsystem.stopShooter();
     
 
   }

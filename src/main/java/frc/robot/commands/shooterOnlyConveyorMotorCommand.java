@@ -9,17 +9,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.shooterMotorSubsystem;
+import frc.robot.subsystems.shooterIntakeSubsystem;
 
 
 public class shooterOnlyConveyorMotorCommand extends CommandBase {
 
-  shooterMotorSubsystem m_subsystem;
+  shooterIntakeSubsystem m_subsystem;
    
-  public shooterOnlyConveyorMotorCommand(shooterMotorSubsystem motorSubsystem) {
+  public shooterOnlyConveyorMotorCommand(shooterIntakeSubsystem intakeSubsystem) {
      
     super();
-    m_subsystem = motorSubsystem;
+    m_subsystem = intakeSubsystem;
     addRequirements(m_subsystem);
 
   }

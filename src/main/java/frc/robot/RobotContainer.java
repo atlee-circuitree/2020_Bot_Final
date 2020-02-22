@@ -55,6 +55,7 @@ import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.levelerMotorSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem;
+import frc.robot.subsystems.shooterIntakeSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 import frc.robot.subsystems.wheelMotorSubsystem;
 import frc.robot.Constants;
@@ -88,6 +89,7 @@ public class RobotContainer {
   private final autonomusCommand2020 m_autonomusCommand2020 = new autonomusCommand2020();
 
   private final shooterMotorSubsystem m_shooterMotorSubsystem = new shooterMotorSubsystem();
+  private final shooterIntakeSubsystem m_shooterIntakeSubsystem = new shooterIntakeSubsystem();
 
   private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
 
@@ -134,11 +136,11 @@ public class RobotContainer {
 
   private final stopShooterMotorCommand m_stopShooterMotorCommand2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
 
-  private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(m_shooterMotorSubsystem);
+  private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(m_shooterIntakeSubsystem);
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand2 = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand2 = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
 
   private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(m_shooterMotorSubsystem);
   
@@ -154,11 +156,11 @@ public class RobotContainer {
 
   private final kickoutReversePnumaticCommand m_kickoutReversePnumaticCommand = new kickoutReversePnumaticCommand(m_kickoutPnumaticSubsystem);
 
-  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
+  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterIntakeSubsystem, m_bBallObstructionSensorSubsystem);
 
-  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterMotorSubsystem);
+  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
 
-  private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem);
+  private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
   
@@ -167,9 +169,9 @@ public class RobotContainer {
   //This is for autonomous to clear all three balls
   private final TimerCommand m_shooterConveyorTimerCommand = new TimerCommand(2000);
 
-  private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(m_shooterMotorSubsystem);
+  private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(m_shooterMotorSubsystem, true);
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
 
   private final ParallelDeadlineGroup m_TimedConveyorGroup = new ParallelDeadlineGroup(m_shooterConveyorTimerCommand, m_shooterOnlyConveyorMotorCommandAuto);
 
