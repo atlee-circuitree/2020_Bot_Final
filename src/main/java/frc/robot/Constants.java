@@ -78,6 +78,9 @@ public final class Constants {
   
   public static int intakeMotor = 5;
 
+  public static final int intakeEncoderPortA = 5;
+  public static final int intakeEncoderPortB = 6;
+
   public static int wheelMotor = 10;
 
   //public static int colorwheelmotor = 0;

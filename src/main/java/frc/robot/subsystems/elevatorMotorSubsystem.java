@@ -40,7 +40,7 @@ public void moveShooterUp()
 
 public void moveShooterDown() {
 
-  elevatorMotor.set(-.5);
+  elevatorMotor.set(-0.5);
    
 }
 

@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 //import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -50,6 +51,20 @@ public class drivetrainSubsystem extends SubsystemBase {
     public void driveRobot(Double X, double Y) {
 
         robotDrive.arcadeDrive(-Y, X);
+    }
+
+    public void driveBackwards() {
+
+    leftDrive.set(-.3);
+    rightDrive.set(-.3);
+
+    }
+
+    public void driveStop() {
+
+        leftDrive.set(0);
+        rightDrive.set(0);
+    
     }
 
 }

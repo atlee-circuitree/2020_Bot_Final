@@ -41,7 +41,7 @@ public class runShooterMotorCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_subsystem.stopShooter();
+    
 
   }
 

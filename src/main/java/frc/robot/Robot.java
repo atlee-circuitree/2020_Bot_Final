@@ -9,10 +9,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.runShooterMotorCommand;
+import frc.robot.commands.shooterOnlyConveyorMotorCommand;
+import frc.robot.commands.stopElevatorMotorCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -28,6 +33,8 @@ public class Robot extends TimedRobot {
   private Compressor Compressor2020;
 
   private Constants m_constants;
+ 
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -39,6 +46,8 @@ public class Robot extends TimedRobot {
      Compressor2020 = new Compressor(0);
      //Compressor2020.start();
      m_robotContainer = new RobotContainer();
+
+
 
    // m_constants.airCompressor = new Compressor(m_constants.compressorPort);
 
@@ -112,7 +121,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
+ 
   }
 
   @Override

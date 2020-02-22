@@ -31,13 +31,13 @@ public class levelerMotorSubsystem extends SubsystemBase {
   
   public void levelLeftMotor() {
 
-    levelMotor.set(.5); 
+    levelMotor.set(1); 
       
   }
 
   public void levelRightMotor() {
 
-    levelMotor.set(-.5); 
+    levelMotor.set(-1); 
       
   }
 

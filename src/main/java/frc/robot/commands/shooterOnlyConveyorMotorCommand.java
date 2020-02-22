@@ -41,7 +41,7 @@ public class shooterOnlyConveyorMotorCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_subsystem.stopShooter();
+    m_subsystem.stopConveyor();
 
   }
 

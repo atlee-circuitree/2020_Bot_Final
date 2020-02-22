@@ -15,16 +15,23 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TimerCommand;
+import frc.robot.commands.autonomusCommand2020;
 import frc.robot.commands.ballObstructionSensorCommand;
 import frc.robot.commands.climbarmdownPnumaticCommand;
 import frc.robot.commands.climbarmupPnumaticCommand;
 import frc.robot.commands.climbdownPnumaticCommand;
 import frc.robot.commands.climbupPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
+import frc.robot.commands.conveyorbeltObstructedCommand;
+import frc.robot.commands.conveyorbeltclearCommand;
 import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.elevatorMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
@@ -34,10 +41,12 @@ import frc.robot.commands.kickoutReversePnumaticCommand;
 import frc.robot.commands.levelerLeftMotorCommand;
 import frc.robot.commands.levelerRightMotorCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
+import frc.robot.commands.runShooter50MotorCommand;
 import frc.robot.commands.runShooterMotorCommand;
 import frc.robot.commands.shooterOnlyConveyorMotorCommand;
 import frc.robot.commands.shooterOnlyMotorCommand;
 import frc.robot.commands.spinWheelMotorCommand;
+import frc.robot.commands.stopConveyorMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
@@ -52,6 +61,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.commands.ballObstructionSensorCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -75,6 +85,8 @@ public class RobotContainer {
   // kickoutPnumaticSubsystem();
   private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
 
+  private final autonomusCommand2020 m_autonomusCommand2020 = new autonomusCommand2020();
+
   private final shooterMotorSubsystem m_shooterMotorSubsystem = new shooterMotorSubsystem();
 
   private final climbPnumaticSubsystem m_climbPnumaticSubsystem = new climbPnumaticSubsystem();
@@ -83,9 +95,18 @@ public class RobotContainer {
 
   private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
 
+  //private final autonomusCommand2020 m_autonomusCommand2020 = new autonomusCommand2020();
+
+  private final WaitCommand m_Wait500Command = new WaitCommand(.5);
+
+  private final WaitCommand m_Wait1000Command = new WaitCommand(1);
+
+  private final WaitCommand m_Wait2000Command = new WaitCommand(2);
+
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final ballObstructionSensorSubsystem m_bBallObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
   private final wheelMotorSubsystem m_wheelMotorSubsystem = new wheelMotorSubsystem();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand(m_climbPnumaticSubsystem);
@@ -106,9 +127,19 @@ public class RobotContainer {
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
   private final runShooterMotorCommand m_runShooterMotorCommand = new runShooterMotorCommand(m_shooterMotorSubsystem);
-  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(
-      m_shooterMotorSubsystem);
+
+  private final runShooterMotorCommand m_runShooterMotorCommand2 = new runShooterMotorCommand(m_shooterMotorSubsystem);
+
+  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+
+  private final stopShooterMotorCommand m_stopShooterMotorCommand2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+
+  private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(m_shooterMotorSubsystem);
+
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand2 = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+
   private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+
   private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(m_shooterMotorSubsystem);
   
   private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(m_kickoutPnumaticSubsystem);
@@ -126,12 +157,46 @@ public class RobotContainer {
   private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterMotorSubsystem);
+
+  private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem);
+
+  private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
+  
+  private final TimerCommand m_shooterWarmupTimerCommand = new TimerCommand(1000);
+
+  //This is for autonomous to clear all three balls
+  private final TimerCommand m_shooterConveyorTimerCommand = new TimerCommand(2000);
+
+  private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(m_shooterMotorSubsystem);
+
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(m_shooterMotorSubsystem);
+
+  private final ParallelDeadlineGroup m_TimedConveyorGroup = new ParallelDeadlineGroup(m_shooterConveyorTimerCommand, m_shooterOnlyConveyorMotorCommandAuto);
+
+  private final SequentialCommandGroup m_WarmUpAndShootBalls = new SequentialCommandGroup(m_shooterWarmupTimerCommand, m_TimedConveyorGroup);
+
+  private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls, m_runShooter50MotorCommandAuto);
+  
+
+  //private final autonomusCommand2020 m_autonomusCommand = new autonomusCommand2020();
+
+  //Wait 1 second.
   
   //private final ParallelDeadlineGroup m_intakefulltakeballParallel = new ParallelDeadlineGroup(m_ballObstructionSensorCommand, m_intakeTakeballMotorCommand);
+
+  //private final conveyorbeltclearCommand m_ConveyorbeltclearCommand = new conveyorbeltclearCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
+
+ // private final conveyorbeltObstructedCommand m_ConveyorbeltObstructedCommand = new conveyorbeltObstructedCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
+
+  //private final SequentialCommandGroup m_shootallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_ConveyorbeltclearCommand);
+
+  //private final SequentialCommandGroup m_takeallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_ConveyorbeltObstructedCommand);
 
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
   private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
+
+  //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
   public static Object driveRobot;
 
@@ -156,12 +221,17 @@ public class RobotContainer {
     JoystickButton Driver2Y = new JoystickButton(Xbox2, XboxController.Button.kY.value); 
     JoystickButton Driver2L = new JoystickButton(Xbox2, XboxController.Button.kBumperLeft.value); 
     JoystickButton Driver2R = new JoystickButton(Xbox2, XboxController.Button.kBumperRight.value); 
-    JoystickButton FightStickB = new JoystickButton(Fightstick, 2);
+    JoystickButton FightStickB = new JoystickButton(Fightstick, 3);
     JoystickButton FightStickY = new JoystickButton(Fightstick, 4);
     JoystickButton FightStickLB = new JoystickButton(Fightstick, 5);
     JoystickButton FightStickRB = new JoystickButton(Fightstick, 6);
     JoystickButton FightStickL3 = new JoystickButton(Fightstick, 9);
     JoystickButton FightStickR3 = new JoystickButton(Fightstick, 10);
+    JoystickButton FightStickL1 = new JoystickButton(Fightstick, 5);
+    //JoystickButton FightStickRT = new JoystickButton(Fightstick, 8);
+    JoystickButton FightStickSHARE = new JoystickButton(Fightstick, 7);
+    JoystickButton FightStickOPTIONS = new JoystickButton(Fightstick, 8);
+    
     
     
   /**
@@ -212,7 +282,7 @@ public class RobotContainer {
     DriverA.whileHeld(m_runShooterMotorCommand);
     DriverB.whileHeld(m_stopShooterMotorCommand);
     DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
-    // DriverY.whileHeld(m_shooterOnlyMotorCommand);
+    DriverY.whileHeld(m_runShooter50MotorCommand);
     DriverL.whileHeld(m_levelerLeftMotorCommand);
     DriverR.whileHeld(m_levelerRightMotorCommand);
 
@@ -223,12 +293,15 @@ public class RobotContainer {
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     
-    FightStickB.whenPressed(m_climbupPnumaticCommand);
+    //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbarmupPnumaticCommand);
-    FightStickRB.whenPressed(m_kickoutPnumaticCommand);
-    FightStickLB.whenPressed(m_kickoutReversePnumaticCommand);
+    FightStickRB.whenPressed(m_climbupPnumaticCommand);
+    //FightStickRT.whenPressed(m_kickoutPnumaticCommand);
     FightStickL3.whenPressed(m_climbdownPnumaticCommand);
-    FightStickR3.whenPressed(m_climbarmdownPnumaticCommand);
+    //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
+    FightStickL1.whenPressed(m_climbarmdownPnumaticCommand);
+    FightStickOPTIONS.whenPressed(m_kickoutPnumaticCommand);
+    FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
     
 
   }
@@ -241,15 +314,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return (m_CenterShootFromLine);
     
   }
 }
-
-/*  D4.toggleWhenPressed(new climbdownPnumaticCommand());
-    D2.toggleWhenPressed(new climbupPnumaticCommand());
-    X1.toggleWhenPressed(new openShooterPnumaticCommand());
-    X2.toggleWhenPressed(new closeShooterPnumaticCommand());
-    D3.toggleWhenPressed(new climbArmupPnumaticCommand());
-    D5.toggleWhenPressed(new climbArmdownPnumaticCommand());
-    D1.toggleWhenPressed(new kickoutRobotPnumaticCommand());        */
