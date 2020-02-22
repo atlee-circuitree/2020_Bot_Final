@@ -41,8 +41,10 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
 public void runShooter() {
 
-  rightShooter.set(ControlMode.Velocity, 80);
-  leftShooter.set(ControlMode.Velocity, 80);
+  //rightShooter.set(ControlMode.Velocity, -900);
+  //leftShooter.set(ControlMode.Velocity, 900);
+  rightShooter.set(ControlMode.PercentOutput, -.8);
+  leftShooter.set(ControlMode.PercentOutput, .8);
 }
 
 public void runShooterEncoder() {
@@ -69,8 +71,11 @@ public void shooterOnly() {
 
   //conveyorbeltRight.set(0);
   //conveyorbeltLeft.set(0);
-  rightShooter.set(TalonSRXControlMode.Velocity, -.8);
-  leftShooter.set(TalonSRXControlMode.Velocity, .8);
+ // rightShooter.set(TalonSRXControlMode.Velocity, -1000);
+ // leftShooter.set(TalonSRXControlMode.Velocity, 1000);
+  rightShooter.set(ControlMode.PercentOutput, -.8);
+  leftShooter.set(ControlMode.PercentOutput, .8);
+
 
 }
 
