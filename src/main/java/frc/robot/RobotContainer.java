@@ -25,10 +25,10 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TimerCommand;
 import frc.robot.commands.autonomusCommand2020;
 import frc.robot.commands.ballObstructionSensorCommand;
-import frc.robot.commands.climbarmdownPnumaticCommand;
-import frc.robot.commands.climbarmupPnumaticCommand;
-import frc.robot.commands.climbdownPnumaticCommand;
-import frc.robot.commands.climbupPnumaticCommand;
+import frc.robot.commands.climbArmDownPnumaticCommand;
+import frc.robot.commands.climbArmUpPnumaticCommand;
+import frc.robot.commands.climbHookExtendPnumaticCommand;
+import frc.robot.commands.climbHookRetractPnumaticCommand;
 import frc.robot.commands.closeShooterPnumaticCommand;
 import frc.robot.commands.conveyorbeltObstructedCommand;
 import frc.robot.commands.conveyorbeltclearCommand;
@@ -98,7 +98,8 @@ public class RobotContainer {
 
   private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
 
-  //private final autonomusCommand2020 m_autonomusCommand2020 = new autonomusCommand2020();
+  // private final autonomusCommand2020 m_autonomusCommand2020 = new
+  // autonomusCommand2020();
 
   private final WaitCommand m_Wait500Command = new WaitCommand(.5);
 
@@ -112,12 +113,13 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final climbupPnumaticCommand m_climbupPnumaticCommand = new climbupPnumaticCommand(m_climbPnumaticSubsystem);
-  private final climbdownPnumaticCommand m_climbdownPnumaticCommand = new climbdownPnumaticCommand(
+  private final climbArmUpPnumaticCommand m_climbArmUpPnumaticCommand = new climbArmUpPnumaticCommand(
       m_climbPnumaticSubsystem);
-  private final climbarmupPnumaticCommand m_climbarmupPnumaticCommand = new climbarmupPnumaticCommand(
+  private final climbArmDownPnumaticCommand m_climbArmDownPnumaticCommand = new climbArmDownPnumaticCommand(
       m_climbPnumaticSubsystem);
-  private final climbarmdownPnumaticCommand m_climbarmdownPnumaticCommand = new climbarmdownPnumaticCommand(
+  private final climbHookExtendPnumaticCommand m_climbHookExtendPnumaticCommand = new climbHookExtendPnumaticCommand(
+      m_climbPnumaticSubsystem);
+  private final climbHookRetractPnumaticCommand m_climbHookRetractPnumaticCommand = new climbHookRetractPnumaticCommand(
       m_climbPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
@@ -308,12 +310,12 @@ public class RobotContainer {
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
-    FightStickY.whenPressed(m_climbarmupPnumaticCommand);
-    FightStickRB.whenPressed(m_climbupPnumaticCommand);
+    FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
+    FightStickRB.whenPressed(m_climbArmUpPnumaticCommand);
     //FightStickRT.whenPressed(m_kickoutPnumaticCommand);
-    FightStickL3.whenPressed(m_climbdownPnumaticCommand);
+    FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
-    FightStickL1.whenPressed(m_climbarmdownPnumaticCommand);
+    FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(m_kickoutPnumaticCommand);
     FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
     

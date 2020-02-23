@@ -20,8 +20,8 @@ import frc.robot.Constants;
  */
 public class climbPnumaticSubsystem extends SubsystemBase {
    
-  DoubleSolenoid climbPnumatic = null;
   DoubleSolenoid climbArmPnumatic = null;
+  DoubleSolenoid climbHookPnumatic = null;
   public ArmPosition liftArmPosition = ArmPosition.Down;
   public enum ArmPosition
   {
@@ -31,47 +31,47 @@ public class climbPnumaticSubsystem extends SubsystemBase {
 
   public climbPnumaticSubsystem() {
 
-    climbPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    climbArmPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
 
-    climbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
+    climbHookPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
     
   }
 
   //Moves the climing arm into the upright position
-  public void climbUp() {
+  public void climbArmUp() {
 
-    climbPnumatic.set(Value.kForward);
+    climbArmPnumatic.set(Value.kForward);
     liftArmPosition = ArmPosition.Up;
 
   }
 
   //moves the climbing arm into the down position
-  public void climbDown() {
+  public void climbArmDown() {
 
-    climbPnumatic.set(Value.kReverse);
+    climbArmPnumatic.set(Value.kReverse);
     liftArmPosition = ArmPosition.Down;
     
   }
 
   //extends the hook
-  public void climbArmUp() {
+  public void climbHookExtend() {
 
     if (liftArmPosition == ArmPosition.Up) {
 
-     climbArmPnumatic.set(Value.kForward);
+     climbHookPnumatic.set(Value.kForward);
 
     } else {
 
-     System.out.println("Error, Stage 1 not initalized");
+     System.out.println("Error, Climb Arm is not up. Must raise");
 
     }
 
   }
 
   //retracts the hook
-  public void climbArmDown() {
+  public void climbHookRetract() {
 
-    climbArmPnumatic.set(Value.kForward);
+    climbHookPnumatic.set(Value.kForward);
      
   }
 

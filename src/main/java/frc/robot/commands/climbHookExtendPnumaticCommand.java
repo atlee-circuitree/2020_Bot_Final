@@ -11,11 +11,11 @@ import frc.robot.subsystems.climbPnumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  
-public class climbupPnumaticCommand extends InstantCommand {
+public class climbHookExtendPnumaticCommand extends InstantCommand {
    
   climbPnumaticSubsystem m_subsystem;
 
-  public climbupPnumaticCommand(climbPnumaticSubsystem pnumaticSubsystem) {
+  public climbHookExtendPnumaticCommand(climbPnumaticSubsystem pnumaticSubsystem) {
 
     super();
     m_subsystem = pnumaticSubsystem;
@@ -26,7 +26,7 @@ public class climbupPnumaticCommand extends InstantCommand {
 @Override
   public void initialize() {
 
-    m_subsystem.climbUp();
+    m_subsystem.climbArmUp();
     
   }
 
