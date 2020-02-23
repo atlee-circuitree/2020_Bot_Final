@@ -22,11 +22,17 @@ public class climbPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid climbArmPnumatic = null;
   DoubleSolenoid climbHookPnumatic = null;
-  public ArmPosition liftArmPosition = ArmPosition.Down;
-  public enum ArmPosition
+  public ClimbArmPosition climbArmPosition = ClimbArmPosition.DOWN;
+  public ClimbHookPosition climbHookPosition = ClimbHookPosition.RETRACTED;
+  public enum ClimbArmPosition
   {
-    Up,
-    Down
+    UP,
+    DOWN
+  }
+  public enum ClimbHookPosition
+  {
+    EXTENDED,
+    RETRACTED
   }
 
   public climbPnumaticSubsystem() {
@@ -41,38 +47,52 @@ public class climbPnumaticSubsystem extends SubsystemBase {
   public void climbArmUp() {
 
     climbArmPnumatic.set(Value.kForward);
-    liftArmPosition = ArmPosition.Up;
+    climbArmPosition = ClimbArmPosition.UP;
 
   }
 
   //moves the climbing arm into the down position
   public void climbArmDown() {
 
+    if (climbHookPosition == ClimbHookPosition.RETRACTED) {
+
     climbArmPnumatic.set(Value.kReverse);
-    liftArmPosition = ArmPosition.Down;
+
+    } else {
+
+      System.out.println("Error, Climb Hook is extended. Must retract");
+
+    }
+
+    climbArmPosition = ClimbArmPosition.DOWN;
     
   }
 
   //extends the hook
   public void climbHookExtend() {
 
-    if (liftArmPosition == ArmPosition.Up) {
+    if (climbArmPosition == ClimbArmPosition.UP) {
 
      climbHookPnumatic.set(Value.kForward);
 
     } else {
 
-     System.out.println("Error, Climb Arm is not up. Must raise");
+      System.out.println("Error, Climb Arm is not up. Must raise");
 
     }
+
+    climbHookPosition = ClimbHookPosition.EXTENDED;
 
   }
 
   //retracts the hook
   public void climbHookRetract() {
 
-    climbHookPnumatic.set(Value.kForward);
+    climbHookPnumatic.set(Value.kReverse);
      
+    climbHookPosition = ClimbHookPosition.RETRACTED;
+
   }
 
+  
 }

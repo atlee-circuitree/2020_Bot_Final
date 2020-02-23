@@ -26,7 +26,7 @@ public class climbHookExtendPnumaticCommand extends InstantCommand {
 @Override
   public void initialize() {
 
-    m_subsystem.climbArmUp();
+    m_subsystem.climbHookExtend();
     
   }
 
