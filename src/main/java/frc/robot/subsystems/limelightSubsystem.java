@@ -5,29 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.subsystems;
 
-import frc.robot.subsystems.climbPnumaticSubsystem;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
- 
-public class climbrmUpPnumaticCommand extends InstantCommand {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+
+public class limelightSubsystem extends SubsystemBase {
+
+  
    
-  climbPnumaticSubsystem m_subsystem;
+  public limelightSubsystem() {
 
-  public climbArmUpPnumaticCommand(climbPnumaticSubsystem pnumaticSubsystem) {
 
-    super();
-    m_subsystem = pnumaticSubsystem;
-    addRequirements(m_subsystem);
-    
+
   }
-
-@Override
-  public void initialize() {
-
-    m_subsystem.climbArmUp();
-    
-  }
-
+ 
 }
