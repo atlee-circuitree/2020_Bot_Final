@@ -22,7 +22,12 @@ public class climbPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid climbPnumatic = null;
   DoubleSolenoid climbArmPnumatic = null;
-  
+  public ArmPosition liftArmPosition = ArmPosition.Down;
+  public enum ArmPosition
+  {
+    Up,
+    Down
+  }
 
   public climbPnumaticSubsystem() {
 
@@ -32,27 +37,41 @@ public class climbPnumaticSubsystem extends SubsystemBase {
     
   }
 
+  //Moves the climing arm into the upright position
   public void climbUp() {
 
     climbPnumatic.set(Value.kForward);
+    liftArmPosition = ArmPosition.Up;
 
   }
 
+  //moves the climbing arm into the down position
   public void climbDown() {
 
     climbPnumatic.set(Value.kReverse);
+    liftArmPosition = ArmPosition.Down;
     
   }
 
+  //extends the hook
   public void climbArmUp() {
 
-    climbArmPnumatic.set(Value.kForward);
+    if (liftArmPosition == ArmPosition.Up) {
+
+     climbArmPnumatic.set(Value.kForward);
+
+    } else {
+
+     System.out.println("Error, Stage 1 not initalized");
+
+    }
 
   }
 
+  //retracts the hook
   public void climbArmDown() {
 
-    climbArmPnumatic.set(Value.kReverse);
+    climbArmPnumatic.set(Value.kForward);
      
   }
 

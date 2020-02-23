@@ -31,7 +31,7 @@ public class wheelMotorSubsystem extends SubsystemBase {
   
   public void spinWheelMotor() {
 
-    wheelMotor.set(1); 
+    wheelMotor.set(.6); 
       
   }
 
