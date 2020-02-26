@@ -35,12 +35,12 @@ public void runElevator(double power) {
 
 public void moveShooterUp()
 {
-  elevatorMotor.set(0.5);
+  elevatorMotor.set(1);
 }
 
 public void moveShooterDown() {
 
-  elevatorMotor.set(-0.5);
+  elevatorMotor.set(-1);
    
 }
 

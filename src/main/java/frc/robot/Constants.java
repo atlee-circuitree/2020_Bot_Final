@@ -30,6 +30,8 @@ public final class Constants {
   public static int driveBackleftMotor = 3;
   public static int driveBackrightMotor = 1;
 
+  public static int PORT_OBSTRUCTION_SENSOR = 0;
+
   public static final int rotate90Left = -13;  
   public static final int rotate90Right = 13; 
   public static final int rotate180 = 26;      

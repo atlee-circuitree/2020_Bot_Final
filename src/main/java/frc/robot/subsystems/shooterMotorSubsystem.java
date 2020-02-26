@@ -41,10 +41,9 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
 public void runShooter() {
 
-  //rightShooter.set(ControlMode.Velocity, -900);
-  //leftShooter.set(ControlMode.Velocity, 900);
-  rightShooter.set(ControlMode.PercentOutput, -.75);
-  leftShooter.set(ControlMode.PercentOutput, .75);
+  rightShooter.set(ControlMode.Velocity, -100);
+  leftShooter.set(ControlMode.Velocity, 100);
+
 }
 
 public void runShooterEncoder() {

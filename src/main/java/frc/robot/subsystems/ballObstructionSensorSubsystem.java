@@ -2,17 +2,18 @@ package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
  
  
 public class ballObstructionSensorSubsystem extends SubsystemBase {
- 
+
 DigitalInput input;
+
  
-  
 public ballObstructionSensorSubsystem() {
- 
-input = new DigitalInput(0);
- 
+
+  input = new DigitalInput(Constants.PORT_OBSTRUCTION_SENSOR);
+
 }
  
 public boolean isObstructed() {
