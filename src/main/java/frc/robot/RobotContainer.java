@@ -9,11 +9,14 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -21,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TimerCommand;
 import frc.robot.commands.autonomusCommand2020;
@@ -41,6 +45,7 @@ import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.kickoutReversePnumaticCommand;
 import frc.robot.commands.levelerLeftMotorCommand;
 import frc.robot.commands.levelerRightMotorCommand;
+import frc.robot.commands.limelightAutoAimCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooter50MotorCommand;
 import frc.robot.commands.runShooterMotorCommand;
@@ -136,6 +141,9 @@ public class RobotContainer {
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
 
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand3 = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+
 
   private final runShooterMotorCommand m_runShooterMotorCommand = new runShooterMotorCommand(m_shooterMotorSubsystem);
 
@@ -172,6 +180,8 @@ public class RobotContainer {
   private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
 
   private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(m_limelightSubsystem);
+
+  private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(m_limelightSubsystem);
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
   
@@ -220,23 +230,25 @@ public class RobotContainer {
 
   //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
+  private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+
   public static Object driveRobot;
 
   public static RobotContainer m_RobotContainer;
 
   public static Constants m_constants;
 
-  public static XboxController Xbox1 = new XboxController(0);
-  public static XboxController Xbox2 = new XboxController(1);
-  public static Joystick Fightstick = new Joystick(2);
-  
-    //JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
+    public static XboxController Xbox1 = new XboxController(0);
+    public static XboxController Xbox2 = new XboxController(1);
+    public static Joystick Fightstick = new Joystick(2);
+
     JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
     JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
     JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
     JoystickButton DriverL = new JoystickButton(Xbox1, XboxController.Button.kBumperLeft.value);
     JoystickButton DriverR = new JoystickButton(Xbox1, XboxController.Button.kBumperRight.value);
+    
     JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
     JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value); 
     JoystickButton Driver2X = new JoystickButton(Xbox2, XboxController.Button.kX.value); 
@@ -301,7 +313,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    DriverA.whileHeld(m_runShooterMotorCommand);
+    DriverA.whileHeld(m_runShooterAndClosePnumatic);
     DriverB.whileHeld(m_stopShooterMotorCommand);
     DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
     DriverY.whileHeld(m_runShooter50MotorCommand);
@@ -311,7 +323,7 @@ public class RobotContainer {
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
-    //Driver2Y.toggleWhenPressed(m_kickoutReversePnumaticCommand);
+    Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     

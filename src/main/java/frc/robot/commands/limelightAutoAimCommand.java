@@ -7,36 +7,30 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrainSubsystem;
+import frc.robot.subsystems.limelightSubsystem;
 
+public class limelightAutoAimCommand extends CommandBase {
 
-public class drivetrainCommand extends CommandBase {
-  XboxController xbcDriveController;
-  drivetrainSubsystem m_subsystem;
+  limelightSubsystem m_subsystem;
    
-  public drivetrainCommand(XboxController driveController, drivetrainSubsystem driveSubsystem) {
+  public limelightAutoAimCommand(limelightSubsystem aimingSubsystem) {
+     
     super();
-    xbcDriveController = driveController;
-    m_subsystem = driveSubsystem; 
+    m_subsystem = aimingSubsystem;
     addRequirements(m_subsystem);
-
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    m_subsystem.driveRobot(xbcDriveController.getX(Hand.kRight), xbcDriveController.getY(Hand.kLeft));
+    m_subsystem.LimelightSteer();
 
   }
 
@@ -44,12 +38,8 @@ public class drivetrainCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
+    m_subsystem.stopDrive();
 
   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 }
