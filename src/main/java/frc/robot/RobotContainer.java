@@ -100,6 +100,8 @@ public class RobotContainer {
 
   private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
 
+  private final limelightSubsystem m_limelightSubsystem = new limelightSubsystem();
+
   // private final autonomusCommand2020 m_autonomusCommand2020 = new
   // autonomusCommand2020();
 

@@ -12,7 +12,7 @@ import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterIntakeSubsystem;
 
 
-public class straighenballsCommand extends CommandBase {
+public class straightenballsCommand extends CommandBase {
 
   shooterIntakeSubsystem m_subsystem;
    
