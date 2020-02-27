@@ -30,7 +30,14 @@ public class shooterMotorSubsystem extends SubsystemBase {
   TalonSRX rightShooter = null;
   TalonSRX leftShooter = null;
   
-   
+  public ShooterMotorStatus shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
+
+  public enum ShooterMotorStatus
+  {
+    IS_RUNNING,
+    IS_NOT_RUNNING
+  }
+
   public shooterMotorSubsystem() {
 
   rightShooter = new TalonSRX(Constants.rightShooter);
@@ -40,9 +47,32 @@ public class shooterMotorSubsystem extends SubsystemBase {
 }
 
 public void runShooter() {
+ 
+  if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
 
-  rightShooter.set(ControlMode.Velocity, -100);
-  leftShooter.set(ControlMode.Velocity, 100);
+    rightShooter.set(ControlMode.PercentOutput, -.75);
+    leftShooter.set(ControlMode.PercentOutput, .75);
+
+  } else {
+
+    rightShooter.set(ControlMode.PercentOutput, 0);
+    leftShooter.set(ControlMode.PercentOutput, 0);
+
+  }
+
+}
+
+public void flipShooterState() {
+
+  if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
+
+    shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
+
+  } else {
+
+    shooterMotorStatus = ShooterMotorStatus.IS_RUNNING;
+
+  }
 
 }
 
