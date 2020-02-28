@@ -7,6 +7,10 @@
 
 // FROM LARSON!! https://www.chiefdelphi.com/t/error-message-from-robotbase/162791/12
 
+//Starting Position Angle 38 Degrees
+
+// Robot is 158 incines from the cell port
+
 package frc.robot;
 
 import java.util.function.BooleanSupplier;

@@ -88,8 +88,8 @@ public void stopConveyor(){
 
 public void conveyorOnly(){
 
-  conveyorbeltRight.set(-.7);
-  conveyorbeltLeft.set(.7);
+  conveyorbeltRight.set(-.5);
+  conveyorbeltLeft.set(.5);
   
 }
 

@@ -38,13 +38,13 @@ public class ShootWaitVelocity extends CommandBase {
   public void execute() {
     
     m_subsystem2.getVelocity();
-    //if (m_subsystem2.getVelocity() > 100 ) {
 
-    m_subsystem.conveyorOnly();
+    if (m_subsystem2.shooterVelocity > 9000) {
 
-    //}
+      m_subsystem.conveyorOnly();
+
+    }
     
-
   }
 
   // Called once the command ends or is interrupted.
