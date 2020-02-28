@@ -42,20 +42,20 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
   rightShooter = new TalonSRX(Constants.rightShooter);
   leftShooter = new TalonSRX(Constants.leftShooter);
-
+  rightShooter.follow(leftShooter);
+	rightShooter.setInverted(true);
   
 }
 
 public void runShooter() {
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
-
-    rightShooter.set(ControlMode.PercentOutput, -.75);
-    leftShooter.set(ControlMode.PercentOutput, .75);
+    
+    leftShooter.set(ControlMode.Velocity, -15500);
 
   } else {
 
-    rightShooter.set(ControlMode.PercentOutput, 0);
+    //rightShooter.set(ControlMode.PercentOutput, 0);
     leftShooter.set(ControlMode.PercentOutput, 0);
 
   }
@@ -78,31 +78,27 @@ public void flipShooterState() {
 
 public void runShooterEncoder() {
 
-   rightShooter.set(ControlMode.Position, 100000);
+   //rightShooter.set(ControlMode.Position, 100000);
    leftShooter.set(ControlMode.Position, 100000);
 
 }
 
 public void runShooter50() {
 
-  rightShooter.set(ControlMode.PercentOutput, -.48);
+  //rightShooter.set(ControlMode.PercentOutput, -.48);
   leftShooter.set(ControlMode.PercentOutput, .48);
 }
 
 public void stopShooter(){
    
-  rightShooter.set(TalonSRXControlMode.Velocity, 0);
-  leftShooter.set(TalonSRXControlMode.Velocity, 0);
+  //rightShooter.set(TalonSRXControlMode.PercentOutput, 0);
+  leftShooter.set(TalonSRXControlMode.PercentOutput, 0);
 }
 
 
 public void shooterOnly() {
 
-  //conveyorbeltRight.set(0);
-  //conveyorbeltLeft.set(0);
- // rightShooter.set(TalonSRXControlMode.Velocity, -1000);
- // leftShooter.set(TalonSRXControlMode.Velocity, 1000);
-  rightShooter.set(ControlMode.PercentOutput, -.75);
+  //rightShooter.set(ControlMode.PercentOutput, -.75);
   leftShooter.set(ControlMode.PercentOutput, .75);
 
 

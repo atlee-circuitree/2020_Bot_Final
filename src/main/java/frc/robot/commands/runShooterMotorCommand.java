@@ -28,7 +28,7 @@ public class runShooterMotorCommand extends CommandBase {
   @Override
   public void initialize() {
 
-    m_subsystem.flipShooterStateFull();
+    m_subsystem.flipShooterState();
   
   }
 
