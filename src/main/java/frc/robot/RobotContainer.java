@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootWaitVelocity;
 import frc.robot.commands.TimerCommand;
 import frc.robot.commands.autonomusCommand2020;
 import frc.robot.commands.ballObstructionSensorCommand;
@@ -177,6 +178,8 @@ public class RobotContainer {
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
 
+  private final ShootWaitVelocity m_ShootWaitVelocity = new ShootWaitVelocity(m_shooterIntakeSubsystem, m_shooterMotorSubsystem);
+
   private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
 
   private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(m_limelightSubsystem);
@@ -315,7 +318,7 @@ public class RobotContainer {
     
     DriverA.whileHeld(m_runShooterAndClosePnumatic);
     DriverB.whileHeld(m_stopShooterMotorCommand);
-    DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
+    DriverX.whileHeld(m_ShootWaitVelocity);
     DriverY.whileHeld(m_runShooter50MotorCommand);
     DriverR.whileHeld(m_levelerLeftMotorCommand);
     DriverL.whileHeld(m_levelerRightMotorCommand);

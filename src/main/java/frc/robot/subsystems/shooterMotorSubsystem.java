@@ -30,6 +30,8 @@ public class shooterMotorSubsystem extends SubsystemBase {
   TalonSRX rightShooter = null;
   TalonSRX leftShooter = null;
   
+  StringBuilder _sb = new StringBuilder();
+
   public ShooterMotorStatus shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
   public enum ShooterMotorStatus
@@ -43,7 +45,8 @@ public class shooterMotorSubsystem extends SubsystemBase {
   rightShooter = new TalonSRX(Constants.rightShooter);
   leftShooter = new TalonSRX(Constants.leftShooter);
   rightShooter.follow(leftShooter);
-	rightShooter.setInverted(true);
+  rightShooter.setInverted(true);
+  leftShooter.setInverted(false);
   
 }
 
@@ -51,7 +54,9 @@ public void runShooter() {
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
     
-    leftShooter.set(ControlMode.Velocity, -15500);
+    leftShooter.set(ControlMode.Velocity, 9300);
+    //15500 75%
+
 
   } else {
 
@@ -83,6 +88,17 @@ public void runShooterEncoder() {
 
 }
 
+public int getVelocity() {
+  System.out.print(" Velocity ");
+  System.out.print(leftShooter.getSelectedSensorVelocity(0));
+  System.out.print(" Error ");
+  System.out.print(leftShooter.getClosedLoopError());
+  System.out.print(" ErrorD ");
+  System.out.println(leftShooter.getErrorDerivative());
+
+  return leftShooter.getClosedLoopError(0);
+}
+
 public void runShooter50() {
 
   //rightShooter.set(ControlMode.PercentOutput, -.48);
@@ -104,6 +120,9 @@ public void shooterOnly() {
 
 }
  
-
+@Override
+public void periodic() {
+  //getVelocity();  
+}
 
 }
