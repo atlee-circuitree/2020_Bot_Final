@@ -29,8 +29,6 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
   TalonSRX rightShooter = null;
   TalonSRX leftShooter = null;
-  
-  public int shooterVelocity = (leftShooter.getSelectedSensorVelocity(1));
 
   StringBuilder _sb = new StringBuilder();
 
@@ -56,7 +54,9 @@ public void runShooter() {
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
     
-    leftShooter.set(ControlMode.Velocity, 5485);
+    leftShooter.set(ControlMode.Velocity, 9100);
+    
+
     //15500 75% 14000
     //9300 15000
     //7905 13000
@@ -99,14 +99,18 @@ public void runShooterEncoder() {
 }
 
 public int getVelocity() {
+  
   System.out.print(" Velocity ");
   System.out.print(leftShooter.getSelectedSensorVelocity(1));
-  System.out.print(" Input ");
-  System.out.print(leftShooter.getClosedLoopError());
+  System.out.print(" Error ");
+  System.out.print(leftShooter.getClosedLoopError(0));
   System.out.print(" ErrorD ");
   System.out.println(leftShooter.getErrorDerivative());
+  System.out.print("Encoder Pos");
+  System.out.println(leftShooter.getSelectedSensorPosition(0));
 
   return leftShooter.getClosedLoopError(0);
+
 }
 
 public void runShooter50() {
@@ -117,8 +121,9 @@ public void runShooter50() {
 
 public void stopShooter(){
    
-  //rightShooter.set(TalonSRXControlMode.PercentOutput, 0);
+  shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
   leftShooter.set(TalonSRXControlMode.PercentOutput, 0);
+  
 }
 
 

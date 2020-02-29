@@ -39,11 +39,16 @@ public class ShootWaitVelocity extends CommandBase {
     
     m_subsystem2.getVelocity();
 
-    if (m_subsystem2.shooterVelocity > 9000) {
+    if (Math.abs( m_subsystem2.getVelocity()) < 150) {
 
       m_subsystem.conveyorOnly();
 
+    } else {
+
+      m_subsystem.stopConveyor();
+
     }
+
     
   }
 

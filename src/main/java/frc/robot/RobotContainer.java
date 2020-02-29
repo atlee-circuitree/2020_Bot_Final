@@ -69,6 +69,7 @@ import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterIntakeSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 import frc.robot.subsystems.wheelMotorSubsystem;
+import frc.robot.subsystems.shooterMotorSubsystem.ShooterMotorStatus;
 import frc.robot.Constants;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
@@ -141,6 +142,10 @@ public class RobotContainer {
       m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
+
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand4 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(
@@ -217,6 +222,8 @@ public class RobotContainer {
   
   private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
 
+  private final SequentialCommandGroup m_stopAndCloseShooter = new SequentialCommandGroup(m_openShooterPnumaticCommand4, m_stopShooterMotorCommand2);
+
   //private final autonomusCommand2020 m_autonomusCommand = new autonomusCommand2020();
 
   //Wait 1 second.
@@ -238,6 +245,7 @@ public class RobotContainer {
   //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
   private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+
 
   public static Object driveRobot;
 
@@ -292,6 +300,7 @@ public class RobotContainer {
     c_delevatorMotorCommand = new elevatorMotorCommand(Xbox2, m_elevatorMotorSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(c_dDrivetrainCommand);
     m_elevatorMotorSubsystem.setDefaultCommand(c_delevatorMotorCommand);
+    m_shooterMotorSubsystem.shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
     //m_constants.airCompressor = new Compressor(1);
 
@@ -332,7 +341,7 @@ public class RobotContainer {
     Driver2X.whileHeld(m_spinWheelMotorCommand);
     Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
-    Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
+    Driver2L.whenPressed(m_stopAndCloseShooter);
     
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
