@@ -64,7 +64,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.LidarSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
-import frc.robot.subsystems.drivetrainSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.levelerMotorSubsystem;
@@ -78,7 +78,7 @@ import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.commands.ballObstructionSensorCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.limelightSubsystem;
+import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.commands.limelightValuesCommand;
 
 /**
@@ -93,7 +93,7 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+  private static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private static drivetrainCommand c_dDrivetrainCommand;
   private static elevatorMotorCommand c_delevatorMotorCommand;
 
@@ -114,7 +114,7 @@ public class RobotContainer {
 
   private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
 
-  private final limelightSubsystem s_limelightSubsystem = new limelightSubsystem();
+  private final LimeLightSubsystem s_limelightSubsystem = new LimeLightSubsystem();
 
   private final IMUSubsystem s_imuSubsystem = new IMUSubsystem();
 

@@ -15,18 +15,91 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Limelight Values
 
  
-public class limelightSubsystem extends SubsystemBase {
+public class LimeLightSubsystem extends SubsystemBase {
 
   //private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
 
   boolean m_LimelightHasValidTarget = false;
   double m_LimelightDriveCommand = 0.0;
   double m_LimelightSteerCommand = 0.0;
+
+  //Local variables to store network values
+  boolean b_tv = false;
+  double dbl_tx, dbl_tv, dbl_ty, dbl_ta, dbl_ts, dbl_thor, dbl_tvert, dbl_tshort, dbl_tlong;
+  public boolean HasValidTarget()
+  {
+    return b_tv;
+  }
+  public double VerticalOffset()
+  {
+    return dbl_tx;
+  }
+  public double HorizontalOffset()
+  {
+    return dbl_ty;
+  }
+  public double TargetArea()
+  {
+    return dbl_ta;
+  }
+  public double Skew()
+  {
+    return dbl_ts;
+  }
+  public double BoundingShortSide()
+  {
+    return dbl_tshort;
+  }
+  public double BoundingLongSide()
+  {
+    return dbl_tlong;
+  }
+  public double BoundingHorizontal()
+  {
+    return dbl_thor;
+  }
+  public double BoundingVertical()
+  {
+    return dbl_tvert;
+  }
+
+  public void ReadNetworkTables()
+  {
+
+    double dbl_tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    if(dbl_tv > 0)
+    {
+      b_tv = true;
+    }
+    else
+    {
+      b_tv = false;
+    }
+    dbl_tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    dbl_ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    dbl_ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+    dbl_ts = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts").getDouble(0);
+    dbl_tshort = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tshort").getDouble(0);
+    dbl_tlong = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tlong").getDouble(0);
+    dbl_thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
+    dbl_tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
+  }
+
   
-  public limelightSubsystem() {
+  public LimeLightSubsystem() {
   
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0); //Set LEDs to current pipeline setting
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
     
+  }
+
+  public void EnableLED()
+  {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); //Set LEDs to current pipeline setting
+  }
+
+  public void DisableLED()
+  {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
   }
 
   public void updateLimelightTracking() {
@@ -111,12 +184,9 @@ public class limelightSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //thor
-    //tvert
-    double thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
-    double tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
-    SmartDashboard.putNumber("Limelight Horizontal", thor);
-    SmartDashboard.putNumber("Limelight Vertical", tvert);
+    ReadNetworkTables();
+    SmartDashboard.putNumber("Limelight Horizontal", dbl_thor);
+    SmartDashboard.putNumber("Limelight Vertical", dbl_tvert);
   }
  
 }

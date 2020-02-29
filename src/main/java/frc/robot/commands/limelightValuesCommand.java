@@ -3,15 +3,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.levelerMotorSubsystem;
-import frc.robot.subsystems.limelightSubsystem;
+import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.subsystems.wheelMotorSubsystem;
 
 
 public class limelightValuesCommand extends CommandBase {
 
-  limelightSubsystem m_subsystem;
+  LimeLightSubsystem m_subsystem;
    
-  public limelightValuesCommand(limelightSubsystem cameraSubsystem) {
+  public limelightValuesCommand(LimeLightSubsystem cameraSubsystem) {
      
     super();
     m_subsystem = cameraSubsystem;
