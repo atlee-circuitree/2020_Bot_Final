@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrainSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 
 public class driveStopCommand extends CommandBase {
   XboxController xbcDriveController;
-  drivetrainSubsystem m_subsystem;
+  DrivetrainSubsystem m_subsystem;
 
-  public driveStopCommand(XboxController driveController, drivetrainSubsystem driveSubsystem) {
+  public driveStopCommand(XboxController driveController, DrivetrainSubsystem driveSubsystem) {
     super();
     m_subsystem = driveSubsystem; 
     addRequirements(m_subsystem);
