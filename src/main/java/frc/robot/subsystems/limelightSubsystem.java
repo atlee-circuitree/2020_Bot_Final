@@ -10,13 +10,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //Limelight Values
 
  
 public class limelightSubsystem extends SubsystemBase {
 
-  private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+  //private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
 
   boolean m_LimelightHasValidTarget = false;
   double m_LimelightDriveCommand = 0.0;
@@ -41,6 +42,7 @@ public class limelightSubsystem extends SubsystemBase {
     double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+    
 
     if (tv < 1.0) {
       m_LimelightHasValidTarget = false;
@@ -93,18 +95,28 @@ public class limelightSubsystem extends SubsystemBase {
 
     updateLimelightTracking();
  
-    if (m_LimelightHasValidTarget) {
-        m_drivetrainSubsystem.robotDrive.arcadeDrive(m_LimelightDriveCommand, m_LimelightSteerCommand);
-    } else {
-        m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
-    }
+    //if (m_LimelightHasValidTarget) {
+    //    m_drivetrainSubsystem.robotDrive.arcadeDrive(m_LimelightDriveCommand, m_LimelightSteerCommand);
+    //} else {
+    //    m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
+    //}
      
   }
 
   public void stopDrive() {
 
-    m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
+    //m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
 
+  }
+
+  @Override
+  public void periodic() {
+    //thor
+    //tvert
+    double thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
+    double tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
+    SmartDashboard.putNumber("Limelight Horizontal", thor);
+    SmartDashboard.putNumber("Limelight Vertical", tvert);
   }
  
 }

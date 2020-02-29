@@ -44,6 +44,7 @@ import frc.robot.commands.conveyorbeltclearCommand;
 import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.drivetrainPercentPowerAuto;
 import frc.robot.commands.elevatorMotorCommand;
+import frc.robot.commands.elevatorMoveToAngleMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
@@ -60,6 +61,8 @@ import frc.robot.commands.spinWheelMotorCommand;
 import frc.robot.commands.stopConveyorMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IMUSubsystem;
+import frc.robot.subsystems.LidarSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.subsystems.drivetrainSubsystem;
 import frc.robot.subsystems.elevatorMotorSubsystem;
@@ -111,7 +114,11 @@ public class RobotContainer {
 
   private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
 
-  private final limelightSubsystem m_limelightSubsystem = new limelightSubsystem();
+  private final limelightSubsystem s_limelightSubsystem = new limelightSubsystem();
+
+  private final IMUSubsystem s_imuSubsystem = new IMUSubsystem();
+
+  private final LidarSubsystem s_lidarSubsystem = new LidarSubsystem();
 
   // private final autonomusCommand2020 m_autonomusCommand2020 = new
   // autonomusCommand2020();
@@ -191,9 +198,9 @@ public class RobotContainer {
 
   private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
 
-  private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(m_limelightSubsystem);
+  private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(s_limelightSubsystem);
 
-  private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(m_limelightSubsystem);
+  private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(s_limelightSubsystem);
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
   
@@ -245,6 +252,8 @@ public class RobotContainer {
   //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
   private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem);
 
 
   public static Object driveRobot;
@@ -350,8 +359,8 @@ public class RobotContainer {
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
-    FightStickOPTIONS.whenPressed(m_kickoutPnumaticCommand);
-    FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
+    FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
+    //FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
     
 
   }

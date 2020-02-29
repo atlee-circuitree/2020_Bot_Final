@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Lidar extends SubsystemBase {
+public class LidarSubsystem extends SubsystemBase {
   public final static int BAUD = 115200;
   private SerialPort serial;
   volatile private int distance;
@@ -19,7 +19,7 @@ public class Lidar extends SubsystemBase {
   /**
    * Creates a new Lidar.
    */
-  public Lidar() {
+  public LidarSubsystem() {
     connect();
   }
 
@@ -51,7 +51,7 @@ public class Lidar extends SubsystemBase {
     // This method will be called once per scheduler run
     if(serial != null) {
       updateDistance();
-      //updateSmartDashboard();
+      updateSmartDashboard();
     }
   }
 
@@ -88,7 +88,7 @@ public class Lidar extends SubsystemBase {
 			//System.out.write(read);
 			if(read == 0x59 && lastByte == 0x59)
 			{
-				//System.out.println("Lidar begin frame");
+				//System.out.printSystem.out.println("Lidar begin frame");
 				frameIndex = 1;
 				distance = 0;
 			}
@@ -99,8 +99,8 @@ public class Lidar extends SubsystemBase {
 					distance = (((int)read & 0xFF) << 8) + (int)(lastByte & 0xFF);
 					//System.out.print(String.format("0x%08X",read));
 					//System.out.print(" ");
-					System.out.println(String.format("0x%08X",lastByte));
-					System.out.println((int)distance);
+					//System.out.println(String.format("0x%08X",lastByte));
+					//System.out.println((int)distance);
 					
 				}
 			}
@@ -139,6 +139,6 @@ public class Lidar extends SubsystemBase {
 	 * most recent distance information
 	 */
 	public void updateSmartDashboard(	) {
-		SmartDashboard.putNumber("LIDAR Distance", distance);
+		SmartDashboard.putNumber("LIDAR Distance", distance/2.54/12);
 	}
 }
