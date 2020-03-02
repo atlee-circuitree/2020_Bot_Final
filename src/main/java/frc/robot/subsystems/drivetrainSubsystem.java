@@ -21,14 +21,14 @@ import frc.robot.commands.drivetrainPercentPowerAuto;
 
 
 
-public class drivetrainSubsystem extends SubsystemBase {
+public class DrivetrainSubsystem extends SubsystemBase {
     SpeedControllerGroup leftDrive;
     SpeedControllerGroup rightDrive;
     DifferentialDrive robotDrive; 
     /**
      * Creates a new ExampleSubsystem.
      */
-    public drivetrainSubsystem() {
+    public DrivetrainSubsystem() {
 
     }
 

@@ -7,36 +7,30 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.shooterMotorSubsystem;
+import frc.robot.subsystems.LimeLightSubsystem;
 
+public class limelightAutoAimCommand extends CommandBase {
 
-public class runShooterMotorCommand extends CommandBase {
-
-  shooterMotorSubsystem m_subsystem;
+  LimeLightSubsystem m_subsystem;
    
-  public runShooterMotorCommand(shooterMotorSubsystem motorSubsystem) {
+  public limelightAutoAimCommand(LimeLightSubsystem aimingSubsystem) {
      
     super();
-    m_subsystem = motorSubsystem;
+    m_subsystem = aimingSubsystem;
     addRequirements(m_subsystem);
-
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-    m_subsystem.flipShooterState();
-  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    m_subsystem.runShooter();
+    m_subsystem.LimelightSteer();
 
   }
 
@@ -44,13 +38,8 @@ public class runShooterMotorCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    
+    m_subsystem.stopDrive();
 
   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 }

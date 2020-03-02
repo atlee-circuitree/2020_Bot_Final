@@ -7,13 +7,20 @@
 
 // FROM LARSON!! https://www.chiefdelphi.com/t/error-message-from-robotbase/162791/12
 
+//Starting Position Angle 38 Degrees
+
+// Robot is 158 incines from the cell port
+
 package frc.robot;
+
+import java.util.function.BooleanSupplier;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -21,7 +28,9 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootWaitVelocity;
 import frc.robot.commands.TimerCommand;
 import frc.robot.commands.autonomusCommand2020;
 import frc.robot.commands.ballObstructionSensorCommand;
@@ -35,12 +44,14 @@ import frc.robot.commands.conveyorbeltclearCommand;
 import frc.robot.commands.drivetrainCommand;
 import frc.robot.commands.drivetrainPercentPowerAuto;
 import frc.robot.commands.elevatorMotorCommand;
+import frc.robot.commands.elevatorMoveToAngleMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.kickoutReversePnumaticCommand;
 import frc.robot.commands.levelerLeftMotorCommand;
 import frc.robot.commands.levelerRightMotorCommand;
+import frc.robot.commands.limelightAutoAimCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooter50MotorCommand;
 import frc.robot.commands.runShooterMotorCommand;
@@ -50,8 +61,10 @@ import frc.robot.commands.spinWheelMotorCommand;
 import frc.robot.commands.stopConveyorMotorCommand;
 import frc.robot.commands.stopShooterMotorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IMUSubsystem;
+import frc.robot.subsystems.LidarSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
-import frc.robot.subsystems.drivetrainSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.levelerMotorSubsystem;
@@ -59,12 +72,13 @@ import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterIntakeSubsystem;
 import frc.robot.subsystems.shooterPnumaticSubsystem;
 import frc.robot.subsystems.wheelMotorSubsystem;
+import frc.robot.subsystems.shooterMotorSubsystem.ShooterMotorStatus;
 import frc.robot.Constants;
 import frc.robot.subsystems.climbPnumaticSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.commands.ballObstructionSensorCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.limelightSubsystem;
+import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.commands.limelightValuesCommand;
 
 /**
@@ -79,7 +93,7 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+  private static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private static drivetrainCommand c_dDrivetrainCommand;
   private static elevatorMotorCommand c_delevatorMotorCommand;
 
@@ -100,7 +114,11 @@ public class RobotContainer {
 
   private final levelerMotorSubsystem m_levelerMotorSubsystem = new levelerMotorSubsystem();
 
-  private final limelightSubsystem m_limelightSubsystem = new limelightSubsystem();
+  private final LimeLightSubsystem s_limelightSubsystem = new LimeLightSubsystem();
+
+  private final IMUSubsystem s_imuSubsystem = new IMUSubsystem();
+
+  private final LidarSubsystem s_lidarSubsystem = new LidarSubsystem();
 
   // private final autonomusCommand2020 m_autonomusCommand2020 = new
   // autonomusCommand2020();
@@ -131,6 +149,7 @@ public class RobotContainer {
       m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
@@ -142,9 +161,18 @@ public class RobotContainer {
       m_shooterPnumaticSubsystem);
 
 >>>>>>> Stashed changes
+=======
+
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand4 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+
+>>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand3 = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
 
 
@@ -182,9 +210,13 @@ public class RobotContainer {
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
 
+  private final ShootWaitVelocity m_ShootWaitVelocity = new ShootWaitVelocity(m_shooterIntakeSubsystem, m_shooterMotorSubsystem);
+
   private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
 
-  private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(m_limelightSubsystem);
+  private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(s_limelightSubsystem);
+
+  private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(s_limelightSubsystem);
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
   
@@ -213,6 +245,7 @@ public class RobotContainer {
   
   private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
   private final closeShooterPnumaticCommand c_CloseShooterDriver2 = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
@@ -221,6 +254,10 @@ public class RobotContainer {
 
   private final SequentialCommandGroup m_stopAndOpenShooter = new SequentialCommandGroup(m_openShooterPnumaticCommand5, m_stopShooterMotorCommand3);
 >>>>>>> Stashed changes
+=======
+  private final SequentialCommandGroup m_stopAndCloseShooter = new SequentialCommandGroup(m_openShooterPnumaticCommand4, m_stopShooterMotorCommand2);
+
+>>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
   //private final autonomusCommand2020 m_autonomusCommand = new autonomusCommand2020();
 
   //Wait 1 second.
@@ -241,23 +278,28 @@ public class RobotContainer {
 
   //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
+  private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem);
+
+
   public static Object driveRobot;
 
   public static RobotContainer m_RobotContainer;
 
   public static Constants m_constants;
 
-  public static XboxController Xbox1 = new XboxController(0);
-  public static XboxController Xbox2 = new XboxController(1);
-  public static Joystick Fightstick = new Joystick(2);
-  
-    //JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
+    public static XboxController Xbox1 = new XboxController(0);
+    public static XboxController Xbox2 = new XboxController(1);
+    public static Joystick Fightstick = new Joystick(2);
+
     JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
     JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
     JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
     JoystickButton DriverL = new JoystickButton(Xbox1, XboxController.Button.kBumperLeft.value);
     JoystickButton DriverR = new JoystickButton(Xbox1, XboxController.Button.kBumperRight.value);
+    
     JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
     JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value); 
     JoystickButton Driver2X = new JoystickButton(Xbox2, XboxController.Button.kX.value); 
@@ -294,6 +336,7 @@ public class RobotContainer {
     c_delevatorMotorCommand = new elevatorMotorCommand(Xbox2, m_elevatorMotorSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(c_dDrivetrainCommand);
     m_elevatorMotorSubsystem.setDefaultCommand(c_delevatorMotorCommand);
+    m_shooterMotorSubsystem.shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
     //m_constants.airCompressor = new Compressor(1);
 
@@ -322,9 +365,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    DriverA.whileHeld(m_runShooterMotorCommand);
+    DriverA.whileHeld(m_runShooterAndClosePnumatic);
     DriverB.whileHeld(m_stopShooterMotorCommand);
-    DriverX.whileHeld(m_shooterOnlyConveyorMotorCommand);
+    DriverX.whileHeld(m_ShootWaitVelocity);
     DriverY.whileHeld(m_runShooter50MotorCommand);
     DriverR.whileHeld(m_levelerLeftMotorCommand);
     DriverL.whileHeld(m_levelerRightMotorCommand);
@@ -332,6 +375,7 @@ public class RobotContainer {
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     //Driver2Y.toggleWhenPressed(m_kickoutReversePnumaticCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
@@ -341,6 +385,11 @@ public class RobotContainer {
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
 >>>>>>> Stashed changes
+=======
+    Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
+    Driver2R.whenPressed(m_openShooterPnumaticCommand3);
+    Driver2L.whenPressed(m_stopAndCloseShooter);
+>>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
     
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
@@ -349,8 +398,8 @@ public class RobotContainer {
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
-    FightStickOPTIONS.whenPressed(m_kickoutPnumaticCommand);
-    FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
+    FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
+    //FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
     
 
   }

@@ -29,23 +29,41 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
   TalonSRX rightShooter = null;
   TalonSRX leftShooter = null;
-  
-   
+
+  StringBuilder _sb = new StringBuilder();
+
+  public ShooterMotorStatus shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
+
+  public enum ShooterMotorStatus
+  {
+    IS_RUNNING,
+    IS_NOT_RUNNING
+  }
+
   public shooterMotorSubsystem() {
 
   rightShooter = new TalonSRX(Constants.rightShooter);
   leftShooter = new TalonSRX(Constants.leftShooter);
-
+  rightShooter.follow(leftShooter);
+  rightShooter.setInverted(true);
+  leftShooter.setInverted(false);
   
 }
 
 public void runShooter() {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
     
     leftShooter.set(ControlMode.Velocity, 15500);
+=======
+ 
+  if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
+    
+    leftShooter.set(ControlMode.Velocity, 9100);
+>>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
     
 
     //15500 75% 14000
@@ -63,45 +81,76 @@ public void runShooter() {
 
     //rightShooter.set(ControlMode.PercentOutput, 0);
     leftShooter.set(ControlMode.PercentOutput, 0);
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
 
-  rightShooter.set(ControlMode.Velocity, -100);
-  leftShooter.set(ControlMode.Velocity, 100);
+  }
+
+}
+
+public void flipShooterState() {
+
+  if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
+
+    shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
+
+  } else {
+
+    shooterMotorStatus = ShooterMotorStatus.IS_RUNNING;
+
+  }
 
 }
 
 public void runShooterEncoder() {
 
-   rightShooter.set(ControlMode.Position, 100000);
+   //rightShooter.set(ControlMode.Position, 100000);
    leftShooter.set(ControlMode.Position, 100000);
+
+}
+
+public int getVelocity() {
+  
+  System.out.print(" Velocity ");
+  System.out.print(leftShooter.getSelectedSensorVelocity(1));
+  System.out.print(" Error ");
+  System.out.print(leftShooter.getClosedLoopError(0));
+  System.out.print(" ErrorD ");
+  System.out.println(leftShooter.getErrorDerivative());
+  System.out.print("Encoder Pos");
+  System.out.println(leftShooter.getSelectedSensorPosition(0));
+
+  return leftShooter.getClosedLoopError(0);
 
 }
 
 public void runShooter50() {
 
-  rightShooter.set(ControlMode.PercentOutput, -.48);
+  //rightShooter.set(ControlMode.PercentOutput, -.48);
   leftShooter.set(ControlMode.PercentOutput, .48);
 }
 
 public void stopShooter(){
    
-  rightShooter.set(TalonSRXControlMode.Velocity, 0);
-  leftShooter.set(TalonSRXControlMode.Velocity, 0);
+  shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
+  leftShooter.set(TalonSRXControlMode.PercentOutput, 0);
+  
 }
 
 
 public void shooterOnly() {
 
-  //conveyorbeltRight.set(0);
-  //conveyorbeltLeft.set(0);
- // rightShooter.set(TalonSRXControlMode.Velocity, -1000);
- // leftShooter.set(TalonSRXControlMode.Velocity, 1000);
-  rightShooter.set(ControlMode.PercentOutput, -.75);
+  //rightShooter.set(ControlMode.PercentOutput, -.75);
   leftShooter.set(ControlMode.PercentOutput, .75);
 
 
 }
  
-
+@Override
+public void periodic() {
+  //getVelocity();  
+}
 
 }
