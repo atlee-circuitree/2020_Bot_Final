@@ -51,19 +51,10 @@ public class shooterMotorSubsystem extends SubsystemBase {
 }
 
 public void runShooter() {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
     
     leftShooter.set(ControlMode.Velocity, 15500);
-=======
- 
-  if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
-    
-    leftShooter.set(ControlMode.Velocity, 9100);
->>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
     
 
     //15500 75% 14000
@@ -81,10 +72,6 @@ public void runShooter() {
 
     //rightShooter.set(ControlMode.PercentOutput, 0);
     leftShooter.set(ControlMode.PercentOutput, 0);
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 37529c9a30c4de024bbe9d1583840df695e010e3
 
   }
 
@@ -97,7 +84,7 @@ public void flipShooterState() {
     shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
   } else {
-
+    
     shooterMotorStatus = ShooterMotorStatus.IS_RUNNING;
 
   }
@@ -128,8 +115,8 @@ public int getVelocity() {
 
 public void runShooter50() {
 
-  //rightShooter.set(ControlMode.PercentOutput, -.48);
-  leftShooter.set(ControlMode.PercentOutput, .48);
+  leftShooter.set(ControlMode.Velocity, 12500);
+
 }
 
 public void stopShooter(){
