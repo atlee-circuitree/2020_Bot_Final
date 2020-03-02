@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.CenterOnTargetLimelight;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.CenterOnTargetLimelight;
 import frc.robot.commands.ShootWaitVelocity;
 import frc.robot.commands.TimerCommand;
 import frc.robot.commands.autonomusCommand2020;
@@ -299,7 +299,6 @@ public class RobotContainer {
     JoystickButton FightStickL3 = new JoystickButton(Fightstick, 9);
     JoystickButton FightStickR3 = new JoystickButton(Fightstick, 10);
     JoystickButton FightStickL1 = new JoystickButton(Fightstick, 5);
-    //JoystickButton FightStickRT = new JoystickButton(Fightstick, 8);
     JoystickButton FightStickSHARE = new JoystickButton(Fightstick, 7);
     JoystickButton FightStickOPTIONS = new JoystickButton(Fightstick, 8);
     
@@ -361,8 +360,6 @@ public class RobotContainer {
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
-    Driver2R.whenPressed(m_openShooterPnumaticCommand3);
-    Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
     Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
@@ -377,7 +374,6 @@ public class RobotContainer {
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
     FightStickSHARE.whenPressed(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     
-
   }
 
 
