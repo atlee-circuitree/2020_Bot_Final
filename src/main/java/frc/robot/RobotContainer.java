@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.CenterOnTargetLimelight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootWaitVelocity;
 import frc.robot.commands.TimerCommand;
@@ -360,7 +361,7 @@ public class RobotContainer {
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
-    //FightStickSHARE.whenPressed(m_kickoutReversePnumaticCommand);
+    FightStickSHARE.whenPressed(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     
 
   }
