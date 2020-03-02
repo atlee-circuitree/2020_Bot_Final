@@ -40,6 +40,30 @@ public class shooterMotorSubsystem extends SubsystemBase {
 }
 
 public void runShooter() {
+<<<<<<< Updated upstream
+=======
+ 
+  if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
+    
+    leftShooter.set(ControlMode.Velocity, 15500);
+    
+
+    //15500 75% 14000
+    //9300 15000
+    //7905 13000
+    //6500 10000
+    //5750 9500 50% Inner
+    //5500 9100 66% Inner
+    //5485
+    //5475 9046 80% Inner
+    //5400 8950
+    //5000 8346
+
+  } else {
+
+    //rightShooter.set(ControlMode.PercentOutput, 0);
+    leftShooter.set(ControlMode.PercentOutput, 0);
+>>>>>>> Stashed changes
 
   rightShooter.set(ControlMode.Velocity, -100);
   leftShooter.set(ControlMode.Velocity, 100);

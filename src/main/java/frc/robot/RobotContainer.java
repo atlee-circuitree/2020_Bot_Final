@@ -131,6 +131,17 @@ public class RobotContainer {
       m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
+<<<<<<< Updated upstream
+=======
+
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand4 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+  
+
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommand5 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
+
+>>>>>>> Stashed changes
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand2 = new closeShooterPnumaticCommand(
@@ -144,6 +155,8 @@ public class RobotContainer {
   private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(m_shooterMotorSubsystem);
 
   private final stopShooterMotorCommand m_stopShooterMotorCommand2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+
+  private final stopShooterMotorCommand m_stopShooterMotorCommand3 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
 
   private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(m_shooterIntakeSubsystem);
 
@@ -200,6 +213,14 @@ public class RobotContainer {
   
   private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
 
+<<<<<<< Updated upstream
+=======
+  private final closeShooterPnumaticCommand c_CloseShooterDriver2 = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  
+  private final SequentialCommandGroup m_stopAndCloseShooter = new SequentialCommandGroup(c_CloseShooterDriver2, m_stopShooterMotorCommand2);
+
+  private final SequentialCommandGroup m_stopAndOpenShooter = new SequentialCommandGroup(m_openShooterPnumaticCommand5, m_stopShooterMotorCommand3);
+>>>>>>> Stashed changes
   //private final autonomusCommand2020 m_autonomusCommand = new autonomusCommand2020();
 
   //Wait 1 second.
@@ -311,9 +332,15 @@ public class RobotContainer {
     Driver2A.whileHeld(m_intakefulltakeball);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
+<<<<<<< Updated upstream
     //Driver2Y.toggleWhenPressed(m_kickoutReversePnumaticCommand);
     Driver2R.whenPressed(m_openShooterPnumaticCommand3);
     Driver2L.whenPressed(m_closeShooterPnumaticCommand2);
+=======
+    Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
+    Driver2R.whenPressed(m_stopAndOpenShooter);
+    Driver2L.whenPressed(m_stopAndCloseShooter);
+>>>>>>> Stashed changes
     
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
