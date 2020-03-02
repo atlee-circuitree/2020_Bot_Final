@@ -54,7 +54,7 @@ public void runShooter() {
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
     
-    leftShooter.set(ControlMode.Velocity, 9100);
+    leftShooter.set(ControlMode.Velocity, 15500);
     
 
     //15500 75% 14000
@@ -84,7 +84,7 @@ public void flipShooterState() {
     shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
   } else {
-
+    
     shooterMotorStatus = ShooterMotorStatus.IS_RUNNING;
 
   }
@@ -115,8 +115,8 @@ public int getVelocity() {
 
 public void runShooter50() {
 
-  //rightShooter.set(ControlMode.PercentOutput, -.48);
-  leftShooter.set(ControlMode.PercentOutput, .48);
+  leftShooter.set(ControlMode.Velocity, 12500);
+
 }
 
 public void stopShooter(){
