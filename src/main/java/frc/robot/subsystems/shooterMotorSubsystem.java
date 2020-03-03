@@ -54,7 +54,7 @@ public void runShooter() {
  
   if (shooterMotorStatus == ShooterMotorStatus.IS_RUNNING) {
     
-    leftShooter.set(ControlMode.Velocity, 15500);
+    leftShooter.set(ControlMode.Velocity, 12500);
     
     //15500 75% 14000
     //9300 15000
