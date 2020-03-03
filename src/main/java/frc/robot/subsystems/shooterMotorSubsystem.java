@@ -56,7 +56,6 @@ public void runShooter() {
     
     leftShooter.set(ControlMode.Velocity, 15500);
     
-
     //15500 75% 14000
     //9300 15000
     //7905 13000
@@ -100,12 +99,17 @@ public void runShooterEncoder() {
 
 public int getVelocity() {
   
-  System.out.print(" Velocity ");
+  
+  System.out.print(" Velocity1 ");
   System.out.print(leftShooter.getSelectedSensorVelocity(1));
+  System.out.print(" Velocity0 ");
+  System.out.print(leftShooter.getSelectedSensorVelocity(0));
   System.out.print(" Error ");
   System.out.print(leftShooter.getClosedLoopError(0));
   System.out.print(" ErrorD ");
   System.out.println(leftShooter.getErrorDerivative());
+  System.out.print(" Percent: ");
+  System.out.print(leftShooter.getMotorOutputPercent());
   System.out.print("Encoder Pos");
   System.out.println(leftShooter.getSelectedSensorPosition(0));
 

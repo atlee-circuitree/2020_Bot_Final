@@ -37,9 +37,9 @@ public class ShootWaitVelocity extends CommandBase {
   @Override
   public void execute() {
     
-    m_subsystem2.getVelocity();
-
-    if (Math.abs( m_subsystem2.getVelocity()) < 150) {
+    int velocity = m_subsystem2.getVelocity();
+    System.out.println(velocity);
+    if (Math.abs(velocity) < 500) {
 
       m_subsystem.conveyorOnly();
 

@@ -266,7 +266,7 @@ public class RobotContainer {
 
   private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
 
-  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem);
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24);
 
 
   public static Object driveRobot;
@@ -372,7 +372,7 @@ public class RobotContainer {
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
-    FightStickSHARE.whenPressed(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
+    FightStickSHARE.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     
   }
 

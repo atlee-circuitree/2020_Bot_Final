@@ -99,7 +99,7 @@ public class LimeLightSubsystem extends SubsystemBase {
 
   public void DisableLED()
   {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
   }
 
   public void updateLimelightTracking() {

@@ -20,10 +20,10 @@ public class CenterOnTargetLimelight extends CommandBase {
   LimeLightSubsystem s_LimeLightSubsystem;
 
   final double STEER_K = 0.03; // how hard to turn toward the target
-  final double DRIVE_K = 0.01; // how hard to drive fwd toward the target
+  final double DRIVE_K = 0.00; // how hard to drive fwd toward the target
   final double DESIRED_TARGET_AREA = 13.0; // Area of the target when the robot reaches the wall
   final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
-  final double MAX_ERROR = 5; //Maximum distance we can be off on X axis
+  final double MAX_ERROR = 2; //Maximum distance we can be off on X axis
 
   public CenterOnTargetLimelight(DrivetrainSubsystem driveSubsystem, LimeLightSubsystem LimeLight) {
     super();
@@ -41,6 +41,7 @@ public class CenterOnTargetLimelight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    s_LimeLightSubsystem.EnableLED();
     s_LimeLightSubsystem.ReadNetworkTables();
     double m_LimelightDriveCommand = 0.0;
     double m_LimelightSteerCommand = 0.0;
@@ -65,13 +66,14 @@ public class CenterOnTargetLimelight extends CommandBase {
     System.out.print(" drive ");
     System.out.print(m_LimelightDriveCommand);
 
-    s_DriveTrainSubsystem.driveRobot(-m_LimelightSteerCommand, m_LimelightSteerCommand); //invert steer command because it's inverted in "driveRobot" function
+    s_DriveTrainSubsystem.driveRobot(m_LimelightSteerCommand, m_LimelightDriveCommand); //invert steer command because it's inverted in "driveRobot" function
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     s_DriveTrainSubsystem.driveRobot(0d, 0d);
+    //s_LimeLightSubsystem.DisableLED();
   }
 
   // Returns true when the command should end.
@@ -81,6 +83,7 @@ public class CenterOnTargetLimelight extends CommandBase {
       //TODO - make sure we don't exit too quickly here - ideally we should try to get closer
       if(Math.abs(s_LimeLightSubsystem.VerticalOffset()) < MAX_ERROR)
       {
+        
         return true; //close enough
       }
     }

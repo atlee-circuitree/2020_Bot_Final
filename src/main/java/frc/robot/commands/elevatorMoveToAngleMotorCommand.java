@@ -15,11 +15,12 @@ public class elevatorMoveToAngleMotorCommand extends CommandBase {
 
     elevatorMotorSubsystem m_elevatorMotorSubsystem;
     IMUSubsystem m_IMUSubsystem;
-    double idealAngle = 30;
+    double idealAngle;
 
-    public elevatorMoveToAngleMotorCommand(elevatorMotorSubsystem motorSubsystem, IMUSubsystem sensorSubsystem) {
+    public elevatorMoveToAngleMotorCommand(elevatorMotorSubsystem motorSubsystem, IMUSubsystem sensorSubsystem, double targetAngle) {
 
         super();
+        idealAngle = targetAngle;
         m_elevatorMotorSubsystem = motorSubsystem;
         m_IMUSubsystem = sensorSubsystem;
         addRequirements(m_elevatorMotorSubsystem);
