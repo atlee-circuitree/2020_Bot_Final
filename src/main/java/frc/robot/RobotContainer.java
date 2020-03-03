@@ -21,12 +21,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExampleCommand;
@@ -150,6 +152,7 @@ public class RobotContainer {
       m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommandDriver1 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
 
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand4 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
@@ -172,6 +175,8 @@ public class RobotContainer {
   private final runShooterMotorCommand m_runShooterMotorCommand2 = new runShooterMotorCommand(m_shooterMotorSubsystem);
 
   private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+  private final stopShooterMotorCommand m_KillMotorsDriver2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+  private final stopShooterMotorCommand m_KillMotorsDriver1 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
 
   private final stopShooterMotorCommand m_stopShooterMotorCommand2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
 
@@ -201,7 +206,13 @@ public class RobotContainer {
 
   private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
 
+  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommandDriver1 = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
+
   private final ShootWaitVelocity m_ShootWaitVelocity = new ShootWaitVelocity(m_shooterIntakeSubsystem, m_shooterMotorSubsystem);
+
+  private final closeShooterPnumaticCommand m_CloseBeforeShoot = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+
+  private final ParallelCommandGroup m_CloseShootWaitVelocity = new ParallelCommandGroup(m_CloseBeforeShoot, m_ShootWaitVelocity);
 
   private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
 
@@ -261,6 +272,7 @@ public class RobotContainer {
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
   
   private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
+  private final SequentialCommandGroup m_intakefullspitballDriver1 = new SequentialCommandGroup(m_openShooterPnumaticCommandDriver1, m_intakeSpitballMotorCommandDriver1);
 
   //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
@@ -285,6 +297,10 @@ public class RobotContainer {
     JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
     JoystickButton DriverL = new JoystickButton(Xbox1, XboxController.Button.kBumperLeft.value);
     JoystickButton DriverR = new JoystickButton(Xbox1, XboxController.Button.kBumperRight.value);
+    JoystickButton Driver1Start = new JoystickButton(Xbox1, XboxController.Button.kStart.value); 
+    //This is how you bind a trigger to a command - kind of confusing...
+    Button DriveLeftTrigger = new Button(() -> Xbox1.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5);
+    Button DriveRightTrigger = new Button(() -> Xbox1.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.5);
     
     JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
     JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value); 
@@ -292,6 +308,12 @@ public class RobotContainer {
     JoystickButton Driver2Y = new JoystickButton(Xbox2, XboxController.Button.kY.value); 
     JoystickButton Driver2L = new JoystickButton(Xbox2, XboxController.Button.kBumperLeft.value); 
     JoystickButton Driver2R = new JoystickButton(Xbox2, XboxController.Button.kBumperRight.value); 
+    JoystickButton Driver2Start = new JoystickButton(Xbox2, XboxController.Button.kStart.value); 
+
+    Button Drive2LeftTrigger = new Button(() -> Xbox2.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5);
+    Button Drive2RightTrigger = new Button(() -> Xbox2.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.5);
+
+
     JoystickButton FightStickB = new JoystickButton(Fightstick, 3);
     JoystickButton FightStickY = new JoystickButton(Fightstick, 4);
     JoystickButton FightStickLB = new JoystickButton(Fightstick, 5);
@@ -350,19 +372,26 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    DriverA.whileHeld(m_runShooterAndClosePnumatic);
+    //DriverA.whileHeld(m_runShooterAndClosePnumatic);
     DriverB.whileHeld(m_stopShooterMotorCommand);
-    DriverX.whileHeld(m_ShootWaitVelocity);
-    DriverY.whileHeld(m_runShooter50MotorCommand);
+    //DriverX.whileHeld(m_CloseShootWaitVelocity);
+    DriveLeftTrigger.whileHeld(m_intakefulltakeball);
+    DriveRightTrigger.whileHeld(m_intakefullspitballDriver1);
+    //DriverY.whileHeld(m_runShooter50MotorCommand);
     DriverR.whileHeld(m_levelerLeftMotorCommand);
     DriverL.whileHeld(m_levelerRightMotorCommand);
+    Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2A.whileHeld(m_intakefulltakeball);
+
+    Driver2A.whileHeld(m_CloseShootWaitVelocity);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(m_spinWheelMotorCommand);
-    Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
+    //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
+    Driver2Start.whenPressed(m_KillMotorsDriver2);
+    Drive2LeftTrigger.whenPressed(m_runShooter50MotorCommand);
+    Drive2RightTrigger.whenPressed(m_runShooterAndClosePnumatic);
      
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
