@@ -39,7 +39,7 @@ public class ShootWaitVelocity extends CommandBase {
     
     int velocity = m_subsystem2.getVelocity();
     System.out.println(velocity);
-    if (Math.abs(velocity) < 500) {
+    if (Math.abs(velocity) < 1000) {
 
       m_subsystem.conveyorOnly();
 
