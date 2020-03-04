@@ -39,6 +39,7 @@ public class shooterIntakeSubsystem extends SubsystemBase {
   intake = new CANSparkMax(Constants.intakeMotor, MotorType.kBrushless);
   conveyorbeltLeft = new CANSparkMax(Constants.conveyorbeltRight, MotorType.kBrushless);
   conveyorbeltRight = new CANSparkMax(Constants.conveyorbeltLeft, MotorType.kBrushless);
+  //conveyorbeltRight.setInverted(true);
 
   m_shooterleftPIDController = intake.getPIDController();
 
