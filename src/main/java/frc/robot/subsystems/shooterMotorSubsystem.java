@@ -128,7 +128,7 @@ public int getVelocityError() {
 
 public void runShooter50() {
 
-  leftShooter.set(ControlMode.Velocity, 7500);
+  leftShooter.set(ControlMode.Velocity, 10000);
 
 }
 

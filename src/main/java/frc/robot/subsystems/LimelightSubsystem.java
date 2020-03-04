@@ -165,12 +165,6 @@ public class LimeLightSubsystem extends SubsystemBase {
   public void LimelightSteer() {
 
     updateLimelightTracking();
- 
-    //if (m_LimelightHasValidTarget) {
-    //    m_drivetrainSubsystem.robotDrive.arcadeDrive(m_LimelightDriveCommand, m_LimelightSteerCommand);
-    //} else {
-    //    m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
-    //}
      
   }
 

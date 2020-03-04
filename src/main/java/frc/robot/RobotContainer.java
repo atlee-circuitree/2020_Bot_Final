@@ -439,7 +439,7 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2A.whileHeld(m_CloseShootWaitVelocity);
+    Driver2A.whileHeld(m_CloseShootWaitVelocity.withTimeout(5));
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);

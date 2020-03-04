@@ -13,7 +13,6 @@ import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.subsystems.shooterIntakeSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem;
 
-
 public class ShootWaitVelocity extends CommandBase {
 
   shooterIntakeSubsystem m_subsystem;
@@ -22,7 +21,7 @@ public class ShootWaitVelocity extends CommandBase {
 
   ballObstructionSensorSubsystem m_subsystem3;
    
-  public ShootWaitVelocity(shooterIntakeSubsystem intakeSubsystem, shooterMotorSubsystem shooterSubsystem, ballObstructionSensorSubsystem obstructionSubsystem) {
+  public ShootWaitVelocity (shooterIntakeSubsystem intakeSubsystem, shooterMotorSubsystem shooterSubsystem, ballObstructionSensorSubsystem obstructionSubsystem) {
      
     super();
     m_subsystem = intakeSubsystem;
@@ -77,7 +76,6 @@ public class ShootWaitVelocity extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_subsystem.stopConveyor();
 
 
   }
