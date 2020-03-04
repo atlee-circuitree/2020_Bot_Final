@@ -190,8 +190,11 @@ public class RobotContainer {
   private final stopShooterMotorCommand m_stopShooterMotorCommand3 = new stopShooterMotorCommand(
       m_shooterMotorSubsystem);
 
-  private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(
-      m_shooterIntakeSubsystem);
+  //private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(
+      //m_shooterIntakeSubsystem);
+
+      private final stopConveyorMotorCommand m_stopConveyorMotorCommand2 = new stopConveyorMotorCommand(
+        m_shooterIntakeSubsystem);    
 
   private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand2 = new shooterOnlyConveyorMotorCommand(
       m_shooterIntakeSubsystem);
@@ -332,6 +335,8 @@ public class RobotContainer {
   private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(
       m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
 
+  private final SequentialCommandGroup m_killPlayer2WithConveyor = new SequentialCommandGroup(m_KillMotorsDriver2, m_stopConveyorMotorCommand2);
+
   private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(
       m_elevatorMotorSubsystem, s_imuSubsystem, 24);
 
@@ -440,7 +445,7 @@ public class RobotContainer {
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
-    Driver2Start.whenPressed(m_KillMotorsDriver2);
+    Driver2Start.whenPressed(m_killPlayer2WithConveyor);
     Drive2LeftTrigger.whileHeld(m_shoot50PercentAndCloseShooter);
     Drive2RightTrigger.whileHeld(m_runShooterAndClosePnumatic);
      
