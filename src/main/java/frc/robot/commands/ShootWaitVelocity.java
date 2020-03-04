@@ -50,6 +50,7 @@ public class ShootWaitVelocity extends CommandBase {
   
     }
     m_subsystem.stopConveyor();
+    
     while ((Math.abs(velocity) > 300)){
       
       velocity = m_subsystem2.getVelocityError();

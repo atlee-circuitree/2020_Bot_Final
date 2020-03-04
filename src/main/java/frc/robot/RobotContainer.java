@@ -243,6 +243,9 @@ public class RobotContainer {
   private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(
       m_shooterMotorSubsystem, false);
 
+  private final runShooter50MotorCommand m_runShooter50MotorCommand2 = new runShooter50MotorCommand(
+      m_shooterMotorSubsystem, false);    
+
   private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(s_limelightSubsystem);
 
   private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(s_limelightSubsystem);
@@ -439,7 +442,7 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2A.whileHeld(m_CloseShootWaitVelocity.withTimeout(5));
+    Driver2A.whileHeld(m_CloseShootWaitVelocity, true);
     Driver2B.whileHeld(m_intakefullspitball);
     Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
