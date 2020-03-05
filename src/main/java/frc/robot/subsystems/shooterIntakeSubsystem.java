@@ -75,8 +75,8 @@ public void stopintake() {
 
 public void straightenballs() {
 
-  conveyorbeltRight.set(-1);
-  conveyorbeltLeft.set(1);
+  conveyorbeltRight.set(-5);
+  conveyorbeltLeft.set(-5);
 
 }
 

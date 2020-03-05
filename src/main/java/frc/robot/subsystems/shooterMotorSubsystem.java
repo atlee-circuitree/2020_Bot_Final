@@ -102,7 +102,7 @@ public void flipShooterState() {
 public void runShooterEncoder() {
 
    //rightShooter.set(ControlMode.Position, 100000);
-   leftShooter.set(ControlMode.Position, 100000);
+   leftShooter.set(ControlMode.Position, 100000); // this will prob be way to low like not even make it to the second level
 
 }
 
