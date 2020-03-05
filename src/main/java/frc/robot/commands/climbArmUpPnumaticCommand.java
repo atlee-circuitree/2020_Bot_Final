@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  
 public class climbArmUpPnumaticCommand extends InstantCommand {
-   
-  climbPnumaticSubsystem m_subsystem;
 
-  public climbArmUpPnumaticCommand(climbPnumaticSubsystem pnumaticSubsystem) {
+    climbPnumaticSubsystem m_subsystem;
+
+    public climbArmUpPnumaticCommand(climbPnumaticSubsystem pnumaticSubsystem) {
 
     super();
     m_subsystem = pnumaticSubsystem;
