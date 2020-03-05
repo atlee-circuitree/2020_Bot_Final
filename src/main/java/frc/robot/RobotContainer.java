@@ -259,6 +259,10 @@ public class RobotContainer {
 
   private final runUntilObstructedSensorCommand m_runUntilObstructedSensorCommand = new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem);
 
+  private final runUntilObstructedSensorCommand m_runUntilObstructedSensorCommand2 = new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem);
+
+  private final runUntilObstructedSensorCommand m_runUntilObstructedSensorCommand3 = new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem);
+
   private final runUntilNotObstructedSensorCommand m_runUntilNotObstructedSensorCommand = new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem);
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
@@ -318,25 +322,20 @@ public class RobotContainer {
 
   // Wait 1 second.
 
-  // private final ParallelDeadlineGroup m_intakefulltakeballParallel = new
-  // ParallelDeadlineGroup(m_ballObstructionSensorCommand,
-  // m_intakeTakeballMotorCommand);
+   private final ParallelDeadlineGroup m_intakefulltakeballParallel = new
+   ParallelDeadlineGroup(m_runUntilObstructedSensorCommand2, m_intakeTakeballMotorCommand);
 
-  // private final conveyorbeltclearCommand m_ConveyorbeltclearCommand = new
-  // conveyorbeltclearCommand(m_shooterMotorSubsystem,
-  // m_bBallObstructionSensorSubsystem);
+   private final conveyorbeltclearCommand m_ConveyorbeltclearCommand = new conveyorbeltclearCommand(m_shooterMotorSubsystem, m_ballObstructionSensorSubsystem);
 
   // private final conveyorbeltObstructedCommand m_ConveyorbeltObstructedCommand =
   // new conveyorbeltObstructedCommand(m_shooterMotorSubsystem,
   // m_bBallObstructionSensorSubsystem);
 
-  // private final SequentialCommandGroup m_shootallballs = new
-  // SequentialCommandGroup(m_closeShooterPnumaticCommand,
-  // m_ConveyorbeltclearCommand);
+  private final SequentialCommandGroup m_shootallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand2, m_ConveyorbeltclearCommand);
 
-  // private final SequentialCommandGroup m_takeallballs = new
-  // SequentialCommandGroup(m_closeShooterPnumaticCommand,
-  // m_ConveyorbeltObstructedCommand);
+  //private final SequentialCommandGroup m_waitUntilNoBalls = new SequentialCommandGroup(commands);
+
+  private final SequentialCommandGroup m_takeallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_runUntilObstructedSensorCommand2);
 
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand,
       m_intakeTakeballMotorCommand);
@@ -351,13 +350,11 @@ public class RobotContainer {
   // m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command,
   // m_spinWheelMotorCommand, m_stopShooterMotorCommand);
 
-  private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(
-      m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+  private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
 
   private final SequentialCommandGroup m_killPlayer2WithConveyor = new SequentialCommandGroup(m_KillMotorsDriver2, m_stopConveyorMotorCommand2);
 
-  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(
-      m_elevatorMotorSubsystem, s_imuSubsystem, 24);
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24);
 
   public static Object driveRobot;
 
@@ -458,8 +455,8 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2A.whileHeld(m_CloseShootWaitVelocity, true);
-    Driver2B.whileHeld(m_intakefullspitball);
+    Driver2A.whileHeld(m_shootallballs);
+    Driver2B.whileHeld(m_intakefulltakeballParallel);
     Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_stopAndOpenShooter);
@@ -467,7 +464,7 @@ public class RobotContainer {
     Driver2Start.whenPressed(m_killPlayer2WithConveyor);
     Drive2LeftTrigger.whileHeld(m_shoot50PercentAndCloseShooter);
     Drive2RightTrigger.whileHeld(m_runShooterAndClosePnumatic);
-     
+    
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
     FightStickRB.whenPressed(m_climbArmUpPnumaticCommand);
