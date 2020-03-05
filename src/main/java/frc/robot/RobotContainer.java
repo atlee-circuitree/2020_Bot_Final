@@ -368,7 +368,9 @@ public class RobotContainer {
 
   private final SequentialCommandGroup m_killPlayer2WithConveyor = new SequentialCommandGroup(m_KillMotorsDriver2, m_stopConveyorMotorCommand2);
 
-  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24);
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngle_24_MotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24);
+
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngle_36_MotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 36);
 
   public static Object driveRobot;
 
@@ -486,8 +488,8 @@ public class RobotContainer {
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
-    FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
-    //FightStickSHARE.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
+    FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand);
+    FightStickSHARE.whileHeld(c_ElevatorMoveToAngle_36_MotorCommand));
     
   }
 

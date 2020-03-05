@@ -25,7 +25,7 @@ public class CenterOnTargetLimelight extends CommandBase {
   final double DESIRED_TARGET_AREA = 13.0; // Area of the target when the robot reaches the wall
   final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
   final double MAX_ERROR = 1; //Maximum distance we can be off on X axis
-  final double DEADBAND_MIN = 0.10;
+  final double DEADBAND_MIN = 0.30;
 
   LinearFilter filterLinearError = LinearFilter.movingAverage(3);
   int iterations = 0;
@@ -94,10 +94,12 @@ public class CenterOnTargetLimelight extends CommandBase {
     }
     m_LimelightDriveCommand = drive_cmd;
 
+    System.out.print(" offset ");
+    System.out.print(vertOffset);
     System.out.print(" steer ");
     System.out.print(m_LimelightSteerCommand);
     System.out.print(" drive ");
-    System.out.print(m_LimelightDriveCommand);
+    System.out.println(m_LimelightDriveCommand);
 
     s_DriveTrainSubsystem.driveRobot(m_LimelightSteerCommand, m_LimelightDriveCommand); //invert steer command because it's inverted in "driveRobot" function
   }
