@@ -333,11 +333,8 @@ public class RobotContainer {
 
   // Wait 1 second.
 
-   private final ParallelDeadlineGroup m_shootWaitObstructionParallel = new ParallelDeadlineGroup(m_runUntilObstructedSensorCommand3, new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
 
-   private final ParallelDeadlineGroup m_runConveyorWithObstructionCheck = new ParallelDeadlineGroup(m_runUntilNotObstructedSensorCommandGroup, m_shooterOnlyConveyorMotorCommand_ConveyorCommandGroup);
-
-   private final SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(m_shootWaitObstructionParallel, m_checkForShooterVelocity, m_runConveyorWithObstructionCheck);
+   private final Command m_runConveyorWithObstructionAndVelocity = GenerateShootCommand();
 
    private final conveyorbeltclearCommand m_ConveyorbeltclearCommand = new conveyorbeltclearCommand(m_shooterMotorSubsystem, m_ballObstructionSensorSubsystem);
 
@@ -491,6 +488,18 @@ public class RobotContainer {
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand);
     FightStickSHARE.whileHeld(c_ElevatorMoveToAngle_36_MotorCommand);
     
+  }
+
+  public Command GenerateShootCommand()
+  {
+
+      ParallelDeadlineGroup m_shootWaitObstructionParallelGenerated = new ParallelDeadlineGroup(new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
+
+      ParallelDeadlineGroup m_runConveyorWithObstructionCheckGenerated = new ParallelDeadlineGroup(new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
+ 
+      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem), m_runConveyorWithObstructionCheckGenerated);
+
+      return m_runConveyorWithObstructionAndVelocity;
   }
 
 
