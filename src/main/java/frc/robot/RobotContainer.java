@@ -17,6 +17,8 @@ import java.util.function.BooleanSupplier;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -83,6 +85,7 @@ import frc.robot.commands.ballObstructionSensorCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.commands.limelightValuesCommand;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -133,7 +136,7 @@ public class RobotContainer {
   private final WaitCommand m_Wait2000Command = new WaitCommand(2);
 
   private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
-  private final ballObstructionSensorSubsystem m_bBallObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
+  private final ballObstructionSensorSubsystem m_ballObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
   private final wheelMotorSubsystem m_wheelMotorSubsystem = new wheelMotorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -152,11 +155,11 @@ public class RobotContainer {
       m_shooterPnumaticSubsystem);
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand3 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
-  private final openShooterPnumaticCommand m_openShooterPnumaticCommandDriver1 = new openShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final openShooterPnumaticCommand m_openShooterPnumaticCommandDriver1 = new openShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
 
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand4 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
-  
 
   private final openShooterPnumaticCommand m_openShooterPnumaticCommand5 = new openShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
@@ -169,117 +172,176 @@ public class RobotContainer {
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand3 = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
 
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommand4 = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);    
 
   private final runShooterMotorCommand m_runShooterMotorCommand = new runShooterMotorCommand(m_shooterMotorSubsystem);
 
   private final runShooterMotorCommand m_runShooterMotorCommand2 = new runShooterMotorCommand(m_shooterMotorSubsystem);
 
-  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+  private final stopShooterMotorCommand m_stopShooterMotorCommand = new stopShooterMotorCommand(
+      m_shooterMotorSubsystem);
   private final stopShooterMotorCommand m_KillMotorsDriver2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
   private final stopShooterMotorCommand m_KillMotorsDriver1 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
 
-  private final stopShooterMotorCommand m_stopShooterMotorCommand2 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+  private final stopShooterMotorCommand m_stopShooterMotorCommand2 = new stopShooterMotorCommand(
+      m_shooterMotorSubsystem);
 
-  private final stopShooterMotorCommand m_stopShooterMotorCommand3 = new stopShooterMotorCommand(m_shooterMotorSubsystem);
+  private final stopShooterMotorCommand m_stopShooterMotorCommand3 = new stopShooterMotorCommand(
+      m_shooterMotorSubsystem);
 
-  private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(m_shooterIntakeSubsystem);
+  //private final stopConveyorMotorCommand m_stopConveyorMotorCommand = new stopConveyorMotorCommand(
+      //m_shooterIntakeSubsystem);
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand2 = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
+      private final stopConveyorMotorCommand m_stopConveyorMotorCommand2 = new stopConveyorMotorCommand(
+        m_shooterIntakeSubsystem);    
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand2 = new shooterOnlyConveyorMotorCommand(
+      m_shooterIntakeSubsystem);
 
-  private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(m_shooterMotorSubsystem);
-  
-  private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(m_kickoutPnumaticSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(
+      m_shooterIntakeSubsystem);
+
+  private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(
+      m_shooterMotorSubsystem);
+
+  private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(
+      m_kickoutPnumaticSubsystem);
 
   private final spinWheelMotorCommand m_spinWheelMotorCommand = new spinWheelMotorCommand(m_wheelMotorSubsystem);
 
-  private final levelerLeftMotorCommand m_levelerLeftMotorCommand = new levelerLeftMotorCommand(m_levelerMotorSubsystem);
+  private final levelerLeftMotorCommand m_levelerLeftMotorCommand = new levelerLeftMotorCommand(
+      m_levelerMotorSubsystem);
 
-  private final levelerRightMotorCommand m_levelerRightMotorCommand = new levelerRightMotorCommand(m_levelerMotorSubsystem);
+  private final levelerRightMotorCommand m_levelerRightMotorCommand = new levelerRightMotorCommand(
+      m_levelerMotorSubsystem);
 
-  private final ballObstructionSensorCommand m_BallObstructionSensorCommand = new ballObstructionSensorCommand(m_bBallObstructionSensorSubsystem);
+  private final ballObstructionSensorCommand m_BallObstructionSensorCommand = new ballObstructionSensorCommand(
+      m_ballObstructionSensorSubsystem);
 
-  private final kickoutReversePnumaticCommand m_kickoutReversePnumaticCommand = new kickoutReversePnumaticCommand(m_kickoutPnumaticSubsystem);
+  private final kickoutReversePnumaticCommand m_kickoutReversePnumaticCommand = new kickoutReversePnumaticCommand(
+      m_kickoutPnumaticSubsystem);
 
-  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(m_shooterIntakeSubsystem, m_bBallObstructionSensorSubsystem);
+  private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(
+      m_shooterIntakeSubsystem, m_ballObstructionSensorSubsystem);
 
-  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
+  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommand = new intakeSpitballMotorCommand(
+      m_shooterIntakeSubsystem);
 
-  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommandDriver1 = new intakeSpitballMotorCommand(m_shooterIntakeSubsystem);
+  private final intakeSpitballMotorCommand m_intakeSpitballMotorCommandDriver1 = new intakeSpitballMotorCommand(
+      m_shooterIntakeSubsystem);
 
-  private final ShootWaitVelocity m_ShootWaitVelocity = new ShootWaitVelocity(m_shooterIntakeSubsystem, m_shooterMotorSubsystem);
+  private final ShootWaitVelocity m_ShootWaitVelocity = new ShootWaitVelocity(m_shooterIntakeSubsystem,
+      m_shooterMotorSubsystem, m_ballObstructionSensorSubsystem);
 
-  private final closeShooterPnumaticCommand m_CloseBeforeShoot = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final closeShooterPnumaticCommand m_CloseBeforeShoot = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
 
-  private final ParallelCommandGroup m_CloseShootWaitVelocity = new ParallelCommandGroup(m_CloseBeforeShoot, m_ShootWaitVelocity);
+  private final ParallelCommandGroup m_CloseShootWaitVelocity = new ParallelCommandGroup(m_CloseBeforeShoot,
+      m_ShootWaitVelocity);
 
-  private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(m_shooterMotorSubsystem, false);
+  private final runShooter50MotorCommand m_runShooter50MotorCommand = new runShooter50MotorCommand(
+      m_shooterMotorSubsystem, false);
+
+  private final runShooter50MotorCommand m_runShooter50MotorCommand2 = new runShooter50MotorCommand(
+      m_shooterMotorSubsystem, false);    
 
   private final limelightValuesCommand m_limelightValuesCommand = new limelightValuesCommand(s_limelightSubsystem);
 
   private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(s_limelightSubsystem);
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
-  
+
   private final TimerCommand m_shooterWarmupTimerCommand = new TimerCommand(1000);
 
-  //This is for autonomous to clear all three balls
+  // This is for autonomous to clear all three balls
   private final TimerCommand m_shooterConveyorTimerCommand = new TimerCommand(2000);
 
-  private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(m_shooterMotorSubsystem, true);
+  private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(
+      m_shooterMotorSubsystem, true);
 
-  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(
+      m_shooterIntakeSubsystem);
 
-  private final ParallelDeadlineGroup m_TimedConveyorGroup = new ParallelDeadlineGroup(m_shooterConveyorTimerCommand, m_shooterOnlyConveyorMotorCommandAuto);
+  private final ParallelDeadlineGroup m_TimedConveyorGroup = new ParallelDeadlineGroup(m_shooterConveyorTimerCommand,
+      m_shooterOnlyConveyorMotorCommandAuto);
 
-  private final SequentialCommandGroup m_WarmUpAndShootBalls = new SequentialCommandGroup(m_shooterWarmupTimerCommand, m_TimedConveyorGroup);
+  private final SequentialCommandGroup m_WarmUpAndShootBalls = new SequentialCommandGroup(m_shooterWarmupTimerCommand,
+      m_TimedConveyorGroup);
 
-  private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls, m_runShooter50MotorCommandAuto);
+  private final SequentialCommandGroup m_shoot50PercentAndCloseShooter = new SequentialCommandGroup (m_runShooter50MotorCommand, m_closeShooterPnumaticCommand4);  
+
+  private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
+      m_runShooter50MotorCommandAuto);
 
   private final TimerCommand m_driveBackwardsTimerAuto = new TimerCommand(500);
 
-  private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5, m_drivetrainSubsystem);
+  private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5,
+      m_drivetrainSubsystem);
 
-  private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto, m_drivetrainPercentPowerAuto);
-  
-  private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
- 
-  private final closeShooterPnumaticCommand c_CloseShooterDriver2 = new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem);
-  
-  private final SequentialCommandGroup m_stopAndCloseShooter = new SequentialCommandGroup(c_CloseShooterDriver2, m_stopShooterMotorCommand2);
+  private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
+      m_drivetrainPercentPowerAuto);
 
-  private final SequentialCommandGroup m_stopAndOpenShooter = new SequentialCommandGroup(m_openShooterPnumaticCommand5, m_stopShooterMotorCommand3);
+  private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(
+      m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
 
-   
+  private final closeShooterPnumaticCommand c_CloseShooterDriver2 = new closeShooterPnumaticCommand(
+      m_shooterPnumaticSubsystem);
 
-  //private final autonomusCommand2020 m_autonomusCommand = new autonomusCommand2020();
+  private final SequentialCommandGroup m_stopAndCloseShooter = new SequentialCommandGroup(c_CloseShooterDriver2,
+      m_stopShooterMotorCommand2);
 
-  //Wait 1 second.
-  
-  //private final ParallelDeadlineGroup m_intakefulltakeballParallel = new ParallelDeadlineGroup(m_ballObstructionSensorCommand, m_intakeTakeballMotorCommand);
+  private final SequentialCommandGroup m_stopAndOpenShooter = new SequentialCommandGroup(m_openShooterPnumaticCommand5,
+      m_stopShooterMotorCommand3);
 
-  //private final conveyorbeltclearCommand m_ConveyorbeltclearCommand = new conveyorbeltclearCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
+  // private final autonomusCommand2020 m_autonomusCommand = new
+  // autonomusCommand2020();
 
- // private final conveyorbeltObstructedCommand m_ConveyorbeltObstructedCommand = new conveyorbeltObstructedCommand(m_shooterMotorSubsystem, m_bBallObstructionSensorSubsystem);
+  // Wait 1 second.
 
-  //private final SequentialCommandGroup m_shootallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_ConveyorbeltclearCommand);
+  // private final ParallelDeadlineGroup m_intakefulltakeballParallel = new
+  // ParallelDeadlineGroup(m_ballObstructionSensorCommand,
+  // m_intakeTakeballMotorCommand);
 
-  //private final SequentialCommandGroup m_takeallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_ConveyorbeltObstructedCommand);
+  // private final conveyorbeltclearCommand m_ConveyorbeltclearCommand = new
+  // conveyorbeltclearCommand(m_shooterMotorSubsystem,
+  // m_bBallObstructionSensorSubsystem);
 
-  private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand, m_intakeTakeballMotorCommand);
-  
-  private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2, m_intakeSpitballMotorCommand);
-  private final SequentialCommandGroup m_intakefullspitballDriver1 = new SequentialCommandGroup(m_openShooterPnumaticCommandDriver1, m_intakeSpitballMotorCommandDriver1);
+  // private final conveyorbeltObstructedCommand m_ConveyorbeltObstructedCommand =
+  // new conveyorbeltObstructedCommand(m_shooterMotorSubsystem,
+  // m_bBallObstructionSensorSubsystem);
 
-  //private final SequentialCommandGroup m_auto = new SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command, m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command, m_spinWheelMotorCommand, m_stopShooterMotorCommand);
+  // private final SequentialCommandGroup m_shootallballs = new
+  // SequentialCommandGroup(m_closeShooterPnumaticCommand,
+  // m_ConveyorbeltclearCommand);
 
-  private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+  // private final SequentialCommandGroup m_takeallballs = new
+  // SequentialCommandGroup(m_closeShooterPnumaticCommand,
+  // m_ConveyorbeltObstructedCommand);
 
-  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24);
+  private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand,
+      m_intakeTakeballMotorCommand);
 
+  private final SequentialCommandGroup m_intakefullspitball = new SequentialCommandGroup(m_openShooterPnumaticCommand2,
+      m_intakeSpitballMotorCommand);
+  private final SequentialCommandGroup m_intakefullspitballDriver1 = new SequentialCommandGroup(
+      m_openShooterPnumaticCommandDriver1, m_intakeSpitballMotorCommandDriver1);
+
+  // private final SequentialCommandGroup m_auto = new
+  // SequentialCommandGroup(m_runShooter50MotorCommand, m_Wait500Command,
+  // m_shooterOnlyConveyorMotorCommand2, m_Wait2000Command,
+  // m_spinWheelMotorCommand, m_stopShooterMotorCommand);
+
+  private final SequentialCommandGroup m_runShooterAndClosePnumatic = new SequentialCommandGroup(
+      m_runShooterMotorCommand, m_closeShooterPnumaticCommand3);
+
+  private final SequentialCommandGroup m_killPlayer2WithConveyor = new SequentialCommandGroup(m_KillMotorsDriver2, m_stopConveyorMotorCommand2);
+
+  private final elevatorMoveToAngleMotorCommand c_ElevatorMoveToAngleMotorCommand = new elevatorMoveToAngleMotorCommand(
+      m_elevatorMotorSubsystem, s_imuSubsystem, 24);
 
   public static Object driveRobot;
 
@@ -287,56 +349,53 @@ public class RobotContainer {
 
   public static Constants m_constants;
 
-    public static XboxController Xbox1 = new XboxController(0);
-    public static XboxController Xbox2 = new XboxController(1);
-    public static Joystick Fightstick = new Joystick(2);
+  public static XboxController Xbox1 = new XboxController(0);
+  public static XboxController Xbox2 = new XboxController(1);
+  public static Joystick Fightstick = new Joystick(2);
 
-    JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); //Take Balls
-    JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); //Spit Balls
-    JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); //Opens pneumatic shooter
-    JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); //Closes pneumatic shooter
-    JoystickButton DriverL = new JoystickButton(Xbox1, XboxController.Button.kBumperLeft.value);
-    JoystickButton DriverR = new JoystickButton(Xbox1, XboxController.Button.kBumperRight.value);
-    JoystickButton Driver1Start = new JoystickButton(Xbox1, XboxController.Button.kStart.value); 
-    //This is how you bind a trigger to a command - kind of confusing...
-    Button DriveLeftTrigger = new Button(() -> Xbox1.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5);
-    Button DriveRightTrigger = new Button(() -> Xbox1.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.5);
-    
-    JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value); 
-    JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value); 
-    JoystickButton Driver2X = new JoystickButton(Xbox2, XboxController.Button.kX.value); 
-    JoystickButton Driver2Y = new JoystickButton(Xbox2, XboxController.Button.kY.value); 
-    JoystickButton Driver2L = new JoystickButton(Xbox2, XboxController.Button.kBumperLeft.value); 
-    JoystickButton Driver2R = new JoystickButton(Xbox2, XboxController.Button.kBumperRight.value); 
-    JoystickButton Driver2Start = new JoystickButton(Xbox2, XboxController.Button.kStart.value); 
+  JoystickButton DriverA = new JoystickButton(Xbox1, XboxController.Button.kA.value); // Take Balls
+  JoystickButton DriverB = new JoystickButton(Xbox1, XboxController.Button.kB.value); // Spit Balls
+  JoystickButton DriverX = new JoystickButton(Xbox1, XboxController.Button.kX.value); // Opens pneumatic shooter
+  JoystickButton DriverY = new JoystickButton(Xbox1, XboxController.Button.kY.value); // Closes pneumatic shooter
+  JoystickButton DriverL = new JoystickButton(Xbox1, XboxController.Button.kBumperLeft.value);
+  JoystickButton DriverR = new JoystickButton(Xbox1, XboxController.Button.kBumperRight.value);
+  JoystickButton Driver1Start = new JoystickButton(Xbox1, XboxController.Button.kStart.value);
+  // This is how you bind a trigger to a command - kind of confusing...
+  Button DriveLeftTrigger = new Button(() -> Xbox1.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5);
+  Button DriveRightTrigger = new Button(() -> Xbox1.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.5);
 
-    Button Drive2LeftTrigger = new Button(() -> Xbox2.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5);
-    Button Drive2RightTrigger = new Button(() -> Xbox2.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.5);
+  JoystickButton Driver2A = new JoystickButton(Xbox2, XboxController.Button.kA.value);
+  JoystickButton Driver2B = new JoystickButton(Xbox2, XboxController.Button.kB.value);
+  JoystickButton Driver2X = new JoystickButton(Xbox2, XboxController.Button.kX.value);
+  JoystickButton Driver2Y = new JoystickButton(Xbox2, XboxController.Button.kY.value);
+  JoystickButton Driver2L = new JoystickButton(Xbox2, XboxController.Button.kBumperLeft.value);
+  JoystickButton Driver2R = new JoystickButton(Xbox2, XboxController.Button.kBumperRight.value);
+  JoystickButton Driver2Start = new JoystickButton(Xbox2, XboxController.Button.kStart.value);
 
+  Button Drive2LeftTrigger = new Button(() -> Xbox2.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5);
+  Button Drive2RightTrigger = new Button(() -> Xbox2.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0.5);
 
-    JoystickButton FightStickB = new JoystickButton(Fightstick, 3);
-    JoystickButton FightStickY = new JoystickButton(Fightstick, 4);
-    JoystickButton FightStickLB = new JoystickButton(Fightstick, 5);
-    JoystickButton FightStickRB = new JoystickButton(Fightstick, 6);
-    JoystickButton FightStickL3 = new JoystickButton(Fightstick, 9);
-    JoystickButton FightStickR3 = new JoystickButton(Fightstick, 10);
-    JoystickButton FightStickL1 = new JoystickButton(Fightstick, 5);
-    JoystickButton FightStickSHARE = new JoystickButton(Fightstick, 7);
-    JoystickButton FightStickOPTIONS = new JoystickButton(Fightstick, 8);
-    
-    
-    
+  JoystickButton FightStickB = new JoystickButton(Fightstick, 3);
+  JoystickButton FightStickY = new JoystickButton(Fightstick, 4);
+  JoystickButton FightStickLB = new JoystickButton(Fightstick, 5);
+  JoystickButton FightStickRB = new JoystickButton(Fightstick, 6);
+  JoystickButton FightStickL3 = new JoystickButton(Fightstick, 9);
+  JoystickButton FightStickR3 = new JoystickButton(Fightstick, 10);
+  JoystickButton FightStickL1 = new JoystickButton(Fightstick, 5);
+  JoystickButton FightStickSHARE = new JoystickButton(Fightstick, 7);
+  JoystickButton FightStickOPTIONS = new JoystickButton(Fightstick, 8);
+
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
 
     setUpDrive();
 
-    configureButtonBindings();    
+    configureButtonBindings();
   }
 
-  //Operations specific to TeleOp only
+  // Operations specific to TeleOp only
   public void teleopInit()
   {
     c_dDrivetrainCommand = new drivetrainCommand(Xbox1, m_drivetrainSubsystem);
@@ -345,6 +404,7 @@ public class RobotContainer {
     m_elevatorMotorSubsystem.setDefaultCommand(c_delevatorMotorCommand);
     m_shooterMotorSubsystem.shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
+     
     //m_constants.airCompressor = new Compressor(1);
 
     //m_constants.airCompressor.setClosedLoopControl(true);
@@ -382,16 +442,15 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-
-    Driver2A.whileHeld(m_CloseShootWaitVelocity);
+    Driver2A.whileHeld(m_CloseShootWaitVelocity, true);
     Driver2B.whileHeld(m_intakefullspitball);
-    Driver2X.whileHeld(m_spinWheelMotorCommand);
+    Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
-    Driver2Start.whenPressed(m_KillMotorsDriver2);
-    Drive2LeftTrigger.whenPressed(m_runShooter50MotorCommand);
-    Drive2RightTrigger.whenPressed(m_runShooterAndClosePnumatic);
+    Driver2Start.whenPressed(m_killPlayer2WithConveyor);
+    Drive2LeftTrigger.whileHeld(m_shoot50PercentAndCloseShooter);
+    Drive2RightTrigger.whileHeld(m_runShooterAndClosePnumatic);
      
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
@@ -401,7 +460,7 @@ public class RobotContainer {
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngleMotorCommand);
-    FightStickSHARE.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
+    //FightStickSHARE.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     
   }
 

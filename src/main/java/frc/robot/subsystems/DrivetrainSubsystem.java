@@ -51,7 +51,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public void driveRobot(Double X, double Y) {
 
-        robotDrive.arcadeDrive(-Y, X);
+        robotDrive.arcadeDrive(-Y, X, true);
     }
 
     public void driveBackwards() {

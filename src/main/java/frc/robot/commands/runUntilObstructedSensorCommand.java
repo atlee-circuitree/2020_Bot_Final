@@ -7,23 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.shooterMotorSubsystem;
-import frc.robot.commands.ShootWaitVelocity;
+import frc.robot.subsystems.ballObstructionSensorSubsystem;
+import frc.robot.subsystems.elevatorMotorSubsystem;
+import frc.robot.subsystems.wheelMotorSubsystem;
 
 
-public class stopShooterMotorCommand extends CommandBase {
+public class runUntilObstructedSensorCommand extends CommandBase {
 
-  shooterMotorSubsystem m_subsystem;
-   
-  public stopShooterMotorCommand(shooterMotorSubsystem motorSubsystem) {
+    ballObstructionSensorSubsystem m_subsystem;
+
+    public runUntilObstructedSensorCommand(ballObstructionSensorSubsystem sensorSubsystem) {
      
     super();
-    m_subsystem = motorSubsystem;
+    m_subsystem = sensorSubsystem;
     addRequirements(m_subsystem);
-    
-
   }
 
   // Called when the command is initially scheduled.
@@ -31,25 +29,10 @@ public class stopShooterMotorCommand extends CommandBase {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-
-    m_subsystem.stopShooter();
-
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-
-    m_subsystem.stopShooter();
-
-  }
-
-  // Returns true when the command should end.
+  //run by the scheduler to check to see if the task is finished
   @Override
   public boolean isFinished() {
-    return false;
+    return (m_subsystem.isObstructed() == true);
   }
+
 }

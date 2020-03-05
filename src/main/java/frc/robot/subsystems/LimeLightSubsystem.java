@@ -17,62 +17,59 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  
 public class LimeLightSubsystem extends SubsystemBase {
 
-  //private static drivetrainSubsystem m_drivetrainSubsystem = new drivetrainSubsystem();
+  // private static drivetrainSubsystem m_drivetrainSubsystem = new
+  // drivetrainSubsystem();
 
   boolean m_LimelightHasValidTarget = false;
   double m_LimelightDriveCommand = 0.0;
   double m_LimelightSteerCommand = 0.0;
 
-  //Local variables to store network values
+  // Local variables to store network values
   boolean b_tv = false;
   double dbl_tx, dbl_tv, dbl_ty, dbl_ta, dbl_ts, dbl_thor, dbl_tvert, dbl_tshort, dbl_tlong;
-  public boolean HasValidTarget()
-  {
+
+  public boolean HasValidTarget() {
     return b_tv;
   }
-  public double VerticalOffset()
-  {
+
+  public double VerticalOffset() {
     return dbl_tx;
   }
-  public double HorizontalOffset()
-  {
+
+  public double HorizontalOffset() {
     return dbl_ty;
   }
-  public double TargetArea()
-  {
+
+  public double TargetArea() {
     return dbl_ta;
   }
-  public double Skew()
-  {
+
+  public double Skew() {
     return dbl_ts;
   }
-  public double BoundingShortSide()
-  {
+
+  public double BoundingShortSide() {
     return dbl_tshort;
   }
-  public double BoundingLongSide()
-  {
+
+  public double BoundingLongSide() {
     return dbl_tlong;
   }
-  public double BoundingHorizontal()
-  {
+
+  public double BoundingHorizontal() {
     return dbl_thor;
   }
-  public double BoundingVertical()
-  {
+
+  public double BoundingVertical() {
     return dbl_tvert;
   }
 
-  public void ReadNetworkTables()
-  {
+  public void ReadNetworkTables() {
 
     double dbl_tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    if(dbl_tv > 0)
-    {
+    if (dbl_tv > 0) {
       b_tv = true;
-    }
-    else
-    {
+    } else {
       b_tv = false;
     }
     dbl_tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
@@ -85,7 +82,6 @@ public class LimeLightSubsystem extends SubsystemBase {
     dbl_tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
   }
 
-  
   public LimeLightSubsystem() {
   
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
@@ -104,9 +100,7 @@ public class LimeLightSubsystem extends SubsystemBase {
 
   public void updateLimelightTracking() {
 
-    
-
-    final double STEER_K = 0.03; // how hard to turn toward the target
+    final double STEER_K = 0.05; // how hard to turn toward the target
     final double DRIVE_K = 0.00; // how hard to drive fwd toward the target
     final double DESIRED_TARGET_AREA = 13.0; // Area of the target when the robot reaches the wall
     final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
@@ -167,12 +161,6 @@ public class LimeLightSubsystem extends SubsystemBase {
   public void LimelightSteer() {
 
     updateLimelightTracking();
- 
-    //if (m_LimelightHasValidTarget) {
-    //    m_drivetrainSubsystem.robotDrive.arcadeDrive(m_LimelightDriveCommand, m_LimelightSteerCommand);
-    //} else {
-    //    m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
-    //}
      
   }
 

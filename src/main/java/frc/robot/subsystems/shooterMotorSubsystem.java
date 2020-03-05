@@ -34,10 +34,18 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
   public ShooterMotorStatus shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
+  public ShooterMotorStatus50Percent shooterMotorStatus50Percent = ShooterMotorStatus50Percent.IS_NOT_RUNNING_50_PERCENT;
+
   public enum ShooterMotorStatus
   {
     IS_RUNNING,
     IS_NOT_RUNNING
+  }
+
+  public enum ShooterMotorStatus50Percent
+  {
+    IS_RUNNING_50_PERCENT,
+    IS_NOT_RUNNING_50_PERCENT
   }
 
   public shooterMotorSubsystem() {
@@ -82,6 +90,7 @@ public void flipShooterState() {
 
     shooterMotorStatus = ShooterMotorStatus.IS_NOT_RUNNING;
 
+ 
   } else {
     
     shooterMotorStatus = ShooterMotorStatus.IS_RUNNING;
@@ -97,7 +106,7 @@ public void runShooterEncoder() {
 
 }
 
-public int getVelocity() {
+public int getVelocityError() {
   
   
   System.out.print(" Velocity1 ");
@@ -119,7 +128,7 @@ public int getVelocity() {
 
 public void runShooter50() {
 
-  leftShooter.set(ControlMode.Velocity, 12500);
+  leftShooter.set(ControlMode.Velocity, 8500);
 
 }
 
