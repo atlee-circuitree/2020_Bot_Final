@@ -60,6 +60,8 @@ import frc.robot.commands.limelightAutoAimCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooter50MotorCommand;
 import frc.robot.commands.runShooterMotorCommand;
+import frc.robot.commands.runUntilNotObstructedSensorCommand;
+import frc.robot.commands.runUntilObstructedSensorCommand;
 import frc.robot.commands.shooterOnlyConveyorMotorCommand;
 import frc.robot.commands.shooterOnlyMotorCommand;
 import frc.robot.commands.spinWheelMotorCommand;
@@ -202,6 +204,11 @@ public class RobotContainer {
   private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand = new shooterOnlyConveyorMotorCommand(
       m_shooterIntakeSubsystem);
 
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand3 = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
+
+  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommand4 = new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem);
+
+
   private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(
       m_shooterMotorSubsystem);
 
@@ -250,11 +257,16 @@ public class RobotContainer {
 
   private final limelightAutoAimCommand m_limelightAutoAimCommand = new limelightAutoAimCommand(s_limelightSubsystem);
 
+  private final runUntilObstructedSensorCommand m_runUntilObstructedSensorCommand = new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem);
+
+  private final runUntilNotObstructedSensorCommand m_runUntilNotObstructedSensorCommand = new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem);
+
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
 
   private final TimerCommand m_shooterWarmupTimerCommand = new TimerCommand(1000);
 
   // This is for autonomous to clear all three balls
+
   private final TimerCommand m_shooterConveyorTimerCommand = new TimerCommand(2000);
 
   private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(
@@ -284,6 +296,10 @@ public class RobotContainer {
 
   private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
       m_drivetrainPercentPowerAuto);
+
+  private final SequentialCommandGroup m_moveConveyorUntilNotObstructed = new SequentialCommandGroup(m_shooterOnlyConveyorMotorCommand3, m_runUntilNotObstructedSensorCommand);
+
+  private final SequentialCommandGroup m_moveConveyorUntilObstructed = new SequentialCommandGroup(m_shooterOnlyConveyorMotorCommand4, m_runUntilObstructedSensorCommand);
 
   private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(
       m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
