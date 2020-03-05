@@ -41,6 +41,19 @@ public class ShootWaitVelocity extends CommandBase {
   public void execute() {
    
     int velocity = m_subsystem2.getVelocityError();
+
+    if ((Math.abs(velocity) < 300)){
+      
+        m_subsystem.conveyorOnly();
+       
+    } else {
+
+        m_subsystem.stopConveyor();
+
+    }
+
+      
+    /*int velocity = m_subsystem2.getVelocityError();
     System.out.println(velocity);
     while (m_subsystem3.isNotObstructed()) {
    
@@ -68,7 +81,7 @@ public class ShootWaitVelocity extends CommandBase {
  
     }
     //System.out.println("The ball is shot");
-    m_subsystem.stopConveyor();
+    m_subsystem.stopConveyor();*/
 
     
   }
@@ -76,7 +89,6 @@ public class ShootWaitVelocity extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
 
 
   }
