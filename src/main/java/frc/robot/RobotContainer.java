@@ -471,7 +471,7 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2A.whileHeld(m_runConveyorWithObstructionAndVelocity);
+    Driver2A.whenPressed(m_runConveyorWithObstructionAndVelocity);
     //Driver2B.whileHeld(m_shootWaitObstructionParallel);
     //Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
@@ -489,7 +489,7 @@ public class RobotContainer {
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand);
-    FightStickSHARE.whileHeld(c_ElevatorMoveToAngle_36_MotorCommand));
+    FightStickSHARE.whileHeld(c_ElevatorMoveToAngle_36_MotorCommand);
     
   }
 
