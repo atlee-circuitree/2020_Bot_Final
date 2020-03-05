@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Limelight Values
 
  
-public class limelightSubsystem extends SubsystemBase {
+public class LimeLightSubsystem extends SubsystemBase {
 
   // private static drivetrainSubsystem m_drivetrainSubsystem = new
   // drivetrainSubsystem();
@@ -82,7 +82,7 @@ public class limelightSubsystem extends SubsystemBase {
     dbl_tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
   }
 
-  public limelightSubsystem() {
+  public LimeLightSubsystem() {
   
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
     

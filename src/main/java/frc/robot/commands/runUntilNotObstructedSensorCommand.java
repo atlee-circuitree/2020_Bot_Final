@@ -13,11 +13,11 @@ import frc.robot.subsystems.elevatorMotorSubsystem;
 import frc.robot.subsystems.wheelMotorSubsystem;
 
 
-public class runUntilObstructedSensorCommand extends CommandBase {
+public class runUntilNotObstructedSensorCommand extends CommandBase {
 
     ballObstructionSensorSubsystem m_subsystem;
 
-    public runUntilObstructedSensorCommand(ballObstructionSensorSubsystem sensorSubsystem) {
+    public runUntilNotObstructedSensorCommand(ballObstructionSensorSubsystem sensorSubsystem) {
      
     super();
     m_subsystem = sensorSubsystem;
@@ -29,22 +29,10 @@ public class runUntilObstructedSensorCommand extends CommandBase {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  //run by the scheduler to check to see if the task is finished
   @Override
-  public void execute() {
-
-    if (m_subsystem.isObstructed() == true);
-
-       end(true);
-  
-    }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-
-     
-
+  public boolean isFinished() {
+    return (m_subsystem.isObstructed() == false);
   }
 
 }
