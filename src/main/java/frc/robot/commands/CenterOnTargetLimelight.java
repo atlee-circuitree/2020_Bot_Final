@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.LinearFilter;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -23,7 +24,11 @@ public class CenterOnTargetLimelight extends CommandBase {
   final double DRIVE_K = 0.00; // how hard to drive fwd toward the target
   final double DESIRED_TARGET_AREA = 13.0; // Area of the target when the robot reaches the wall
   final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
-  final double MAX_ERROR = 2; //Maximum distance we can be off on X axis
+  final double MAX_ERROR = 1; //Maximum distance we can be off on X axis
+  final double DEADBAND_MIN = 0.10;
+
+  LinearFilter filterLinearError = LinearFilter.movingAverage(3);
+  int iterations = 0;
 
   public CenterOnTargetLimelight(DrivetrainSubsystem driveSubsystem, LimeLightSubsystem LimeLight) {
     super();
@@ -41,6 +46,7 @@ public class CenterOnTargetLimelight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    iterations++;
     s_LimeLightSubsystem.EnableLED();
     s_LimeLightSubsystem.ReadNetworkTables();
     double m_LimelightDriveCommand = 0.0;
@@ -49,8 +55,35 @@ public class CenterOnTargetLimelight extends CommandBase {
       return;
     }
 
-    double steer_cmd = s_LimeLightSubsystem.VerticalOffset() * STEER_K;
+    double vertOffset = s_LimeLightSubsystem.VerticalOffset();
+    double vertOffsetAverage = filterLinearError.calculate(vertOffset);
+
+   
+
+    double steer_cmd = vertOffset * STEER_K;
+
+    // if(iterations > 3 && Math.abs(vertOffsetAverage - vertOffsetAverage) < 1)//we're not moving
+    // {
+    //   steer_cmd = 0.10; //try to push past deadband    
+    //   System.out.println("limelight - stuck - increasing acceleration");
+    // }
+    if(Math.abs(steer_cmd) < DEADBAND_MIN)
+    {
+      System.out.println("limelight power below deadband");
+      if(steer_cmd > 0)
+      {
+        steer_cmd = DEADBAND_MIN;
+      }
+      else
+      {
+        steer_cmd = -DEADBAND_MIN;
+      }
+        
+    }
+
     m_LimelightSteerCommand = steer_cmd;
+
+
 
     // try to drive forward until the target area reaches our desired area
     double drive_cmd = (DESIRED_TARGET_AREA - s_LimeLightSubsystem.TargetArea()) * DRIVE_K;
