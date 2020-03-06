@@ -459,7 +459,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    //DriverA.whileHeld(m_runShooterAndClosePnumatic);
+    DriverA.whenPressed(new SequentialCommandGroup(
+        new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24), 
+        new openShooterPnumaticCommand(m_shooterPnumaticSubsystem), 
+        new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, -3500)));
     DriverB.whileHeld(m_stopShooterMotorCommand);
     DriverX.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     DriveLeftTrigger.whileHeld(m_intakefulltakeball);
@@ -476,8 +479,8 @@ public class RobotContainer {
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
     Driver2Start.whenPressed(m_killPlayer2WithConveyor);
-    Drive2LeftTrigger.whileHeld(new SequentialCommandGroup(new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, 12500), GenerateShootCommand()));
-    Drive2RightTrigger.whileHeld(new SequentialCommandGroup(new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, 8500), GenerateShootCommand()));
+    Drive2RightTrigger.whileHeld(new SequentialCommandGroup(new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, 12500), GenerateShootCommand()));
+    Drive2LeftTrigger.whileHeld(new SequentialCommandGroup(new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, 8500), GenerateShootCommand()));
     
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
@@ -486,8 +489,8 @@ public class RobotContainer {
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
     //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
-    FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand);
-    FightStickSHARE.whileHeld(c_ElevatorMoveToAngle_36_MotorCommand);
+    FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand.withTimeout(5));
+    FightStickSHARE.whenPressed(c_ElevatorMoveToAngle_36_MotorCommand.withTimeout(5));
     
   }
 
