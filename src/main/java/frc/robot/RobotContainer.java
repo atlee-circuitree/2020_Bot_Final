@@ -61,6 +61,7 @@ import frc.robot.commands.limelightAutoAimCommand;
 import frc.robot.commands.openShooterPnumaticCommand;
 import frc.robot.commands.runShooter50MotorCommand;
 import frc.robot.commands.runShooterMotorCommand;
+import frc.robot.commands.runShooterVelocityMotorCommand;
 import frc.robot.commands.runUntilNotObstructedSensorCommand;
 import frc.robot.commands.runUntilObstructedSensorCommand;
 import frc.robot.commands.shooterOnlyConveyorMotorCommand;
@@ -475,8 +476,8 @@ public class RobotContainer {
     Driver2R.whenPressed(m_stopAndOpenShooter);
     Driver2L.whenPressed(m_stopAndCloseShooter);
     Driver2Start.whenPressed(m_killPlayer2WithConveyor);
-    Drive2LeftTrigger.whileHeld(m_shoot50PercentAndCloseShooter);
-    Drive2RightTrigger.whileHeld(m_runShooterAndClosePnumatic);
+    Drive2LeftTrigger.whileHeld(new SequentialCommandGroup(new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, 12500), GenerateShootCommand()));
+    Drive2RightTrigger.whileHeld(new SequentialCommandGroup(new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, 8500), GenerateShootCommand()));
     
     //FightStickB.whenPressed(m_kickoutPnumaticCommand);
     FightStickY.whenPressed(m_climbHookExtendPnumaticCommand);
@@ -493,11 +494,11 @@ public class RobotContainer {
   public Command GenerateShootCommand()
   {
 
-      ParallelDeadlineGroup m_shootWaitObstructionParallelGenerated = new ParallelDeadlineGroup(new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
+      ParallelDeadlineGroup m_shootWaitObstructionParallelGenerated = new ParallelDeadlineGroup(new runUntilObstructedSensorCommand(m_ballObstructionSensorSubsystem).withTimeout(1), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
 
-      ParallelDeadlineGroup m_runConveyorWithObstructionCheckGenerated = new ParallelDeadlineGroup(new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
+      ParallelDeadlineGroup m_runConveyorWithObstructionCheckGenerated = new ParallelDeadlineGroup(new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem).withTimeout(1), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
  
-      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem), m_runConveyorWithObstructionCheckGenerated);
+      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem).withTimeout(0.5), m_runConveyorWithObstructionCheckGenerated);
 
       return m_runConveyorWithObstructionAndVelocity;
   }

@@ -29,6 +29,7 @@ public class shooterMotorSubsystem extends SubsystemBase {
 
   TalonSRX rightShooter = null;
   TalonSRX leftShooter = null;
+  double TargetVelocity = 0;
 
   StringBuilder _sb = new StringBuilder();
 
@@ -124,6 +125,17 @@ public int getVelocityError() {
 
   return leftShooter.getClosedLoopError(0);
 
+}
+
+public double getTargetVelocityErrorPercent()
+{
+  return (getVelocityError()/TargetVelocity)*100;
+}
+
+public void runShooterVelocity(double Velocity)
+{
+  TargetVelocity = Velocity;
+  leftShooter.set(ControlMode.Velocity, Velocity);
 }
 
 public void runShooter50() {
