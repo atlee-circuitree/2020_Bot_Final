@@ -460,7 +460,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     DriverA.whenPressed(new SequentialCommandGroup(
-        new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24), 
+        new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24).withTimeout(2), 
         new openShooterPnumaticCommand(m_shooterPnumaticSubsystem), 
         new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, -3500)));
     DriverB.whileHeld(m_stopShooterMotorCommand);
@@ -472,7 +472,7 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2A.whenPressed(m_runConveyorWithObstructionAndVelocity);
+    Driver2X.whenPressed(m_runConveyorWithObstructionAndVelocity);
     //Driver2B.whileHeld(m_shootWaitObstructionParallel);
     //Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
