@@ -305,6 +305,7 @@ public class RobotContainer {
 
   private final TimerCommand m_driveBackwardsTimerAuto = new TimerCommand(500);
 
+  //Doug - change this value to drive forwards instead
   private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5,
       m_drivetrainSubsystem);
 
