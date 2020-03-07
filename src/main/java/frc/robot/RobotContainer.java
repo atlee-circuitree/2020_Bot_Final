@@ -408,6 +408,7 @@ public class RobotContainer {
   //Begin choosers for the dashboard and corresponding variables
   private final SendableChooser<String> m_autoChooser = new SendableChooser<>();
   private static final String kShootGoBackwards = "Shoot and Backward";
+  private static final String kAdvancedShootGoBackwards = "Advanced Shoot and Backward"; 
   private static final String kShootGoForwards = "Shoot and Forward";
   private String m_autoSelected;
 
@@ -418,6 +419,7 @@ public class RobotContainer {
 
     m_autoChooser.setDefaultOption(kShootGoBackwards, kShootGoBackwards);
     m_autoChooser.addOption(kShootGoForwards, kShootGoForwards);
+    m_autoChooser.addOption(kAdvancedShootGoBackwards, kAdvancedShootGoBackwards);
     SmartDashboard.putData("Auto choices", m_autoChooser);
     
     setUpDrive();
@@ -535,8 +537,26 @@ public class RobotContainer {
                     ), 
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))//Drive backwards for 0.5 seconds
             );
+
     }
-    else //Forwards
+    else if(m_autoSelected == this.kAdvancedShootGoBackwards)
+    {
+        return(
+            new SequentialCommandGroup(
+                new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem),
+                new SequentialCommandGroup(
+                    GenerateShootCommand().withTimeout(1),
+                    GenerateShootCommand().withTimeout(1),
+                    GenerateShootCommand().withTimeout(1),
+                    GenerateShootCommand().withTimeout(1),
+                    GenerateShootCommand().withTimeout(1),
+                new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))
+                )
+            );
+    
+    }
+  
+    else if (m_autoSelected == this.kShootGoForwards)
     {
         return (
             new SequentialCommandGroup(
@@ -552,6 +572,16 @@ public class RobotContainer {
                         ) //run conveyer for 2 seconds
                     ), 
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(.5,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
+            );
+    }
+    else
+    {
+        //this should never happen - just adding it here in case something happens
+        return (
+                new ParallelDeadlineGroup( //Drive backwards for 0.5 seconds
+                    new TimerCommand(500), 
+                    new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)
+                    )
             );
     }
     // An ExampleCommand will run in autonomous
