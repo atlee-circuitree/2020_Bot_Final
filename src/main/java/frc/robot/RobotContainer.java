@@ -407,9 +407,10 @@ public class RobotContainer {
 
   //Begin choosers for the dashboard and corresponding variables
   private final SendableChooser<String> m_autoChooser = new SendableChooser<>();
-  private static final String kShootGoBackwards = "Shoot and Backward";
-  private static final String kAdvancedShootGoBackwards = "Advanced Shoot and Backward"; 
-  private static final String kShootGoForwards = "Shoot and Forward";
+  String kShootGoBackwards = "Shoot and Backward";
+  String kAdvancedShootGoBackwards = "Advanced Shoot and Backward"; 
+  String kShootGoForwards = "Shoot and Forward";
+  String kTestAndShootElevator = "Test Shoot Elevator";
   private String m_autoSelected;
 
   /**
@@ -420,6 +421,7 @@ public class RobotContainer {
     m_autoChooser.setDefaultOption(kShootGoBackwards, kShootGoBackwards);
     m_autoChooser.addOption(kShootGoForwards, kShootGoForwards);
     m_autoChooser.addOption(kAdvancedShootGoBackwards, kAdvancedShootGoBackwards);
+    m_autoChooser.addOption(kTestAndShootElevator, kTestAndShootElevator);
     SmartDashboard.putData("Auto choices", m_autoChooser);
     
     setUpDrive();
@@ -544,9 +546,8 @@ public class RobotContainer {
         return(
             new SequentialCommandGroup(
                 new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem),
+                new runShooter50MotorCommand(m_shooterMotorSubsystem, true),
                 new SequentialCommandGroup(
-                    GenerateShootCommand().withTimeout(1),
-                    GenerateShootCommand().withTimeout(1),
                     GenerateShootCommand().withTimeout(1),
                     GenerateShootCommand().withTimeout(1),
                     GenerateShootCommand().withTimeout(1),
@@ -574,6 +575,24 @@ public class RobotContainer {
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(.5,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
             );
     }
+
+    else if(m_autoSelected == this.kTestAndShootElevator) {
+    return (
+        new SequentialCommandGroup(
+            new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem), //close shooter
+            new ParallelDeadlineGroup(
+                new runShooter50MotorCommand(m_shooterMotorSubsystem, true),    //turn on shooters
+                new SequentialCommandGroup(
+                    new TimerCommand(1000), //wait one second for shooter to come up to speed
+                    new ParallelDeadlineGroup(  //for 2 seconds - run conveyor belt
+                        new TimerCommand(2000), 
+                        new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem)
+                        )
+                    ) //run conveyer for 2 seconds
+                ), 
+            new ParallelDeadlineGroup(new TimerCommand(500))))//Drive forwards for 0.5 seconds
+        );
+}
     else
     {
         //this should never happen - just adding it here in case something happens
