@@ -30,7 +30,7 @@ public class drivetrainPercentPowerAuto extends CommandBase {
   @Override
   public void execute() {
 
-    m_subsystem.driveSetPercent(-.3);    
+    m_subsystem.driveSetPercentAuto(-.3);    
 
 
   }

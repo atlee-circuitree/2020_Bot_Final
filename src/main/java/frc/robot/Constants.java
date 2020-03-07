@@ -7,9 +7,9 @@
 
 package frc.robot;
 
-
 import edu.wpi.first.wpilibj.Compressor;
 //import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -120,5 +120,36 @@ public final class Constants {
 	 * 	                                    			  kP   kI   kD   kF          Iz    PeakOut */
   public final static Gains kGains_Velocit = new Gains( 0.03, 0, 0, 0.048,  300,  1.00);
 
-  
+  // Trajectory values
+
+  public static final double ksVolts = 0.191;
+  public static final double kvVoltSecondsPerMeter = 0.0536;
+  public static final double kaVoltSecondsSquaredPerMeter = 0.0136;
+
+  // Correct Values
+  public static final double kPDriveVel = 0.653;
+
+  public static final double kTrackwidthMeters = 0.503174350774;
+  public static final DifferentialDriveKinematics kDriveKinematics =
+      new DifferentialDriveKinematics(kTrackwidthMeters);
+
+  // Sample code values
+  public static final double kMaxSpeedMetersPerSecond = 3;
+  public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+
+  // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+  public static final double kRamseteB = 2;
+  public static final double kRamseteZeta = 0.7;
+
+  public static final double kEncoderDistancePerPulse = 0.001351053764;
+
+  public static final boolean kGyroReversed = false;
+
+
+//Need to supply real values Panten 3/6/2020
+  public static final int[] kLeftEncoderPorts = new int[]{0, 1};
+    public static final int[] kRightEncoderPorts = new int[]{2, 3};
+    public static final boolean kLeftEncoderReversed = false;
+    public static final boolean kRightEncoderReversed = true;
+
 }

@@ -289,6 +289,9 @@ public class RobotContainer {
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
 
+  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto2 = new closeShooterPnumaticCommand(
+        m_shooterPnumaticSubsystem);
+
   private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(
       m_shooterIntakeSubsystem);
 
@@ -303,13 +306,21 @@ public class RobotContainer {
   private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
       m_runShooter50MotorCommandAuto);
 
+      private final ParallelDeadlineGroup m_CenterShootFromLine2 = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
+      m_runShooter50MotorCommandAuto);
+
   private final TimerCommand m_driveBackwardsTimerAuto = new TimerCommand(500);
+
+  private final TimerCommand m_driveFowardsTimerAuto = new TimerCommand(500);
 
   private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5,
       m_drivetrainSubsystem);
 
-  private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
+
+private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
       m_drivetrainPercentPowerAuto);
+
+private final ParallelDeadlineGroup m_driveForwardsAndStop = new ParallelDeadlineGroup(m_driveFowardsTimerAuto, m_drivetrainPercentPowerAuto);
 
   private final SequentialCommandGroup m_moveConveyorUntilNotObstructed = new SequentialCommandGroup(m_shooterOnlyConveyorMotorCommand3, m_runUntilNotObstructedSensorCommand);
 
@@ -317,6 +328,8 @@ public class RobotContainer {
 
   private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(
       m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
+
+private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto2, m_CenterShootFromLine2, m_driveForwardsAndStop);
 
   private final straightenballsCommand m_straightenballsCommand = new straightenballsCommand(m_shooterIntakeSubsystem);   
 
@@ -515,6 +528,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return (m_shootAndDriveBackwards);
+    
     
   }
 }
