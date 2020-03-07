@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -277,47 +279,37 @@ public class RobotContainer {
 
   private final TimerCommand m_centerDriveBackCommand = new TimerCommand(1000);
 
-  private final TimerCommand m_shooterWarmupTimerCommand = new TimerCommand(1000);
+  
 
   // This is for autonomous to clear all three balls
 
-  private final TimerCommand m_shooterConveyorTimerCommand = new TimerCommand(2000);
+  
 
-  private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(
-      m_shooterMotorSubsystem, true);
+  
 
-  private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto = new closeShooterPnumaticCommand(
-      m_shooterPnumaticSubsystem);
+  
 
-  private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(
-      m_shooterIntakeSubsystem);
+  
 
-  private final ParallelDeadlineGroup m_TimedConveyorGroup = new ParallelDeadlineGroup(m_shooterConveyorTimerCommand,
-      m_shooterOnlyConveyorMotorCommandAuto);
+  
 
-  private final SequentialCommandGroup m_WarmUpAndShootBalls = new SequentialCommandGroup(m_shooterWarmupTimerCommand,
-      m_TimedConveyorGroup);
+  
 
   private final SequentialCommandGroup m_shoot50PercentAndCloseShooter = new SequentialCommandGroup (m_runShooter50MotorCommand, m_closeShooterPnumaticCommand4);  
 
-  private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
-      m_runShooter50MotorCommandAuto);
+  
 
-  private final TimerCommand m_driveBackwardsTimerAuto = new TimerCommand(500);
+  
 
-  //Doug - change this value to drive forwards instead
-  private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5,
-      m_drivetrainSubsystem);
+  
 
-  private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
-      m_drivetrainPercentPowerAuto);
+  
 
   private final SequentialCommandGroup m_moveConveyorUntilNotObstructed = new SequentialCommandGroup(m_shooterOnlyConveyorMotorCommand3, m_runUntilNotObstructedSensorCommand);
 
   private final SequentialCommandGroup m_moveConveyorUntilObstructed = new SequentialCommandGroup(m_shooterOnlyConveyorMotorCommand4, m_runUntilObstructedSensorCommand);
 
-  private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(
-      m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
+  
 
   private final straightenballsCommand m_straightenballsCommand = new straightenballsCommand(m_shooterIntakeSubsystem);   
 
@@ -413,11 +405,25 @@ public class RobotContainer {
   JoystickButton FightStickSHARE = new JoystickButton(Fightstick, 7);
   JoystickButton FightStickOPTIONS = new JoystickButton(Fightstick, 8);
 
+  //Begin choosers for the dashboard and corresponding variables
+  private final SendableChooser<String> m_autoChooser = new SendableChooser<>();
+  String kShootGoBackwards = "Shoot and Backward";
+  String kAdvancedShootGoBackwards = "Advanced Shoot and Backward"; 
+  String kShootGoForwards = "Shoot and Forward";
+  String kTestAndShootElevator = "Test Shoot Elevator";
+  private String m_autoSelected;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
 
+    m_autoChooser.setDefaultOption(kShootGoBackwards, kShootGoBackwards);
+    m_autoChooser.addOption(kShootGoForwards, kShootGoForwards);
+    m_autoChooser.addOption(kAdvancedShootGoBackwards, kAdvancedShootGoBackwards);
+    m_autoChooser.addOption(kTestAndShootElevator, kTestAndShootElevator);
+    SmartDashboard.putData("Auto choices", m_autoChooser);
+    
     setUpDrive();
 
     configureButtonBindings();
@@ -514,8 +520,91 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+
+    if(m_autoSelected == this.kShootGoBackwards)
+    {
+        return (
+            new SequentialCommandGroup(
+                new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem), //close shooter
+                new ParallelDeadlineGroup(
+                    new SequentialCommandGroup(
+                        new TimerCommand(1000), //wait one second for shooter to come up to speed
+                        new ParallelDeadlineGroup(  //for 2 seconds - run conveyor belt
+                            new TimerCommand(2000), 
+                            new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem)
+                            )
+                        ), //run conveyer for 2 seconds
+                    new runShooter50MotorCommand(m_shooterMotorSubsystem, true)    //turn on shooters
+                    
+                    ), 
+                new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))//Drive backwards for 0.5 seconds
+            );
+
+    }
+    else if(m_autoSelected == this.kAdvancedShootGoBackwards)
+    {
+        return(
+            new SequentialCommandGroup(
+                new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem).withTimeout(0.1),
+                new runShooter50MotorCommand(m_shooterMotorSubsystem, false).withTimeout(0.1),
+                new SequentialCommandGroup(
+                    GenerateShootCommand().withTimeout(1),
+                    GenerateShootCommand().withTimeout(1),
+                    GenerateShootCommand().withTimeout(1),
+                new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))
+                )
+            );
+    
+    }
+  
+    else if (m_autoSelected == this.kShootGoForwards)
+    {
+        return (
+            new SequentialCommandGroup(
+                new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem), //close shooter
+                new ParallelDeadlineGroup(
+                    new SequentialCommandGroup(
+                        new TimerCommand(1000), //wait one second for shooter to come up to speed
+                        new ParallelDeadlineGroup(  //for 2 seconds - run conveyor belt
+                            new TimerCommand(2000), 
+                            new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem)
+                            )
+                        ), //run conveyer for 2 seconds
+                    new runShooter50MotorCommand(m_shooterMotorSubsystem, true) //turn on shooters 
+                ),
+                new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(.5,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
+            );
+    }
+
+    else if(m_autoSelected == this.kTestAndShootElevator) {
+    return (
+        new SequentialCommandGroup(
+            new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem), //close shooter
+            new ParallelDeadlineGroup(
+                new runShooter50MotorCommand(m_shooterMotorSubsystem, true),    //turn on shooters
+                new SequentialCommandGroup(
+                    new TimerCommand(1000), //wait one second for shooter to come up to speed
+                    new ParallelDeadlineGroup(  //for 2 seconds - run conveyor belt
+                        new TimerCommand(2000), 
+                        new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem)
+                        )
+                    ) //run conveyer for 2 seconds
+                ), 
+            new ParallelDeadlineGroup(new TimerCommand(500)))//Drive forwards for 0.5 seconds
+        );
+}
+    else
+    {
+        //this should never happen - just adding it here in case something happens
+        return (
+                new ParallelDeadlineGroup( //Drive backwards for 0.5 seconds
+                    new TimerCommand(500), 
+                    new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)
+                    )
+            );
+    }
     // An ExampleCommand will run in autonomous
-    return (m_shootAndDriveBackwards);
+    
     
   }
 }
