@@ -128,7 +128,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 // Code added by Panten 3/6/2020
 
 // The robot's drive
-private final DifferentialDrive m_drive = new DifferentialDrive(leftDrive, rightDrive);
+DifferentialDrive m_drive = new DifferentialDrive(leftDrive, rightDrive);
 
 // The left-side drive encoder
 CANEncoder m_leftEncoder;
@@ -138,7 +138,7 @@ CANEncoder m_rightEncoder;
 
 
 // Odometry class for tracking robot pose
-private final DifferentialDriveOdometry m_odometry;
+DifferentialDriveOdometry m_odometry;
 
 /**
  * Creates a new DriveSubsystem.
