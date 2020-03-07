@@ -417,6 +417,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
     m_autoChooser.setDefaultOption(kShootGoBackwards, kShootGoBackwards);
     m_autoChooser.addOption(kShootGoForwards, kShootGoForwards);
     m_autoChooser.addOption(kAdvancedShootGoBackwards, kAdvancedShootGoBackwards);
@@ -466,7 +467,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     DriverA.whenPressed(new SequentialCommandGroup(
-        new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24).withTimeout(2), 
+        new elevatorMoveToAngleMotorCommand(m_elevatorMotorSubsystem, s_imuSubsystem, 24), 
         new openShooterPnumaticCommand(m_shooterPnumaticSubsystem), 
         new runShooterVelocityMotorCommand(m_shooterMotorSubsystem, -3500)));
     DriverB.whileHeld(m_stopShooterMotorCommand);
@@ -478,7 +479,7 @@ public class RobotContainer {
     DriverL.whileHeld(m_levelerRightMotorCommand);
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
-    Driver2X.whenPressed(m_runConveyorWithObstructionAndVelocity);
+    Driver2A.whenPressed(m_runConveyorWithObstructionAndVelocity);
     //Driver2B.whileHeld(m_shootWaitObstructionParallel);
     //Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
@@ -527,15 +528,14 @@ public class RobotContainer {
             new SequentialCommandGroup(
                 new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem), //close shooter
                 new ParallelDeadlineGroup(
+                    new runShooter50MotorCommand(m_shooterMotorSubsystem, true),    //turn on shooters
                     new SequentialCommandGroup(
                         new TimerCommand(1000), //wait one second for shooter to come up to speed
                         new ParallelDeadlineGroup(  //for 2 seconds - run conveyor belt
                             new TimerCommand(2000), 
                             new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem)
                             )
-                        ), //run conveyer for 2 seconds
-                    new runShooter50MotorCommand(m_shooterMotorSubsystem, true)    //turn on shooters
-                    
+                        ) //run conveyer for 2 seconds
                     ), 
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))//Drive backwards for 0.5 seconds
             );
@@ -545,8 +545,8 @@ public class RobotContainer {
     {
         return(
             new SequentialCommandGroup(
-                new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem).withTimeout(0.1),
-                new runShooter50MotorCommand(m_shooterMotorSubsystem, false).withTimeout(0.1),
+                new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem),
+                new runShooter50MotorCommand(m_shooterMotorSubsystem, true),
                 new SequentialCommandGroup(
                     GenerateShootCommand().withTimeout(1),
                     GenerateShootCommand().withTimeout(1),
@@ -563,15 +563,15 @@ public class RobotContainer {
             new SequentialCommandGroup(
                 new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem), //close shooter
                 new ParallelDeadlineGroup(
+                    new runShooter50MotorCommand(m_shooterMotorSubsystem, true),    //turn on shooters
                     new SequentialCommandGroup(
                         new TimerCommand(1000), //wait one second for shooter to come up to speed
                         new ParallelDeadlineGroup(  //for 2 seconds - run conveyor belt
                             new TimerCommand(2000), 
                             new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem)
                             )
-                        ), //run conveyer for 2 seconds
-                    new runShooter50MotorCommand(m_shooterMotorSubsystem, true) //turn on shooters 
-                ),
+                        ) //run conveyer for 2 seconds
+                    ), 
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(.5,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
             );
     }
