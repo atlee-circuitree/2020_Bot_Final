@@ -51,7 +51,7 @@ public class shooterIntakeSubsystem extends SubsystemBase {
 
 public void takeinballs() {
 
-  intake.set(.7);
+  intake.set(.8);
   conveyorbeltRight.set(-.5);
   conveyorbeltLeft.set(.5);
   
