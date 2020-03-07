@@ -6,25 +6,22 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
+
 // Added by Panten 3/6/2020
-//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 //import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;         // Added by Panten 3/6/2020
+import frc.robot.Constants; // Added by Panten 3/6/2020
 //import edu.wpi.first.wpilibj.examples.ramsetecommand.Constants.DriveConstants;
-import frc.robot.drivers.ADIS16448_IMU;
-import frc.robot.drivers.ADIS16448_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.SPI;
 //End Panten additions 3/6/2020
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 //import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -36,6 +33,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants;
 //import frc.robot.RobotContainer;
 import frc.robot.commands.drivetrainPercentPowerAuto;
+import com.kauailabs.navx.frc.AHRS;
 
 
 
@@ -44,17 +42,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SpeedControllerGroup leftDrive;
     SpeedControllerGroup rightDrive;
     DifferentialDrive robotDrive; 
+    AHRS ahrs;
     /**
      * Creates a new ExampleSubsystem.
      */
     public DrivetrainSubsystem() {
-        //code added for pathfinder by Panten 3/6/2020
-        // Sets the distance per pulse for the encoders
-        m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-        m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-        resetEncoders();
-        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-
+        
+        ahrs = new AHRS(SPI.Port.kMXP);
     }
 
     @Override
@@ -62,20 +56,34 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         // Added 3/6/2020 Panten
           // Update the odometry in the periodic block
-         m_odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getDistance(),
-         m_rightEncoder.getDistance());
+          if(m_rightEncoder != null)
+          {
+            m_odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(),
+            m_rightEncoder.getPosition());
+          }
     }
 
     public void driveSetup(CANSparkMax leftFrontMotor, CANSparkMax leftBackMotor, CANSparkMax rightFrontMotor, CANSparkMax rightBackMotor) {
-        
+        m_leftEncoder = leftFrontMotor.getEncoder();
+        m_rightEncoder = rightFrontMotor.getEncoder();
         
         leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
         rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
         robotDrive = new DifferentialDrive(leftDrive, rightDrive);
 
-        //robotDrive.arcadeDrive(-Xbox1.getY(), Xbox1.getX());
+        //code added for pathfinder by Panten 3/6/2020
+        // Sets the distance per pulse for the encoders
+        // set scaling factor for CANEncoder.getPosition() so that it matches the output of
+        // Encoder.getDistance() method.
+        m_leftEncoder.setPositionConversionFactor(Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction);
+        m_rightEncoder.setPositionConversionFactor(Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction);
 
+        // Native scale is RPM. Scale velocity so that it is in meters/sec
+        m_leftEncoder.setVelocityConversionFactor(Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction / 60.0);
+        m_rightEncoder.setVelocityConversionFactor(Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction / 60.0);
+        resetEncoders();
+        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     }
 
     public void driveRobot(Double X, double Y) {
@@ -123,18 +131,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 private final DifferentialDrive m_drive = new DifferentialDrive(leftDrive, rightDrive);
 
 // The left-side drive encoder
-private final Encoder m_leftEncoder =
-    new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
-                Constants.kLeftEncoderReversed);
+CANEncoder m_leftEncoder;
 
 // The right-side drive encoder
-private final Encoder m_rightEncoder =
-    new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
-                Constants.kRightEncoderReversed);
-
-// The gyro sensor
-//private final Gyro m_gyro = new ADXRS450_Gyro();
-private final Gyro m_gyro = new ADIS16448_IMU(IMUAxis.kZ, SPI.Port.kOnboardCS0, 4, true, 2, 1);   // initilized in our code as m_imu Panten 3/3/2020
+CANEncoder m_rightEncoder;
 
 
 // Odometry class for tracking robot pose
@@ -178,7 +178,7 @@ public Pose2d getPose() {
  * @return The current wheel speeds.
  */
 public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-  return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+  return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
 }
 
 /**
@@ -261,7 +261,7 @@ public void setMaxOutput(double maxOutput) {
  * Zeroes the heading of the robot.
  */
 public void zeroHeading() {
-  m_gyro.reset();
+  ahrs.reset();
 }
 
 /**
@@ -270,7 +270,8 @@ public void zeroHeading() {
  * @return the robot's heading in degrees, from -180 to 180
  */
 public double getHeading() {
-  return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
+  //return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
+  return Math.IEEEremainder(ahrs.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
 }
 
 /**
@@ -279,7 +280,7 @@ public double getHeading() {
  * @return The turn rate of the robot, in degrees per second
  */
 public double getTurnRate() {
-  return m_gyro.getRate() * (Constants.kGyroReversed ? -1.0 : 1.0);
+  return ahrs.getRate() * (Constants.kGyroReversed ? -1.0 : 1.0);
 }
 
 

@@ -141,7 +141,10 @@ public final class Constants {
   public static final double kRamseteB = 2;
   public static final double kRamseteZeta = 0.7;
 
-  public static final double kEncoderDistancePerPulse = 0.001351053764;
+  public static final double kEncoderDistancePerPulse = 0.001351053764; //double check this - and break out into a formula 
+
+  public static final double kDistancePerWheelRevolutionMeters = 8 * 0.0254 * Math.PI; //8 inches, converted to meters 
+  public static final double kGearReduction = 11.25;
 
   public static final boolean kGyroReversed = false;
 
