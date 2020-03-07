@@ -590,7 +590,7 @@ public class RobotContainer {
                         )
                     ) //run conveyer for 2 seconds
                 ), 
-            new ParallelDeadlineGroup(new TimerCommand(500))))//Drive forwards for 0.5 seconds
+            new ParallelDeadlineGroup(new TimerCommand(500)))//Drive forwards for 0.5 seconds
         );
 }
     else
