@@ -521,6 +521,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
+    m_autoSelected = m_autoChooser.getSelected();
     if(m_autoSelected == this.kShootGoBackwards)
     {
         return (
