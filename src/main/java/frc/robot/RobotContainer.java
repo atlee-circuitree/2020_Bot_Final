@@ -508,7 +508,7 @@ public class RobotContainer {
 
       ParallelDeadlineGroup m_runConveyorWithObstructionCheckGenerated = new ParallelDeadlineGroup(new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem).withTimeout(1), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
  
-      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem).withTimeout(0.5), m_runConveyorWithObstructionCheckGenerated);
+      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem) ,m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem).withTimeout(0.5), m_runConveyorWithObstructionCheckGenerated);
 
       return m_runConveyorWithObstructionAndVelocity;
   }
@@ -549,10 +549,10 @@ public class RobotContainer {
                 new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem).withTimeout(0.1),
                 new runShooter50MotorCommand(m_shooterMotorSubsystem, false).withTimeout(0.1),
                 new SequentialCommandGroup(
-                    GenerateShootCommand().withTimeout(1),
-                    GenerateShootCommand().withTimeout(1),
-                    GenerateShootCommand().withTimeout(1),
-                new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))
+                    GenerateShootCommand().withTimeout(2),
+                    GenerateShootCommand().withTimeout(2),
+                    GenerateShootCommand().withTimeout(2),
+                new ParallelDeadlineGroup(new TimerCommand(300), new drivetrainPercentPowerAuto(-.3,m_drivetrainSubsystem)))
                 )
             );
     
@@ -573,7 +573,7 @@ public class RobotContainer {
                         ), //run conveyer for 2 seconds
                     new runShooter50MotorCommand(m_shooterMotorSubsystem, true) //turn on shooters 
                 ),
-                new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(.5,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
+                new ParallelDeadlineGroup(new TimerCommand(400), new drivetrainPercentPowerAuto(.3,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
             );
     }
 
@@ -600,7 +600,7 @@ public class RobotContainer {
         return (
                 new ParallelDeadlineGroup( //Drive backwards for 0.5 seconds
                     new TimerCommand(500), 
-                    new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)
+                    new drivetrainPercentPowerAuto(-.3,m_drivetrainSubsystem)
                     )
             );
     }
