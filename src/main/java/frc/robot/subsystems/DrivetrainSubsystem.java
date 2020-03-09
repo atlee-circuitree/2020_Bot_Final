@@ -43,7 +43,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     DifferentialDrive robotDrive;
     AHRS ahrs;
 
-    DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
+    
 
     /**
      * Creates a new ExampleSubsystem.

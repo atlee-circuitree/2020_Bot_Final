@@ -145,7 +145,9 @@ public final class Constants {
   public static final double kDistancePerWheelRevolutionMeters = 8 * 0.0254 * Math.PI; //8 inches, converted to meters 
   public static final double kGearReduction = 11.25;
 
-  public static final boolean kGyroReversed = false;
+  public static final boolean kGyroReversed = true;
+
+  public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
 
 
 //Need to supply real values Panten 3/6/2020
