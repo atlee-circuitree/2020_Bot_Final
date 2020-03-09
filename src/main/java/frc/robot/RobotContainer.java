@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -318,8 +319,8 @@ public class RobotContainer {
   private final ParallelDeadlineGroup m_CenterShootFromLine = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
       m_runShooter50MotorCommandAuto);
 
-      private final ParallelDeadlineGroup m_CenterShootFromLine2 = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
-      m_runShooter50MotorCommandAuto);
+    //   private final ParallelDeadlineGroup m_CenterShootFromLine2 = new ParallelDeadlineGroup(m_WarmUpAndShootBalls,
+    //   new runShooter50MotorCommand(m_shooterMotorSubsystem, true));
 
   private final TimerCommand m_driveBackwardsTimerAuto = new TimerCommand(500);
 
@@ -332,7 +333,7 @@ public class RobotContainer {
 private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
       m_drivetrainPercentPowerAuto);
 
-private final ParallelDeadlineGroup m_driveForwardsAndStop = new ParallelDeadlineGroup(m_driveFowardsTimerAuto, m_drivetrainPercentPowerAuto);
+//private final ParallelDeadlineGroup m_driveForwardsAndStop = new ParallelDeadlineGroup(m_driveFowardsTimerAuto, m_drivetrainPercentPowerAuto);
 
   private final SequentialCommandGroup m_moveConveyorUntilNotObstructed = new SequentialCommandGroup(m_shooterOnlyConveyorMotorCommand3, m_runUntilNotObstructedSensorCommand);
 
@@ -341,7 +342,7 @@ private final ParallelDeadlineGroup m_driveForwardsAndStop = new ParallelDeadlin
   private final SequentialCommandGroup m_shootAndDriveBackwards = new SequentialCommandGroup(
       m_closeShooterPnumaticCommandAuto, m_CenterShootFromLine, m_driveBackwardsAndStop);
 
-private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto2, m_CenterShootFromLine2, m_driveForwardsAndStop);
+//private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCommandGroup(m_closeShooterPnumaticCommandAuto2, m_CenterShootFromLine2, m_driveForwardsAndStop);
 
   private final straightenballsCommand m_straightenballsCommand = new straightenballsCommand(m_shooterIntakeSubsystem);   
 
@@ -537,7 +538,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
     var autoVoltageConstraint =
     new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(Constants.ksVolts,
-        Constants.kvVoltSecondsPerMeter,  //max velocity
+        Constants.kvVoltSecondsPerMeter/2,  //max velocity
         Constants.kaVoltSecondsSquaredPerMeter), //max acceleration
         Constants.kDriveKinematics,  //track width
         10);
@@ -551,7 +552,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
     
-    //config.setReversed(true);
+    config.setReversed(false);
 
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
@@ -563,7 +564,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
             new Translation2d(2, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
+        new Pose2d(1, 0, new Rotation2d(0)),
         // Pass config
         config
     );
@@ -573,7 +574,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
         m_drivetrainSubsystem::getPose,
         new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
         new SimpleMotorFeedforward(Constants.ksVolts,
-            Constants.kvVoltSecondsPerMeter,
+            Constants.kvVoltSecondsPerMeter/2,
             Constants.kaVoltSecondsSquaredPerMeter),
             Constants.kDriveKinematics,
         m_drivetrainSubsystem::getWheelSpeeds,
@@ -608,7 +609,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
     
-    config.setReversed(true);  //running backwards
+    config.setReversed(false);  //running backwards
 
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
@@ -641,6 +642,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
     );
 
     // Run path following command, then stop at the end.
+    //InstantCommand positionCommand = new InstantCommand(m_drivetrainSubsystem::resetOdometry(new Pose2d(3.048, -2.4, new Rotation2d(0))), m_drivetrainSubsystem);
     return ramseteCommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0));
   }
 
@@ -652,7 +654,7 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (m_shootAndDriveBackwards);
+    return (GetTestTrajectory());
     
     
   }

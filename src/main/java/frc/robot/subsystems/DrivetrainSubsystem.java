@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants; // Added by Panten 3/6/2020
 //import edu.wpi.first.wpilibj.examples.ramsetecommand.Constants.DriveConstants;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj.SPI;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 //import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -62,6 +64,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         {
             m_odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(),
                     m_rightEncoder.getPosition());
+            //SmartDashboard.putNumber("Heading", getHeading());
         }
     }
 
@@ -70,9 +73,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
         m_leftEncoder = leftFrontMotor.getEncoder();
         m_rightEncoder = rightFrontMotor.getEncoder();
 
+        //leftFrontMotor.setIdleMode(IdleMode.kBrake);
+        //leftBackMotor.setIdleMode(IdleMode.kBrake);
+        //rightBackMotor.setIdleMode(IdleMode.kBrake);
+        //rightFrontMotor.setIdleMode(IdleMode.kBrake);
+
         leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
         rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
-
+        m_drive = new DifferentialDrive(leftDrive, rightDrive);
         robotDrive = new DifferentialDrive(leftDrive, rightDrive);
 
         // code added for pathfinder by Panten 3/6/2020
@@ -136,7 +144,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Code added by Panten 3/6/2020
 
     // The robot's drive
-    DifferentialDrive m_drive = new DifferentialDrive(leftDrive, rightDrive);
+    DifferentialDrive m_drive;
 
     // The left-side drive encoder
     CANEncoder m_leftEncoder;
@@ -190,6 +198,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
      */
     public void resetOdometry(Pose2d pose) {
         resetEncoders();
+        ahrs.zeroYaw();
         m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
     }
 
