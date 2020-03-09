@@ -130,8 +130,7 @@ public final class Constants {
   public static final double kPDriveVel = 0.653;
 
   public static final double kTrackwidthMeters = 0.503174350774;
-  public static final DifferentialDriveKinematics kDriveKinematics =
-      new DifferentialDriveKinematics(kTrackwidthMeters);
+  
 
   // Sample code values
   public static final double kMaxSpeedMetersPerSecond = 3;

@@ -13,6 +13,7 @@ package frc.robot.subsystems;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -43,6 +44,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SpeedControllerGroup rightDrive;
     DifferentialDrive robotDrive; 
     AHRS ahrs;
+
+    DifferentialDriveKinematics kDriveKinematics =
+      new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
+
     /**
      * Creates a new ExampleSubsystem.
      */
@@ -56,7 +61,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         // Added 3/6/2020 Panten
           // Update the odometry in the periodic block
-          if(m_rightEncoder != null)
+          if(m_rightEncoder != null)  //make sure setup has been called first
           {
             m_odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(),
             m_rightEncoder.getPosition());
@@ -217,8 +222,8 @@ public void tankDriveVolts(double leftVolts, double rightVolts) {
  * Resets the drive encoders to currently read a position of 0.
  */
 public void resetEncoders() {
-  m_leftEncoder.reset();
-  m_rightEncoder.reset();
+  m_leftEncoder.setPosition(0);
+  m_rightEncoder.setPosition(0);
 }
 
 /**
@@ -227,7 +232,7 @@ public void resetEncoders() {
  * @return the average of the two encoder readings
  */
 public double getAverageEncoderDistance() {
-  return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+  return (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
 }
 
 /**
@@ -235,7 +240,7 @@ public double getAverageEncoderDistance() {
  *
  * @return the left drive encoder
  */
-public Encoder getLeftEncoder() {
+public CANEncoder getLeftEncoder() {
   return m_leftEncoder;
 }
 
@@ -244,7 +249,7 @@ public Encoder getLeftEncoder() {
  *
  * @return the right drive encoder
  */
-public Encoder getRightEncoder() {
+public CANEncoder getRightEncoder() {
   return m_rightEncoder;
 }
 
