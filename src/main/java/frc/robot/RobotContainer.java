@@ -537,9 +537,9 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
     var autoVoltageConstraint =
     new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(Constants.ksVolts,
-        Constants.kvVoltSecondsPerMeter,
-        Constants.kaVoltSecondsSquaredPerMeter),
-        Constants.kDriveKinematics,
+        Constants.kvVoltSecondsPerMeter,  //max velocity
+        Constants.kaVoltSecondsSquaredPerMeter), //max acceleration
+        Constants.kDriveKinematics,  //track width
         10);
 
     // Create config for trajectory
