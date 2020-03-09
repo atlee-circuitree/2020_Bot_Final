@@ -598,4 +598,10 @@ private final SequentialCommandGroup m_shootandDriveForwards = new SequentialCom
     
     
   }
+
+  public void DisabledInit()
+  {
+      //reset pose when disabled - per https://www.chiefdelphi.com/t/trajectory-generation-in-autonomous-path-following-issues/378469/6
+      m_drivetrainSubsystem.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
+  }
 }
