@@ -103,6 +103,7 @@ import frc.robot.commands.ballObstructionSensorCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.commands.limelightValuesCommand;
+import frc.robot.commands.printPoseCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -307,6 +308,8 @@ public class RobotContainer {
 
   private final shooterOnlyConveyorMotorCommand m_shooterOnlyConveyorMotorCommandAuto = new shooterOnlyConveyorMotorCommand(
       m_shooterIntakeSubsystem);
+
+  private final printPoseCommand m_printPoseCommand = new printPoseCommand(m_drivetrainSubsystem);
 
   private final ParallelDeadlineGroup m_TimedConveyorGroup = new ParallelDeadlineGroup(m_shooterConveyorTimerCommand,
       m_shooterOnlyConveyorMotorCommandAuto);
@@ -513,7 +516,7 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
     FightStickRB.whenPressed(m_climbArmUpPnumaticCommand);
     //FightStickRT.whenPressed(m_kickoutPnumaticCommand);
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
-    //FightStickR3.whenPressed(m_climbdownPnumaticCommand);
+    FightStickR3.whenPressed(m_printPoseCommand);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand.withTimeout(5));
     FightStickSHARE.whenPressed(c_ElevatorMoveToAngle_36_MotorCommand.withTimeout(5));

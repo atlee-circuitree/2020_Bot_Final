@@ -45,11 +45,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     DifferentialDrive robotDrive;
     AHRS ahrs;
 
-    
+
 
     /**
      * Creates a new ExampleSubsystem.
      */
+    
     public DrivetrainSubsystem() {
 
         ahrs = new AHRS(SPI.Port.kMXP);
@@ -146,6 +147,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         leftDrive.set(0);
         rightDrive.set(0);
+
+    }
+
+    public void printPose() {
+
+        System.out.println(getPose());
 
     }
 
