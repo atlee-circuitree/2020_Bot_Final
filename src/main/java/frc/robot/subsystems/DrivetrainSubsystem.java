@@ -62,9 +62,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // Update the odometry in the periodic block
         if (m_rightEncoder != null) // make sure setup has been called first
         {
-            m_odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(),
-                    m_rightEncoder.getPosition());
-            //SmartDashboard.putNumber("Heading", getHeading());
+            double heading = getHeading();
+            double leftPos = m_leftEncoder.getPosition();
+            double rightPos = m_rightEncoder.getPosition();
+
+            m_odometry.update(Rotation2d.fromDegrees(heading), leftPos,
+                rightPos);
+            
+            SmartDashboard.putNumber("Heading", heading);
+            SmartDashboard.putNumber("LeftPos", leftPos);
+            SmartDashboard.putNumber("RightPos", rightPos);
+
         }
     }
 
