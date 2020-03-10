@@ -557,14 +557,14 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
+        new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(
             new Translation2d(1, 1),
             new Translation2d(2, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(1, 0, new Rotation2d(0)),
+        new Pose2d(1, 0, Rotation2d.fromDegrees(0)),
         // Pass config
         config
     );
@@ -609,18 +609,18 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
     
-    config.setReversed(false);  //running backwards
+    config.setReversed(true);  //running backwards
 
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(3.048, -2.4, new Rotation2d(0)),
+        new Pose2d(3.048, -2.4, Rotation2d.fromDegrees(0)),
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(
             new Translation2d(5.124, -0.722)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(8.605, -0.722, new Rotation2d(0)),
+        new Pose2d(8.605, -0.722, Rotation2d.fromDegrees(0)),
         // Pass config
         config
     );
@@ -641,9 +641,11 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
         m_drivetrainSubsystem
     );
 
-    // Run path following command, then stop at the end.
-    //InstantCommand positionCommand = new InstantCommand(m_drivetrainSubsystem::resetOdometry(new Pose2d(3.048, -2.4, new Rotation2d(0))), m_drivetrainSubsystem);
-    return ramseteCommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0));
+    //Set the robot position to the start of the path, run path following command, then stop at the end.  
+    //This allows us to determine where on the field our robot is starting at
+    InstantCommand positionCommand = new InstantCommand(
+        () -> m_drivetrainSubsystem.resetOdometry(new Pose2d(3.048, -2.4, Rotation2d.fromDegrees(0))), m_drivetrainSubsystem);
+    return positionCommand.andThen(ramseteCommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0)));
   }
 
 
@@ -662,6 +664,6 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
   public void DisabledInit()
   {
       //reset pose when disabled - per https://www.chiefdelphi.com/t/trajectory-generation-in-autonomous-path-following-issues/378469/6
-      m_drivetrainSubsystem.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
+      m_drivetrainSubsystem.resetOdometry(new Pose2d(0, 0, Rotation2d.fromDegrees(0)));
   }
 }
