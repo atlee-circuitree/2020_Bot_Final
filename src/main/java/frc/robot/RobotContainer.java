@@ -564,7 +564,64 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
             new Translation2d(2, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(1, 0, Rotation2d.fromDegrees(0)),
+        new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
+        // Pass config
+        config
+    );
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        m_drivetrainSubsystem::getPose,
+        new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+        new SimpleMotorFeedforward(Constants.ksVolts,
+            Constants.kvVoltSecondsPerMeter/2,
+            Constants.kaVoltSecondsSquaredPerMeter),
+            Constants.kDriveKinematics,
+        m_drivetrainSubsystem::getWheelSpeeds,
+        new PIDController(Constants.kPDriveVel, 0, 0),
+        new PIDController(Constants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        m_drivetrainSubsystem::tankDriveVolts,
+        m_drivetrainSubsystem
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0));
+  }
+
+  public Command GetTestTrajectoryShort()
+  {
+      // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+    new DifferentialDriveVoltageConstraint(
+        new SimpleMotorFeedforward(Constants.ksVolts,
+        Constants.kvVoltSecondsPerMeter/2,  //max velocity
+        Constants.kaVoltSecondsSquaredPerMeter), //max acceleration
+        Constants.kDriveKinematics,  //track width
+        10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,
+        Constants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+    
+    config.setReversed(false);
+
+    // An example trajectory to follow.  All units in meters.
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+            new Translation2d(0.5, 0.5),
+            new Translation2d(1, -0.5)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(1.5, 0, Rotation2d.fromDegrees(0)),
         // Pass config
         config
     );
@@ -656,7 +713,9 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (GetTestTrajectory());
+    return (GetTestTrajectoryShort());  //S pattern - 1.5m forwards
+    //return (GetTestTrajectory());  //S pattern - 3m forwards
+    //return (GetTestBallRunTrajectory());  //Backwards path - intended to pick up balls from trench
     
     
   }
