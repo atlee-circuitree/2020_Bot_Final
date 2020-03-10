@@ -198,7 +198,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
      */
     public void resetOdometry(Pose2d pose) {
         resetEncoders();
-        ahrs.zeroYaw();
+        //ahrs.zeroYaw();
         m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
     }
 
@@ -285,6 +285,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed
         // ? -1.0 : 1.0);
         return Math.IEEEremainder(ahrs.getYaw(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
+        //return Math.IEEEremainder(ahrs.getFusedHeading() - 180, 360) * (Constants.kGyroReversed ? -1.0 : 1.0); //potential test in case Yaw isn't accurate enough
     }
 
     /**
