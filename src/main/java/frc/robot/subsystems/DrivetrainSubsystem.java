@@ -273,7 +273,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
      * Zeroes the heading of the robot.
      */
     public void zeroHeading() {
-        ahrs.reset();
+        ahrs.zeroYaw();
     }
 
     /**
@@ -284,7 +284,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public double getHeading() {
         // return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed
         // ? -1.0 : 1.0);
-        return Math.IEEEremainder(ahrs.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
+        return Math.IEEEremainder(ahrs.getYaw(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
     }
 
     /**
