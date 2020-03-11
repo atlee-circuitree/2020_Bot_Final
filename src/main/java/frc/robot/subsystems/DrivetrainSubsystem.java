@@ -96,16 +96,23 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // set scaling factor for CANEncoder.getPosition() so that it matches the output
         // of
         // Encoder.getDistance() method.
+
+        //42 encoder ticks per motor shaft revolution
+        //Gear box reduction of 10.75
+        //Wheels 8 inch diameter
+        //Converted to meters
+        //Result = pulses per meter.  Invert to make meters per pulse
+        double conversionFactor = 1/((42*(10.75/(8*Math.PI)))/0.0254);  
         m_leftEncoder
-                .setPositionConversionFactor(Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction);
+                .setPositionConversionFactor(conversionFactor);
         m_rightEncoder
-                .setPositionConversionFactor(Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction);
+                .setPositionConversionFactor(conversionFactor);
 
         // Native scale is RPM. Scale velocity so that it is in meters/sec
         m_leftEncoder.setVelocityConversionFactor(
-                Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction / 60.0);
+            conversionFactor / 60.0);
         m_rightEncoder.setVelocityConversionFactor(
-                Constants.kDistancePerWheelRevolutionMeters * Constants.kGearReduction / 60.0);
+            conversionFactor / 60.0);
         resetEncoders();
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     }
