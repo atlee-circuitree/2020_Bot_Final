@@ -417,6 +417,10 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 166ca617fa28cb1638ff759268d82502f023f38d
     m_autoChooser.setDefaultOption(kShootGoBackwards, kShootGoBackwards);
     m_autoChooser.addOption(kShootGoForwards, kShootGoForwards);
     m_autoChooser.addOption(kAdvancedShootGoBackwards, kAdvancedShootGoBackwards);
@@ -507,7 +511,7 @@ public class RobotContainer {
 
       ParallelDeadlineGroup m_runConveyorWithObstructionCheckGenerated = new ParallelDeadlineGroup(new runUntilNotObstructedSensorCommand(m_ballObstructionSensorSubsystem).withTimeout(1), new shooterOnlyConveyorMotorCommand(m_shooterIntakeSubsystem));
  
-      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem).withTimeout(0.5), m_runConveyorWithObstructionCheckGenerated);
+      SequentialCommandGroup m_runConveyorWithObstructionAndVelocity = new SequentialCommandGroup(new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem) ,m_shootWaitObstructionParallelGenerated, new checkForShooterVelocity(m_shooterMotorSubsystem).withTimeout(0.5), m_runConveyorWithObstructionCheckGenerated);
 
       return m_runConveyorWithObstructionAndVelocity;
   }
@@ -548,10 +552,17 @@ public class RobotContainer {
                 new closeShooterPnumaticCommand(m_shooterPnumaticSubsystem).withTimeout(0.1),
                 new runShooter50MotorCommand(m_shooterMotorSubsystem, false).withTimeout(0.1),
                 new SequentialCommandGroup(
+<<<<<<< HEAD
+                    GenerateShootCommand().withTimeout(2),
+                    GenerateShootCommand().withTimeout(2),
+                    GenerateShootCommand().withTimeout(2),
+                new ParallelDeadlineGroup(new TimerCommand(300), new drivetrainPercentPowerAuto(-.3,m_drivetrainSubsystem)))
+=======
                     GenerateShootCommand().withTimeout(1),
                     GenerateShootCommand().withTimeout(1),
                     GenerateShootCommand().withTimeout(1),
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(-.5,m_drivetrainSubsystem)))
+>>>>>>> 166ca617fa28cb1638ff759268d82502f023f38d
                 )
             );
     
@@ -572,7 +583,11 @@ public class RobotContainer {
                         ), //run conveyer for 2 seconds
                     new runShooter50MotorCommand(m_shooterMotorSubsystem, true) //turn on shooters 
                 ),
+<<<<<<< HEAD
+                new ParallelDeadlineGroup(new TimerCommand(400), new drivetrainPercentPowerAuto(.3,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
+=======
                 new ParallelDeadlineGroup(new TimerCommand(500), new drivetrainPercentPowerAuto(.5,m_drivetrainSubsystem)))//Drive forwards for 0.5 seconds
+>>>>>>> 166ca617fa28cb1638ff759268d82502f023f38d
             );
     }
 

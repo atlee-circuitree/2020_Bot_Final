@@ -40,7 +40,7 @@ public class CenterOnTargetLimelight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+      s_LimeLightSubsystem.SetPipeline(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -108,6 +108,7 @@ public class CenterOnTargetLimelight extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     s_DriveTrainSubsystem.driveRobot(0d, 0d);
+    s_LimeLightSubsystem.SetPipeline(0);
     //s_LimeLightSubsystem.DisableLED();
   }
 

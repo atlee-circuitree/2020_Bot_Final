@@ -140,7 +140,7 @@ public void runShooterVelocity(double Velocity)
 
 public void runShooter50() {
 
-  leftShooter.set(ControlMode.Velocity, 8500);
+  leftShooter.set(ControlMode.Velocity, 10000);
 
 }
 
