@@ -68,6 +68,7 @@ import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
 import frc.robot.commands.kickoutPnumaticCommand;
 import frc.robot.commands.kickoutReversePnumaticCommand;
+import frc.robot.commands.kickoutRobotAndRetractPnumaticCommand;
 import frc.robot.commands.levelerLeftMotorCommand;
 import frc.robot.commands.levelerRightMotorCommand;
 import frc.robot.commands.limelightAutoAimCommand;
@@ -300,6 +301,8 @@ public class RobotContainer {
   private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(
       m_shooterMotorSubsystem, true);
 
+  private final kickoutRobotAndRetractPnumaticCommand m_kickoutRobotAndRetractPnumaticCommand = new kickoutRobotAndRetractPnumaticCommand(m_kickoutPnumaticSubsystem);
+
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
 
@@ -516,7 +519,7 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
     FightStickRB.whenPressed(m_climbArmUpPnumaticCommand);
     //FightStickRT.whenPressed(m_kickoutPnumaticCommand);
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
-    FightStickR3.whenPressed(m_printPoseCommand);
+    FightStickR3.whenPressed(m_kickoutRobotAndRetractPnumaticCommand.withTimeout(2));
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand.withTimeout(5));
     FightStickSHARE.whenPressed(c_ElevatorMoveToAngle_36_MotorCommand.withTimeout(5));
@@ -628,6 +631,20 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
         // Pass config
         config
     );
+
+    /* Trajectory shootAndGoToTrench = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+            new Translation2d(-0.25, 0.25)
+            //new Translation2d(1, -0.5)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(-0.5, 0.5, Rotation2d.fromDegrees(0)),
+        // Pass config
+        config
+    ); */
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
