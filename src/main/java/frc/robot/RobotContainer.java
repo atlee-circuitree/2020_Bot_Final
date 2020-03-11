@@ -104,6 +104,8 @@ import frc.robot.commands.ballObstructionSensorCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.commands.limelightValuesCommand;
+import frc.robot.commands.moveShooterDownMotorCommand;
+import frc.robot.commands.moveShooterUpMotorCommand;
 import frc.robot.commands.printPoseCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -335,8 +337,12 @@ public class RobotContainer {
   private final drivetrainPercentPowerAuto m_drivetrainPercentPowerAuto = new drivetrainPercentPowerAuto(-.5,
       m_drivetrainSubsystem);
 
+  private final moveShooterUpMotorCommand m_moveShooterUpMotorCommand = new moveShooterUpMotorCommand(m_elevatorMotorSubsystem);  
+  
+  private final moveShooterDownMotorCommand m_moveShooterDownMotorCommand = new moveShooterDownMotorCommand(m_elevatorMotorSubsystem); 
 
-private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
+
+  private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadlineGroup(m_driveBackwardsTimerAuto,
       m_drivetrainPercentPowerAuto);
 
 //private final ParallelDeadlineGroup m_driveForwardsAndStop = new ParallelDeadlineGroup(m_driveFowardsTimerAuto, m_drivetrainPercentPowerAuto);
@@ -366,6 +372,7 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
 
   // Wait 1 second.
 
+   private final SequentialCommandGroup m_moveShooterUpAndDownForAuto = new SequentialCommandGroup(m_moveShooterUpMotorCommand.withTimeout(1), m_moveShooterDownMotorCommand.withTimeout(.8));
 
    private final Command m_runConveyorWithObstructionAndVelocity = GenerateShootCommand();
 
