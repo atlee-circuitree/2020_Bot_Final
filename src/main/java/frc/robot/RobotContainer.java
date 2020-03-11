@@ -671,13 +671,13 @@ private final ParallelDeadlineGroup m_driveBackwardsAndStop = new ParallelDeadli
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(3.048, -2.4, Rotation2d.fromDegrees(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
+        new Pose2d(3.048, -2.4, Rotation2d.fromDegrees(180)),
+        // intermediate waypoint to avoid other robots
         List.of(
             new Translation2d(5.124, -0.722)
         ),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(8.605, -0.722, Rotation2d.fromDegrees(0)),
+        // end just under the wheel
+        new Pose2d(8.605, -0.722, Rotation2d.fromDegrees(180)),
         // Pass config
         config
     );
