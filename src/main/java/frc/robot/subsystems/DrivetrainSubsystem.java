@@ -98,12 +98,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // of
         // Encoder.getDistance() method.
 
-        //42 encoder ticks per motor shaft revolution
-        //Gear box reduction of 10.75
+        //42 encoder ticks per motor shaft revolution - removed 3/11 by Berg - getPosition is motor revolutions - encoder doesn't factor into the calculation
+        //Gear box reduction of 10.71
         //Wheels 8 inch diameter
         //Converted to meters
         //Result = pulses per meter.  Invert to make meters per pulse
-        double conversionFactor = 1/((42*(10.75/(8*Math.PI)))/0.0254);  
+        double conversionFactor = 1/(((10.71/(8*Math.PI)))/0.0254);  
         m_leftEncoder
                 .setPositionConversionFactor(conversionFactor);
         m_rightEncoder
