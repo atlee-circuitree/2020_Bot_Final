@@ -82,10 +82,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
         m_leftEncoder = leftFrontMotor.getEncoder();
         m_rightEncoder = rightFrontMotor.getEncoder();
 
-        //leftFrontMotor.setIdleMode(IdleMode.kBrake);
-        //leftBackMotor.setIdleMode(IdleMode.kBrake);
-        //rightBackMotor.setIdleMode(IdleMode.kBrake);
-        //rightFrontMotor.setIdleMode(IdleMode.kBrake);
+        leftFrontMotor.setIdleMode(IdleMode.kBrake);
+        leftBackMotor.setIdleMode(IdleMode.kBrake);
+        rightBackMotor.setIdleMode(IdleMode.kBrake);
+        rightFrontMotor.setIdleMode(IdleMode.kBrake);
+
 
         leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
         rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
@@ -103,7 +104,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         //Wheels 8 inch diameter
         //Converted to meters
         //Result = pulses per meter.  Invert to make meters per pulse
-        double conversionFactor = 1/(((10.71/(8*Math.PI)))/0.0254);  
+        double conversionFactor = 1/( (Constants.kGearReduction/(8*Math.PI)) / 0.0254);  
         m_leftEncoder
                 .setPositionConversionFactor(conversionFactor);
         m_rightEncoder
