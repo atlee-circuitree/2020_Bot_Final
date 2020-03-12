@@ -606,8 +606,7 @@ public class RobotContainer {
     return ramseteCommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0));
   }
 
-  public Command GetTestTrajectoryShort()
-  {
+  public Command GetTestTrajectoryShort() {
       // Create a voltage constraint to ensure we don't accelerate too fast
     
       var autoVoltageConstraint =
@@ -648,8 +647,7 @@ public class RobotContainer {
         new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
         // Pass config
         */
-        config
-    );
+        config );
 
     /* Trajectory shootAndGoToTrench = TrajectoryGenerator.generateTrajectory(
         // Start facing toward the shooter
@@ -663,6 +661,8 @@ public class RobotContainer {
         new Pose2d(-5, 5, Rotation2d.fromDegrees(0)),
         // Pass config
         config
+
+        
     ); */
 
     RamseteCommand ramseteCommand = new RamseteCommand(
