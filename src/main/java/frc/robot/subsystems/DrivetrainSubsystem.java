@@ -29,7 +29,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.wpilibj.XboxController;
@@ -45,7 +47,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     DifferentialDrive robotDrive;
     AHRS ahrs;
 
+    CANSparkMax left_frontmotor;
+    CANSparkMax left_backmotor;
+    CANSparkMax right_frontmotor;
+    CANSparkMax right_backmotor;
 
+
+    PIDController turnController;
 
     /**
      * Creates a new ExampleSubsystem.
@@ -82,10 +90,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         m_leftEncoder = leftFrontMotor.getEncoder();
         m_rightEncoder = rightFrontMotor.getEncoder();
 
-        //leftFrontMotor.setIdleMode(IdleMode.kBrake);
-        //leftBackMotor.setIdleMode(IdleMode.kBrake);
-        //rightBackMotor.setIdleMode(IdleMode.kBrake);
-        //rightFrontMotor.setIdleMode(IdleMode.kBrake);
+        left_frontmotor = leftFrontMotor;
+        left_backmotor = leftBackMotor;
+        right_frontmotor = rightFrontMotor;
+        right_backmotor = rightBackMotor;
 
         leftDrive = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
         rightDrive = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
@@ -121,6 +129,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void driveRobot(Double X, double Y) {
 
         robotDrive.arcadeDrive(-Y, X, true);
+    }
+    public void driveRobotLinear(double X, double Y) {
+        robotDrive.arcadeDrive(-Y, X, false);
+    }
+
+    public void setBrakes()
+    {
+        left_frontmotor.setIdleMode(IdleMode.kBrake);
+        left_backmotor.setIdleMode(IdleMode.kBrake);
+        right_backmotor.setIdleMode(IdleMode.kBrake);
+        right_frontmotor.setIdleMode(IdleMode.kBrake);
+    }
+
+    public void disableBrakes()
+    {
+        left_frontmotor.setIdleMode(IdleMode.kCoast);
+        left_backmotor.setIdleMode(IdleMode.kCoast);
+        right_backmotor.setIdleMode(IdleMode.kCoast);
+        right_frontmotor.setIdleMode(IdleMode.kCoast);
     }
 
     public void driveBackwards() {
@@ -308,6 +335,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
         // ? -1.0 : 1.0);
         return Math.IEEEremainder(ahrs.getYaw(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
         //return Math.IEEEremainder(ahrs.getFusedHeading() - 180, 360) * (Constants.kGyroReversed ? -1.0 : 1.0); //potential test in case Yaw isn't accurate enough
+    }
+
+    public double getContinuousAngle()
+    {
+        return ahrs.getAngle();
     }
 
     /**

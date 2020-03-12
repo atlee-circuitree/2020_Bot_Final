@@ -107,6 +107,7 @@ import frc.robot.commands.limelightValuesCommand;
 import frc.robot.commands.moveShooterDownMotorCommand;
 import frc.robot.commands.moveShooterUpMotorCommand;
 import frc.robot.commands.printPoseCommand;
+import frc.robot.commands.robotTurnToAngleCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -512,6 +513,10 @@ public class RobotContainer {
     Driver1Start.whenPressed(m_KillMotorsDriver1);
 
     Driver2A.whenPressed(m_runConveyorWithObstructionAndVelocity);
+    Driver2B.whenPressed(new robotTurnToAngleCommand(m_drivetrainSubsystem, 90)
+        .andThen(new InstantCommand(() -> m_drivetrainSubsystem.setBrakes(), m_drivetrainSubsystem).withTimeout(0.2))
+        .andThen(new InstantCommand(() -> m_drivetrainSubsystem.disableBrakes(), m_drivetrainSubsystem))
+        );
     //Driver2B.whileHeld(m_shootWaitObstructionParallel);
     //Driver2X.whileHeld(new CenterOnTargetLimelight(m_drivetrainSubsystem, s_limelightSubsystem));
     //Driver2Y.toggleWhenPressed(m_limelightAutoAimCommand);
