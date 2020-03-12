@@ -297,6 +297,8 @@ public class RobotContainer {
 
   private final TimerCommand m_shooterWarmupTimerCommand = new TimerCommand(1000);
 
+  private final TimerCommand m_kickoutTimer = new TimerCommand(800);
+
   // This is for autonomous to clear all three balls
 
   private final TimerCommand m_shooterConveyorTimerCommand = new TimerCommand(2000);
@@ -388,6 +390,8 @@ public class RobotContainer {
   //private final SequentialCommandGroup m_waitUntilNoBalls = new SequentialCommandGroup(commands);
 
   private final SequentialCommandGroup m_takeallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_runUntilObstructedSensorCommand2);
+
+  private final SequentialCommandGroup m_kickoutRobot = new SequentialCommandGroup(m_kickoutPnumaticCommand, m_kickoutTimer, m_kickoutReversePnumaticCommand);
 
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand,
       m_intakeTakeballMotorCommand);
@@ -531,7 +535,7 @@ public class RobotContainer {
     FightStickRB.whenPressed(m_climbArmUpPnumaticCommand);
     //FightStickRT.whenPressed(m_kickoutPnumaticCommand);
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
-    FightStickR3.whenPressed(m_kickoutRobotAndRetractPnumaticCommand.withTimeout(2));
+    FightStickR3.whenPressed(m_kickoutRobotAndRetractPnumaticCommand.withTimeout(.7));
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand.withTimeout(5));
     FightStickSHARE.whenPressed(c_ElevatorMoveToAngle_36_MotorCommand.withTimeout(5));
@@ -607,13 +611,13 @@ public class RobotContainer {
     return ramseteCommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0));
   }
 
-  public Command GetTestTrajectoryShort()
-  {
+  public Command GetTestTrajectoryShort() {
       // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint =
-    new DifferentialDriveVoltageConstraint(
+    
+      var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(Constants.ksVolts,
-        Constants.kvVoltSecondsPerMeter/2,  //max velocity
+        Constants.kvVoltSecondsPerMeter,  //max velocity
         Constants.kaVoltSecondsSquaredPerMeter), //max acceleration
         Constants.kDriveKinematics,  //track width
         10);
@@ -632,30 +636,38 @@ public class RobotContainer {
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
+        List.of(
+            new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+            new Pose2d(3, 0, Rotation2d.fromDegrees(0))
+        ),
+        /*
         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(
-            new Translation2d(0.5, 0.5),
-            new Translation2d(1, -0.5)
-        ),
+            new Translation2d(0.5, 0),
+            new Translation2d(1, 0)
+        ), 
+        
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(1.5, 0, Rotation2d.fromDegrees(0)),
+        new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
         // Pass config
-        config
-    );
+        */
+        config );
 
     /* Trajectory shootAndGoToTrench = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
+        // Start facing toward the shooter
         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
+        
         List.of(
-            new Translation2d(-0.25, 0.25)
-            //new Translation2d(1, -0.5)
+            //Midpoint for the trench
+            new Translation2d(-3, 3)
         ),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-0.5, 0.5, Rotation2d.fromDegrees(0)),
+        // End in the trench facing forward.
+        new Pose2d(-5, 5, Rotation2d.fromDegrees(0)),
         // Pass config
         config
+
+        
     ); */
 
     RamseteCommand ramseteCommand = new RamseteCommand(
@@ -663,7 +675,7 @@ public class RobotContainer {
         m_drivetrainSubsystem::getPose,
         new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
         new SimpleMotorFeedforward(Constants.ksVolts,
-            Constants.kvVoltSecondsPerMeter/2,
+            Constants.kvVoltSecondsPerMeter,
             Constants.kaVoltSecondsSquaredPerMeter),
             Constants.kDriveKinematics,
         m_drivetrainSubsystem::getWheelSpeeds,
