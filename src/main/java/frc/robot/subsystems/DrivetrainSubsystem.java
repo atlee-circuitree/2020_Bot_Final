@@ -23,13 +23,13 @@ import frc.robot.Constants; // Added by Panten 3/6/2020
 import edu.wpi.first.wpilibj.SPI;
 //End Panten additions 3/6/2020
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 //import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -39,7 +39,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.RobotContainer;
 import frc.robot.commands.drivetrainPercentPowerAuto;
 
+
+
 public class DrivetrainSubsystem extends SubsystemBase {
+
+    AHRS ahrs;
 
     SpeedControllerGroup leftDrive;
     SpeedControllerGroup rightDrive;
@@ -51,6 +55,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
     CANSparkMax right_backmotor;
 
     PIDController turnController;
+
+    /* The following PID Controller coefficients will need to be tuned */
+    /* to match the dynamics of your drive system. Note that the */
+    /* SmartDashboard in Test mode has support for helping you tune */
+    /* controllers by displaying a form where you can enter new P, I, */
+    /* and D constants and test the mechanism. */
+
+    static final double kP = 0.03;
+    static final double kI = 0.00;
+    static final double kD = 0.00;
+    static final double kF = 0.00;
 
     /**
      * Creates a new ExampleSubsystem.
