@@ -99,7 +99,7 @@ public final class Constants {
 
   //Shooter Init
 
-  public static final int kSlotIdx = 0;
+public static final int kSlotIdx = 0;
 
 	/**
 	 * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For

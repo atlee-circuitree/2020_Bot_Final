@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class driveStraightUntilEncoderValue extends CommandBase {
+public class driveStraightUntilEncoderValueCommand extends CommandBase {
 
   int encoderTarget;
   double encoderReadingLeft;
   double encoderReadingRight;
   DrivetrainSubsystem m_subsystem;
 
-  public driveStraightUntilEncoderValue(int targetValue, DrivetrainSubsystem driveSubsystem) {
+  public driveStraightUntilEncoderValueCommand(int targetValue, DrivetrainSubsystem driveSubsystem) {
 
     m_subsystem = driveSubsystem;
     addRequirements(m_subsystem);
@@ -26,7 +26,7 @@ public class driveStraightUntilEncoderValue extends CommandBase {
   @Override
   public void initialize() {
 
-    
+    m_subsystem.resetEncoders();
 
   }
 

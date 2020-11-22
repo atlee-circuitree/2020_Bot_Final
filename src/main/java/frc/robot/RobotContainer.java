@@ -106,6 +106,7 @@ import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.commands.limelightValuesCommand;
 import frc.robot.commands.moveShooterDownMotorCommand;
 import frc.robot.commands.moveShooterUpMotorCommand;
+import frc.robot.commands.driveStraightUntilEncoderValueCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -545,13 +546,23 @@ public class RobotContainer {
       return m_runConveyorWithObstructionAndVelocity;
   }
 
+  public Command GenerateEncoderDriveCommand(int encoderTarget)
+  {
+
+      Command m_driveStraightUntilEncoderValueCommand = new driveStraightUntilEncoderValueCommand(encoderTarget, m_drivetrainSubsystem);
+
+      return m_driveStraightUntilEncoderValueCommand;
+      
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-        return c_CloseShooterDriver2; //Replace This
+      
+        return GenerateEncoderDriveCommand(50); //Replace This
      
   }
 
