@@ -124,6 +124,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
         rightDrive.set(.3);
     }
 
+    public void correctLeft() {
+
+        leftDrive.set(-.3);
+        rightDrive.set(.28);
+    }
+
+    public void correctRight() {
+
+        leftDrive.set(-.28);
+        rightDrive.set(.3);
+    }
+
     public void driveSetPercentAuto(double Power) {
 
         leftDrive.set(Power);
@@ -145,7 +157,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     }
 
-
     // Code added by Panten 3/6/2020
 
     /**
@@ -162,8 +173,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
      *
      * @return the left drive encoder
      */
-    public CANEncoder getLeftEncoder() {
-        return m_leftEncoder;
+    public double getLeftEncoder() {
+        return m_leftEncoder.getPosition();
     }
 
     /**
@@ -171,8 +182,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
      *
      * @return the right drive encoder
      */
-    public CANEncoder getRightEncoder() {
-        return m_rightEncoder;
+    public double getRightEncoder() {
+        return m_rightEncoder.getPosition();
     }
 
 }
