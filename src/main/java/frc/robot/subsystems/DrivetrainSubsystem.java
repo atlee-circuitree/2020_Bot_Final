@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.Constants;
 //import frc.robot.RobotContainer;
-import frc.robot.commands.drivetrainPercentPowerAuto;
+//import frc.robot.commands.drivetrainPercentPowerAuto;
 
 
 
@@ -54,7 +54,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     CANSparkMax right_frontmotor;
     CANSparkMax right_backmotor;
 
-    PIDController turnController;
+    public PIDController turnController;
 
     /* The following PID Controller coefficients will need to be tuned */
     /* to match the dynamics of your drive system. Note that the */
@@ -67,13 +67,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
     static final double kD = 0.00;
     static final double kF = 0.00;
 
+    static final double kToleranceDegrees = 2.0f;
+
+    final static int frontLeftChannel = 2;
+    final static int rearLeftChannel = 3;
+    final static int frontRightChannel = 1;
+    final static int rearRightChannel = 0;
+
     /**
      * Creates a new ExampleSubsystem.
      */
     
+
     public DrivetrainSubsystem() {
  
- 
+        public turnController = new PIDController(kP, kI, kD, kF);
+        turnController.setTolerance(kToleranceDegrees);
+        turnController.enableContinuousInput(-180f, 180f);
+
     }
 
     @Override
