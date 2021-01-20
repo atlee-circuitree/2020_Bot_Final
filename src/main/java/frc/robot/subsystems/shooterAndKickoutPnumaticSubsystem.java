@@ -25,7 +25,7 @@ public class shooterAndKickoutPnumaticSubsystem extends SubsystemBase {
 
   public shooterAndKickoutPnumaticSubsystem() {
 
-    shooterAndKickoutPnumatic = new DoubleSolenoid(Constants.shooterPnumatic_Deploy, Constants.shooterPnumatic_Retract);
+    shooterAndKickoutPnumatic = new DoubleSolenoid(Constants.shooterAndKickoutPnumatic_Deploy, Constants.shooterAndKickoutPnumatic_Retract);
     
   }
 

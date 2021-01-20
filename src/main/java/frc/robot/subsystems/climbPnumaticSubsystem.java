@@ -21,7 +21,8 @@ import frc.robot.Constants;
 public class climbPnumaticSubsystem extends SubsystemBase {
    
   DoubleSolenoid climbArmPnumatic = null;
-  DoubleSolenoid climbHookPnumatic = null;
+  DoubleSolenoid climbHookLeftPnumatic = null;
+  DoubleSolenoid climbHookRightPnumatic = null;
   public ClimbArmPosition climbArmPosition = ClimbArmPosition.DOWN;
   public ClimbHookPosition climbHookPosition = ClimbHookPosition.RETRACTED;
   public enum ClimbArmPosition
@@ -37,9 +38,11 @@ public class climbPnumaticSubsystem extends SubsystemBase {
 
   public climbPnumaticSubsystem() {
 
-    climbArmPnumatic = new DoubleSolenoid(Constants.climbPnumatic_Deploy, Constants.climbPnumatic_Retract);
+    climbArmPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
 
-    climbHookPnumatic = new DoubleSolenoid(Constants.climbArmPnumatic_Deploy, Constants.climbArmPnumatic_Retract);
+    climbHookLeftPnumatic = new DoubleSolenoid(Constants.climbHookLeftPnumatic_Deploy, Constants.climbHookLeftPnumatic_Retract);
+
+    climbHookRightPnumatic = new DoubleSolenoid(Constants.climbHookRightPnumatic_Deploy, Constants.climbHookRightPnumatic_Retract);
     
   }
 
@@ -73,7 +76,7 @@ public class climbPnumaticSubsystem extends SubsystemBase {
 
     if (climbArmPosition == ClimbArmPosition.UP) {
 
-     climbHookPnumatic.set(Value.kForward);
+     climbHookLeftPnumatic.set(Value.kForward);
 
     } else {
 
@@ -88,7 +91,7 @@ public class climbPnumaticSubsystem extends SubsystemBase {
   //retracts the hook
   public void climbHookRetract() {
 
-    climbHookPnumatic.set(Value.kReverse);
+    climbHookLeftPnumatic.set(Value.kReverse);
      
     climbHookPosition = ClimbHookPosition.RETRACTED;
 
