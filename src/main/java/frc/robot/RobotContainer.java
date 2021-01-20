@@ -66,9 +66,6 @@ import frc.robot.commands.elevatorMotorCommand;
 import frc.robot.commands.elevatorMoveToAngleMotorCommand;
 import frc.robot.commands.intakeSpitballMotorCommand;
 import frc.robot.commands.intakeTakeballMotorCommand;
-import frc.robot.commands.kickoutPnumaticCommand;
-import frc.robot.commands.kickoutReversePnumaticCommand;
-import frc.robot.commands.kickoutRobotAndRetractPnumaticCommand;
 import frc.robot.commands.levelerLeftMotorCommand;
 import frc.robot.commands.levelerRightMotorCommand;
 import frc.robot.commands.limelightAutoAimCommand;
@@ -90,11 +87,10 @@ import frc.robot.subsystems.LidarSubsystem;
 import frc.robot.subsystems.ballObstructionSensorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.elevatorMotorSubsystem;
-import frc.robot.subsystems.kickoutPnumaticSubsystem;
 import frc.robot.subsystems.levelerMotorSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem;
 import frc.robot.subsystems.shooterIntakeSubsystem;
-import frc.robot.subsystems.shooterPnumaticSubsystem;
+import frc.robot.subsystems.shooterAndKickoutPnumaticSubsystem;
 import frc.robot.subsystems.wheelMotorSubsystem;
 import frc.robot.subsystems.shooterMotorSubsystem.ShooterMotorStatus;
 import frc.robot.Constants;
@@ -130,7 +126,7 @@ public class RobotContainer {
   // climbPnumaticSubsystem();
   // private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new
   // kickoutPnumaticSubsystem();
-  private final shooterPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterPnumaticSubsystem();
+  private final shooterAndKickoutPnumaticSubsystem m_shooterPnumaticSubsystem = new shooterAndKickoutPnumaticSubsystem();
 
   private final autonomusCommand2020 m_autonomusCommand2020 = new autonomusCommand2020();
 
@@ -158,8 +154,8 @@ public class RobotContainer {
 
   private final WaitCommand m_Wait2000Command = new WaitCommand(2);
 
-  private final kickoutPnumaticSubsystem m_kickoutPnumaticSubsystem = new kickoutPnumaticSubsystem();
   private final ballObstructionSensorSubsystem m_ballObstructionSensorSubsystem = new ballObstructionSensorSubsystem();
+
   private final wheelMotorSubsystem m_wheelMotorSubsystem = new wheelMotorSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -233,10 +229,7 @@ public class RobotContainer {
 
   private final shooterOnlyMotorCommand m_shooterOnlyMotorCommand = new shooterOnlyMotorCommand(
       m_shooterMotorSubsystem);
-
-  private final kickoutPnumaticCommand m_kickoutPnumaticCommand = new kickoutPnumaticCommand(
-      m_kickoutPnumaticSubsystem);
-
+   
   private final spinWheelMotorCommand m_spinWheelMotorCommand = new spinWheelMotorCommand(m_wheelMotorSubsystem);
 
   private final levelerLeftMotorCommand m_levelerLeftMotorCommand = new levelerLeftMotorCommand(
@@ -247,9 +240,6 @@ public class RobotContainer {
 
   private final ballObstructionSensorCommand m_BallObstructionSensorCommand = new ballObstructionSensorCommand(
       m_ballObstructionSensorSubsystem);
-
-  private final kickoutReversePnumaticCommand m_kickoutReversePnumaticCommand = new kickoutReversePnumaticCommand(
-      m_kickoutPnumaticSubsystem);
 
   private final intakeTakeballMotorCommand m_intakeTakeballMotorCommand = new intakeTakeballMotorCommand(
       m_shooterIntakeSubsystem, m_ballObstructionSensorSubsystem);
@@ -305,8 +295,6 @@ public class RobotContainer {
 
   private final runShooter50MotorCommand m_runShooter50MotorCommandAuto = new runShooter50MotorCommand(
       m_shooterMotorSubsystem, true);
-
-  private final kickoutRobotAndRetractPnumaticCommand m_kickoutRobotAndRetractPnumaticCommand = new kickoutRobotAndRetractPnumaticCommand(m_kickoutPnumaticSubsystem);
 
   private final closeShooterPnumaticCommand m_closeShooterPnumaticCommandAuto = new closeShooterPnumaticCommand(
       m_shooterPnumaticSubsystem);
@@ -390,8 +378,6 @@ public class RobotContainer {
   //private final SequentialCommandGroup m_waitUntilNoBalls = new SequentialCommandGroup(commands);
 
   private final SequentialCommandGroup m_takeallballs = new SequentialCommandGroup(m_closeShooterPnumaticCommand, m_runUntilObstructedSensorCommand2);
-
-  private final SequentialCommandGroup m_kickoutRobot = new SequentialCommandGroup(m_kickoutPnumaticCommand, m_kickoutTimer, m_kickoutReversePnumaticCommand);
 
   private final SequentialCommandGroup m_intakefulltakeball = new SequentialCommandGroup(m_openShooterPnumaticCommand,
       m_intakeTakeballMotorCommand);
@@ -535,7 +521,7 @@ public class RobotContainer {
     FightStickRB.whenPressed(m_climbArmUpPnumaticCommand);
     //FightStickRT.whenPressed(m_kickoutPnumaticCommand);
     FightStickL3.whenPressed(m_climbArmDownPnumaticCommand);
-    FightStickR3.whenPressed(m_kickoutRobotAndRetractPnumaticCommand.withTimeout(.7));
+    FightStickR3.whenPressed(m_CloseBeforeShoot);
     FightStickL1.whenPressed(m_climbHookRetractPnumaticCommand);
     FightStickOPTIONS.whenPressed(c_ElevatorMoveToAngle_24_MotorCommand.withTimeout(5));
     FightStickSHARE.whenPressed(c_ElevatorMoveToAngle_36_MotorCommand.withTimeout(5));

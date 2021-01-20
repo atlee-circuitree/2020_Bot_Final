@@ -19,25 +19,25 @@ import frc.robot.Constants;
 /**
  * Add your docs here.
  */
-public class shooterPnumaticSubsystem extends SubsystemBase {
+public class shooterAndKickoutPnumaticSubsystem extends SubsystemBase {
    
-  DoubleSolenoid shooterPnumatic = null;
+  DoubleSolenoid shooterAndKickoutPnumatic = null;
 
-  public shooterPnumaticSubsystem() {
+  public shooterAndKickoutPnumaticSubsystem() {
 
-    shooterPnumatic = new DoubleSolenoid(Constants.shooterPnumatic_Deploy, Constants.shooterPnumatic_Retract);
+    shooterAndKickoutPnumatic = new DoubleSolenoid(Constants.shooterPnumatic_Deploy, Constants.shooterPnumatic_Retract);
     
   }
 
   public void openShooter() {
 
-    shooterPnumatic.set(Value.kForward);
+    shooterAndKickoutPnumatic.set(Value.kForward);
     
   }
 
   public void closeShooter() {
 
-    shooterPnumatic.set(Value.kReverse);
+    shooterAndKickoutPnumatic.set(Value.kReverse);
     
   }
 

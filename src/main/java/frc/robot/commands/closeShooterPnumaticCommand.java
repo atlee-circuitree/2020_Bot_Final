@@ -8,15 +8,15 @@
 package frc.robot.commands;
 
 
-import frc.robot.subsystems.shooterPnumaticSubsystem;
+import frc.robot.subsystems.shooterAndKickoutPnumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  
 public class closeShooterPnumaticCommand extends InstantCommand {
    
-  shooterPnumaticSubsystem m_subsystem;
+  shooterAndKickoutPnumaticSubsystem m_subsystem;
 
-  public closeShooterPnumaticCommand(shooterPnumaticSubsystem pnumaticSubsystem) {
+  public closeShooterPnumaticCommand(shooterAndKickoutPnumaticSubsystem pnumaticSubsystem) {
    
     super();
     m_subsystem = pnumaticSubsystem;

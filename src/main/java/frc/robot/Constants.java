@@ -47,10 +47,10 @@ public final class Constants {
  
   // Solenoids
 
-  public static final int climbPnumatic = 2;
-  public static final int climbArmPnumatic = 3;
-  public static final int shooterPnumatic = 4;
-  public static final int kickoutPnumatic = 5;
+  public static final int climbArmPnumatic = 2;
+  public static final int climbHookRightPnumatic = 3;
+  public static final int climbHookLeftPnumatic = 1;
+  public static final int shooterAndKickoutPnumatic = 4;
 
   public static final int climbPnumatic_Deploy = 2;
   public static final int climbPnumatic_Retract = 3;
@@ -143,7 +143,7 @@ public final class Constants {
   public static final double kEncoderDistancePerPulse = 0.00141389064; //double check this - and break out into a formula 
 
   public static final double kDistancePerWheelRevolutionMeters = 8 * 0.0254 * Math.PI; //8 inches, converted to meters 
-  public static final double kGearReduction = 10.75;
+  public static final double kGearReduction = 10.71;
 
   public static final boolean kGyroReversed = true;
 
