@@ -40,7 +40,7 @@ public class ShootWaitVelocity extends CommandBase {
   @Override
   public void execute() {
    
-    int velocity = m_subsystem2.getVelocityError();
+    double velocity = m_subsystem2.getVelocityError();
 
     if ((Math.abs(velocity) < 300)){
       
