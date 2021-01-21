@@ -107,7 +107,7 @@ public void runShooterEncoder() {
 
 }
 
-public int getVelocityError() {
+public double getVelocityError() {
   
   
   System.out.print(" Velocity1 ");
