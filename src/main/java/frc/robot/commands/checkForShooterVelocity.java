@@ -30,7 +30,7 @@ public class checkForShooterVelocity extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        double velocity = m_subsystem.getVelocityError();
+        int velocity = m_subsystem.getVelocityError();
 
         if ((Math.abs(velocity) < 300)) {
 
